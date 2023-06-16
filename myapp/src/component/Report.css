@@ -1,0 +1,191 @@
+*{
+    margin: 0px;
+    padding: 0px;
+   }
+   .header {
+    /* Add your desktop styles here */
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 10px;
+  }
+ 
+  .btn1 {
+    color: white;
+    border-radius: 20px;
+    background-color: rgb(79, 158, 79);
+    margin: 40px;
+    width: 7rem;
+    height: 40px;
+    font-size: large;
+  }
+  #adm1 {
+    color: rgb(79, 158, 79);
+    padding: 30px;
+    margin: 30px;
+    font-size: 7vh;
+    text-align: center;
+  }
+  #hd {
+    color: rgb(79, 158, 79);
+    font-size: 30px;
+    text-align: center;
+  
+  }
+  #img1 {
+    height: 6rem;
+  }
+  
+.container{
+ display: flex;
+ justify-content: space-between;
+}
+.nav  button{
+ text-align: center;
+ padding: 10px;
+ margin: 12px;
+ width: 200%;
+border-radius: 20px;
+font-size: large;
+color:white;
+background-color: rgb(79, 158, 79);
+
+
+}
+.center button { 
+  padding: 10px;
+  margin: 12px;
+  width: 100%;
+  text-align: left;
+ font-size: large;
+ color:black;
+}
+ .nav button {
+  margin-bottom: 20px;
+  
+}
+
+ 
+  
+
+.back button{
+  text-align: center;
+   margin-top: 300px;
+   padding: 12px;
+   border-radius: 20px;
+   margin-right: 20px;
+   color:white;
+   background-color: rgb(79, 158, 79);
+   font-size: large; 
+
+}
+
+
+/* @media screen and (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    
+  }
+
+
+  .btn {
+    width: 100%;
+    margin: 12px;
+    
+  }
+
+  .btn1 {
+    margin: 20px;
+    text-align: center;
+    margin: auto; 
+    margin-top: 20px;
+  }
+} */
+/*
+@media screen and (max-width: 480px) {
+  .header {
+    flex-direction: column;
+
+    
+  }
+  
+  .nav button{
+    padding: 5px;
+  }
+  
+  .container{
+    padding: 20px;
+    
+    
+
+    
+  }
+  .center {
+    padding: 50px;
+    margin: auto;
+    
+   }
+  .center button {
+    
+  
+  
+    margin-top: 40px;
+
+  }
+
+  #adm1 {
+    font-size: 7vh;
+    align-items: center;
+  }
+
+  #hd {
+    font-size: 25px;
+    align-items: center;
+  }
+
+  #img1 {
+    
+    height: 7rem;
+  }
+  .btn1{
+    margin: auto; 
+    margin-top: 30px;
+  }
+  
+}*/
+
+@media (max-width: 768px) {
+  .header {
+      flex-direction: column;
+  }
+  
+  .btn1 {
+    margin: auto; 
+    margin-top: 30px;
+    
+  }
+  
+  #adm1 {
+      padding: 20px;
+      margin: 20px;
+      font-size: 5vh;
+  }
+  
+  .container {
+      flex-direction: column;
+  }
+  
+  .nav button {
+      width: 100%;
+      margin-bottom: 10px;
+    
+  }
+  
+  .back button {
+    margin: auto; 
+    width: 100%;
+    margin-left: 12px;
+   
+  }
+ 
+}

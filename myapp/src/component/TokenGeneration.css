@@ -1,0 +1,25 @@
+.table-responsive {
+    overflow-x: auto;
+    margin: 1rem;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  #table th,
+  #table td {
+    border: 1rem solid white;
+    padding: 1.6rem;
+    text-align: center;
+  
+  }
+  
+  #table th {
+    background-color:  rgba(214, 107, 120, 0.83);
+  }
+  #table td{
+    background-color: rgba(251, 218, 224, 0.83);
+  
+  }

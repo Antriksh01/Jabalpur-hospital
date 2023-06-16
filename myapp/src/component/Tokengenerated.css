@@ -1,0 +1,44 @@
+*
+{ 
+    margin:0px;
+    padding:0px;
+}
+ 
+.card {
+  width: 35rem;
+  height: 35rem;
+  border: 2px solid #000000;
+  margin: 10rem auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.card .image {
+  position: relative;
+}
+
+.card .image img {
+  max-width: 100%;
+  height: auto;
+}
+
+.card .card-content {
+  margin-top: 1rem;
+}
+
+
+.card .card-content h2 {
+  margin-bottom: 0.5rem;
+  font: size 20px;
+}
+
+/* Media Query for smaller screens */
+@media (max-width: 768px) {
+  .card {
+    width: 90%;
+    margin: 5rem auto;
+  }
+}

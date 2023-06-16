@@ -1,0 +1,111 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+.header {
+  /* Add your desktop styles here */
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+.form {
+  text-align: center;
+}
+.form input {
+  background-color: rgb(179, 255, 179);
+  font-size: larger;
+  width: 50%;
+  height: 40px;
+}
+.btn {
+  color: rgb(255, 255, 255);
+  border-radius: 25px;
+  background-color: rgb(102 209 102);
+  padding: 12px;
+  width: 300px;
+  border: none;
+  margin: 15px;
+  box-shadow: inset 1px 1px 16px black;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+.btn1 {
+  color: white;
+  border-radius: 20px;
+  background-color: rgb(79, 158, 79);
+  margin: 40px;
+  width: 7rem;
+  height: 40px;
+  font-size: large;
+}
+#adm1 {
+  color: rgb(79, 158, 79);
+  padding: 30px;
+  /* margin: 30px; */
+  font-size: 7vh;
+  text-align: center;
+}
+#hd {
+  color: rgb(79, 158, 79);
+  font-size: 30px;
+  text-align: center;
+}
+#img1 {
+  height: 6rem;
+}
+@media screen and (max-width: 768px) {
+  .header {
+    flex-direction: column;
+  }
+
+  .form {
+    padding: 50px;
+  }
+
+  .form input {
+    width: 100%;
+  }
+
+  .btn {
+    width: 100%;
+    margin: 12px;
+  }
+
+  .btn1 {
+    margin: 20px;
+    text-align: center;
+    margin: auto;
+    margin-top: 20px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .form {
+    padding: 30px;
+  }
+
+  #adm1 {
+    font-size: 5vh;
+    align-items: center;
+  }
+
+  #hd {
+    font-size: 24px;
+    align-items: center;
+  }
+
+  #img1 {
+    height: 6rem;
+    align-items: center;
+  }
+  .btn1 {
+    margin: auto;
+    margin-top: 20px;
+  }
+  .btn {
+    margin: 12px;
+  }
+}
