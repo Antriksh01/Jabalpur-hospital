@@ -32,7 +32,7 @@ const Frontpage = () => {
           </div>
           <div id="button-container" className="button-container">
             <span>Login As</span>
-            <Link to="./Adminlogin">
+            <Link to="/Adminlogin">
               <button className="button">Admin</button>
             </Link>
             <Link to="./Doctorlogin">

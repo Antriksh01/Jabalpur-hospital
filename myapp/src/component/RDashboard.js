@@ -1,68 +1,153 @@
-import React from "react";
-import "./RDashboard.css";
+import React, { useEffect, useState } from "react";
+// import "./RDashboard.css";
 import { Link } from "react-router-dom";
 import Header from "./Header";
+import styled from "styled-components";
+import axios from "axios";
 
-// import Patientregistration from "./Patientregistration";
-// import Patientopd from "./patientopd";
-
-// import DoctorTreatment from "./DoctorTreatment";
-// import TokenGeneration from "./TokenGeneration";
-// import Doctor from "./Doctor";
 const RDashboard = () => {
-  return (
-    <div>
-      <Header />
+  const [users, setUsers] = useState([]);
 
-      <div className="title">
-        <span>Dashboard</span>
-      </div>
-      <div className="container">
-        <div className="cardcan">
-          <div id="card" className="card">
-            <Link to="/TokenGeneration">
-              <h2>Token Generation</h2>
-            </Link>
+  const getAllUsers = async () => {
+    try {
+      const response = await axios.get("http://localhost:8100/api/auth/users");
+      console.log(response.data.role);
+      setUsers(response.data);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
+  };
+
+  useEffect(() => {
+    getAllUsers();
+  }, []);
+
+  const roles = users.map(({ role }) => role);
+  const matchingObject = roles.filter((item) => item === 1);
+  console.log(roles);
+  const showDoc = matchingObject.length;
+
+  return (
+    <>
+      <Container>
+        <div>
+          <Header />
+
+          <div
+            className="text-center fs-1 fw-bold"
+            style={{ color: "#347571" }}
+          >
+            <span>Receptionist Dashboard</span>
           </div>
-          <div id="card" className="card">
-            <Link to="./Doctor">
-              <h2>Doctor Availability</h2>
-            </Link>
-          </div>
-          <div id="card" className="card">
-            <a href="/">
-              {" "}
-              <h2>Patients assigned to specific doctor</h2>
-            </a>
-          </div>
-          <div id="card" className="card">
-            <a href="/">
-              {" "}
-              <h2>Report to Admin </h2>
-            </a>
-          </div>
-          <div id="card" className="card">
-            <Link to="./DoctorTreatment">
-              {" "}
-              <h2>Doctor's Display</h2>
-            </Link>
-          </div>
-          <div id="card" className="card">
-            <Link to="./Patientregistration">
-              {" "}
-              <h2>Patient Registration</h2>
-            </Link>
-          </div>
-          <div id="card" className="card">
-            <Link to="./Patientopd">
-              {" "}
-              <h2>Patient OPD Visit</h2>
-            </Link>
+          <div className="container-fluid">
+            <div className="row g-0">
+              <div className="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                <div className="leftbox"></div>
+              </div>
+              <div className="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                <div className="container cardContainer">
+                  <div className="row g-5">
+                    <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+                      <div class="card">
+                        <div class="card-body">
+                          <Link to="/token-gen-form">
+                            <h2>Token Generation</h2>
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+                      <div class="card">
+                        <div class="card-body">
+                          <Link to="/doctor-availablity">
+                            <h2>Doctors availablity</h2>
+                            <h2>{showDoc}</h2>
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+                      <div class="card">
+                        <div class="card-body">
+                          <Link to="/patient-assigned">
+                            <h2>Patient assigned to specific doctors</h2>
+                            <h2>20</h2>
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+                      <div class="card">
+                        <div class="card-body">
+                          <Link to="/report-admin">
+                            <h2>Report to Admin</h2>
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+                      <div class="card">
+                        <div class="card-body">
+                          <Link to="/DoctorTreatment">
+                            <h2>Doctor's Display</h2>
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+                      <div class="card">
+                        <div class="card-body">
+                          <Link to="/token-generation">
+                            <h2>Token Generated</h2>
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      </Container>
+    </>
   );
 };
 
 export default RDashboard;
+const Container = styled.div`
+  .leftbox {
+    width: 100%;
+    height: 90%;
+    margin-top: 1.5rem;
+    background-color: #dcf4ce;
+    @media (max-width: 500px) {
+      display: none;
+    }
+    @media (max-width: 376px) {
+      display: none;
+    }
+  }
+  .cardContainer {
+    // margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .card {
+      height: 12rem;
+      background-color: #b8e28a;
+      width: auto;
+      border-radius: 1.5rem;
+      border: none;
+      .card-body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        a {
+          text-decoration: none;
+          color: black;
+        }
+      }
+    }
+  }
+`;

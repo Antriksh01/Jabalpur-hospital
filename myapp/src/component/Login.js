@@ -4,14 +4,13 @@ import jbplogo from "../photos/jbplogo.png";
 import Receptionist from "../photos/Receptionist.png";
 import React, { useState } from "react";
 import "./Login.css"; // Import the CSS file for styling
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useDispatch } from "react-redux";
-import { authActions } from "../store";
 import MainLogin from "./MainLogin";
+import { useAuth } from "../context";
 
 const Login = () => {
-  const dispatch = useDispatch();
+  const [auth, setAuth] = useAuth();
   const [data, setData] = useState({
     username: "",
     password: "",
@@ -24,9 +23,7 @@ const Login = () => {
   };
   const handleLogin = async (e) => {
     e.preventDefault();
-    sendRequest()
-      .then(() => dispatch(authActions.login()))
-      .then(() => navigate("/"));
+    sendRequest().then(() => navigate("/"));
   };
 
   const sendRequest = async () => {
@@ -35,6 +32,12 @@ const Login = () => {
         "http://localhost:8100/api/auth/login",
         data
       );
+      setAuth({
+        ...auth,
+        user: input.data.username,
+        token: input.data.token,
+      });
+      localStorage.setItem("auth", JSON.stringify(input.data));
       console.log(input);
       alert("login successfully");
     } catch (error) {
@@ -62,8 +65,8 @@ const Login = () => {
           <h3> </h3>
         </div>
       </nav>
-      <div className="title">
-        <span>Receptionist login</span>
+      <div className="title text-center">
+        <span className="text-center">Receptionist login</span>
       </div>
       <div className="maincontainer">
         <div className="left-container">

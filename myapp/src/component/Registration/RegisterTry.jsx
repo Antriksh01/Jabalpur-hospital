@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 const SignUp = () => {
@@ -8,8 +8,6 @@ const SignUp = () => {
   const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  //   const [userType, setUserType] = useState("");
-  const navigate = useNavigate();
 
   const onSubmit = async (e) => {
     e.preventDefault();

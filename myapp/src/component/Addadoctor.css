@@ -1,75 +1,72 @@
-*{
-    padding: 0;
-    margin: 0;
-  }
-  
-  
-  .signup-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  .signup-container h1{
-    display: block;
-    justify-content: center;
-  }
-  
-  form {
+* {
+  padding: 0;
+  margin: 0;
+}
 
-    display: grid;
-    justify-content: center;
-    gap: 5px;
-    width: auto;
-  }
-  
-  label {
-    display: block;
-  }
-  
-  input[type="text"] {
-    width: 100%;
+.signup-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+.signup-container h1 {
+  display: block;
+  justify-content: center;
+}
+
+form {
+  display: grid;
+  justify-content: center;
+  gap: 5px;
+  width: auto;
+}
+
+label {
+  display: block;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  background-color: rgb(216, 254, 196);
+}
+
+button1[type="submit"] {
+  background-color: rgb(122, 198, 122);
+  color: #fff;
+  display: block;
+  width: 8rem;
+  text-align: center;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 25px;
+  margin: auto; /* Added to center the button */
+}
+/* Responsive Styles */
+
+@media (max-width: 600px) {
+  .signup-container {
     padding: 10px;
-    font-size: 16px;
-    background-color: rgb(216, 254, 196);
   }
-  
-  button1[type="submit"] {
-    background-color: rgb(122, 198, 122);
-    color: #fff;
-    display: block;
-    width: 8rem;
-    text-align: center;
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 25px;
-    margin: auto; /* Added to center the button */
+
+  form {
+    grid-template-columns: 1fr;
   }
-  /* Responsive Styles */
-  
-  @media (max-width: 600px) {
-    .signup-container {
-      padding: 10px;
-    }
-    
-    form {
-      grid-template-columns: 1fr;
-    }
-    
-    label,
-    input[type="text"],
-    button[type="submit"] {
-      font-size: 14px;
-      
-    }
+
+  label,
+  input[type="text"],
+  button[type="submit"] {
+    font-size: 14px;
   }
-  @media (max-width: 320px) {
-    .signup-container {
-      padding: 3px;
-    }
-    
-    input[type="text"],
-    button[type="submit"] {
-      padding: 3px;
-      font-size: 12px;
-    }
+}
+@media (max-width: 320px) {
+  .signup-container {
+    padding: 3px;
   }
+
+  input[type="text"],
+  button[type="submit"] {
+    padding: 3px;
+    font-size: 12px;
+  }
+}

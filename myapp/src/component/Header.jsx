@@ -1,68 +1,97 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import "./Header.css";
-// import Receptionist from "./Receptionist";
+
 import jbplogo from "../photos/jbplogo.png";
-// import Doctor from "./Doctor";
-// import Dashboard from "./RDashboard";
-// import Doctordashboard from "./Doctordashboard";
-// import Admindashboard from "./Admindashboard";
-// import Token from "./TokenGeneration";
-// import Managedoctor from "./Managedoctor";
-// import Addadocter from "./Addadoctor";
+import styled from "styled-components";
+
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { authActions } from "../store";
 import axios from "axios";
-// import { Link, NavLink  } from "react-router-dom";
+import { useAuth } from "../context";
 
 const Header = () => {
-  const [userLogged, setUserLogged] = useState();
-  const dispatch = useDispatch();
+  const [auth] = useAuth();
+  // console.log(auth.user);
   const navigate = useNavigate();
-  const isLoggedIn = useSelector((state) => state.isLoggedIn);
-  console.log(isLoggedIn);
 
-  const logoutHandler = (e) => {
-    e.preventDefault();
-
-    setUserLogged(dispatch(authActions.logout()));
-    navigate("/login");
+  const userProfile = async () => {
+    try {
+      const { data } = await axios.get("http://localhost:8100/api/auth/users");
+      // console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  console.log(userLogged);
+  const logoutHandler = (e) => {
+    axios
+      .get("http://localhost:8100/api/auth/logout")
+      .then((res) => {
+        localStorage.removeItem("auth");
+        navigate("/Login");
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    userProfile();
+    // logoutHandler();
+  }, []);
+
+  // console.log(userLogged[0].username);
 
   return (
-    <div>
-      <nav className="navbar">
-        <div id="logo" className="logo">
-          <img src={jbplogo} alt="Logo" />
+    <>
+      <Container>
+        <div>
+          <nav className="navbar">
+            <div id="logo" className="logo">
+              <img src={jbplogo} alt="Logo" />
+            </div>
+            {/* <div className='title'> <span> </span></div> */}
+            <div id="links" className="links">
+              {auth.user ? (
+                <>
+                  <h3>Hi {auth.user.username}</h3>
+                  <h3>Employee Id :{auth.user.a_id} </h3>
+                  <span Id="btu">
+                    <button>
+                      <Link to="/receptionist-profile">My Profile</Link>{" "}
+                    </button>
+                    <button onClick={logoutHandler}>Logout</button>
+                  </span>
+                </>
+              ) : (
+                ""
+              )}
+            </div>
+          </nav>
         </div>
-        {/* <div className='title'> <span> </span></div> */}
-        <div id="links" className="links">
-          <h3>Hi Admin Name </h3>
-          <h3>Employee Id</h3>
-          <span Id="btu">
-            {isLoggedIn ? (
-              <button onClick={logoutHandler}>Logout</button>
-            ) : (
-              <Link to="/login">Login</Link>
-            )}
-
-            <Link to="/Frontpage" className={isLoggedIn ? `d-none` : ""}>
-              <button>Go to Home</button>
-            </Link>
-          </span>
-        </div>
-      </nav>
-      {/* <Receptionist/>
-      <Doctor/>
-      <Dashboard/>
-      <Doctordashboard/>
-      <Admindashboard/> */}
-    </div>
+      </Container>
+    </>
   );
 };
 // {
 //   /* <link to='./Doctor'></link> */
 // }
 export default Header;
+const Container = styled.div`
+  button {
+    width: auto;
+    padding: 0.5rem 1.2rem;
+    margin: 10px;
+    border: none;
+    height: auto;
+    border-radius: 2rem;
+    color: white;
+    /* font-weight: bold; */
+    font-size: 1.2rem;
+    background-color: rgba(34, 146, 58, 0.83);
+    a {
+      text-decoration: none;
+      color: #fff;
+    }
+  }
+  h3 {
+    padding-left: 1rem;
+  }
+`;

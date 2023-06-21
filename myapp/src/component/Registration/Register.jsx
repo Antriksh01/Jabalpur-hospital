@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// import pic from "../../photos/jbplogo.png";
 import "./Register.css";
 import Header from "../Header";
 import axios from "axios";
@@ -16,15 +15,11 @@ const Register = () => {
     role: "",
   });
   const [showPassword, setShowPassword] = useState(false);
-  //   const [err, setErr] = useState(null);
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
     console.log(data);
   };
-  // const handleShowPasswordToggle = () => {
-  //   setShowPassword(!showPassword);
-  // };
 
   const handleClick = async (e) => {
     e.preventDefault();
@@ -35,32 +30,16 @@ const Register = () => {
         data
       );
 
-      
       console.log(input);
       alert("sign up successful");
       navigate("/Login");
     } catch (err) {
-      //   setErr(err.response.data);
       console.log(err);
     }
   };
 
-  //   useEffect(() => {
-  //     handleChange();
-  //   }, []);
-
-  //   console.log(err);
   return (
     <>
-      {/* <div className="header">
-        <img id="img1" src={pic} alt="img" />
-        <h1 id="adm1">Register Page</h1>
-        <h3 id="hd">
-          Hi, Admin Name <br />
-          Employee Id
-        </h3>
-        <button className="btn1">Logout</button>
-      </div> */}
       <Header />
       <h1 id="adm1">Sign up</h1>
       <form className="form" onSubmit={handleClick}>
