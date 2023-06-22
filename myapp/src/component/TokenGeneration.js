@@ -1,9 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./TokenGeneration.css";
 import Header from "./Header";
 import styled from "styled-components";
+import axios from "axios";
 
 const TokenGeneration = () => {
+  const [patient, setPatient] = useState([]);
+
+  const getAllPatients = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:8100/api/auth/getAllPatient"
+      );
+      // console.log(response.data);
+      setPatient(response.data);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
+  };
+  // console.log(patient);
+
+  useEffect(() => {
+    getAllPatients();
+  }, []);
   return (
     <>
       <Container>
@@ -25,43 +44,31 @@ const TokenGeneration = () => {
             <table id="table" className="table">
               <thead>
                 <tr>
-                  <th>P_ID </th>
+                  <th>P_ID</th>
                   <th>P_Name</th>
                   <th>P_Contact</th>
                   <th>Assigned_doctor</th>
                   <th>Time</th>
                   <th>Dept</th>
                   <th>Token Generated</th>
+                  <th>Token Generate Date & Time</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>01</td>
-                  <td>ABC</td>
-                  <td>99999999</td>
-                  <td>DOC_1</td>
-                  <td>11:20</td>
-                  <td>Dep_1</td>
-                  <td>Yes</td>
-                </tr>
-                <tr>
-                  <td>02</td>
-                  <td>XYZ</td>
-                  <td>99999999</td>
-                  <td>DOC_2</td>
-                  <td>11:40</td>
-                  <td>Dep_2</td>
-                  <td>No</td>
-                </tr>
-                <tr>
-                  <td>03</td>
-                  <td>QWE</td>
-                  <td>99999999</td>
-                  <td>DOC_3</td>
-                  <td>12:00</td>
-                  <td>Dep_3</td>
-                  <td>Mark as absent</td>
-                </tr>
+                {patient.map((item, index) => (
+                  <>
+                    <tr key={index}>
+                      <td>{item.P_ID}</td>
+                      <td>{item.P_Name}</td>
+                      <td>{item.P_Contact}</td>
+                      <td>{item.Assigned_doctor}</td>
+                      <td>{item.Time}</td>
+                      <td>{item.Dept}</td>
+                      <td>{item.Token_Generated}</td>
+                      <td>{item.Token_Generate_Time}</td>
+                    </tr>
+                  </>
+                ))}
               </tbody>
             </table>
           </div>

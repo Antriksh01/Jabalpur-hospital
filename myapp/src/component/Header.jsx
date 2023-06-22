@@ -54,9 +54,9 @@ const Header = () => {
                   <h3>Hi {auth.user.username}</h3>
                   <h3>Employee Id :{auth.user.a_id} </h3>
                   <span Id="btu">
-                    <button>
+                    {/* <button>
                       <Link to="/receptionist-profile">My Profile</Link>{" "}
-                    </button>
+                    </button> */}
                     <button onClick={logoutHandler}>Logout</button>
                   </span>
                 </>

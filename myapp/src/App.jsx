@@ -35,9 +35,13 @@ import Report from "./component/Report";
 import AddReceptionist from "./component/AddReceptionist";
 import AddDoctor from "./component/AddDoctor";
 import TokenGenForm from "./component/TokenGenForm";
+import { useAuth } from "./context";
+import TokenSearch from "./component/TokenSearch";
 axios.defaults.withCredentials = true;
 
 function App() {
+  const [auth] = useAuth();
+  // console.log(auth);
   return (
     <BrowserRouter>
       <Routes>
@@ -48,32 +52,49 @@ function App() {
         <Route path="/" element={<Frontpage />} />
         {/* receptionist routes */}
         <Route path="/Login" element={<Login />} />
-        <Route path="/receptionist-dashboard" element={<RDashboard />} />
-        <Route path="/token-generation" element={<TokenGeneration />} />
-        <Route path="/token-gen-form" element={<TokenGenForm />} />
-        <Route path="/Patientregistration" element={<Patientregistration />} />
-        <Route path="/token-generated" element={<Tokengenerated />} />
-        <Route path="/doctor-availablity" element={<Doctor />} />
-        <Route path="/display-content" element={<DisplayContent />} />
-        <Route path="/patient-opd" element={<Patientopd />} />
-        <Route path="/patient-assigned" element={<PatientAssigned />} />
-        <Route path="/report-admin" element={<ReportAdmin />} />
-        <Route path="/receptionist-profile" element={<ReceptionistProfile />} />
+        {auth.user !== "" ? (
+          <>
+            <Route path="/receptionist-dashboard" element={<RDashboard />} />
+            <Route path="/token-generation" element={<TokenGeneration />} />
+            <Route path="/token-gen-form" element={<TokenGenForm />} />
+            <Route
+              path="/Patientregistration"
+              element={<Patientregistration />}
+            />
+            <Route path="/token-generated" element={<Tokengenerated />} />
+            <Route path="/token-search" element={<TokenSearch />} />
+            <Route path="/doctor-availablity" element={<Doctor />} />
+            <Route path="/display-content" element={<DisplayContent />} />
+            <Route path="/patient-opd" element={<Patientopd />} />
+            <Route path="/patient-assigned" element={<PatientAssigned />} />
+            <Route path="/report-admin" element={<ReportAdmin />} />
+            <Route
+              path="/receptionist-profile"
+              element={<ReceptionistProfile />}
+            />
+
+            {/* admin-dashboard */}
+            <Route path="/admin-dashboard" element={<Admindashboard />} />
+            <Route path="/display-content" element={<DisplayContent />} />
+            <Route path="/manage-doctors" element={<Managedoctor />} />
+            <Route path="/manage-receptionist" element={<RecpManage />} />
+            <Route path="/admin-report" element={<Report />} />
+            <Route path="/add-receptionist" element={<AddReceptionist />} />
+            <Route path="/add-doctor" element={<AddDoctor />} />
+
+            {/* doctor-dashboard */}
+            <Route path="/doctor-dashboard" element={<Doctordashboard />} />
+            <Route path="/DoctorTreatment" element={<DoctorTreatment />} />
+          </>
+        ) : (
+          <Route path="/Login" element={<Login />} />
+        )}
 
         {/* admin-dashboard */}
         <Route path="/Adminlogin" element={<Adminlogin />} />
-        <Route path="/admin-dashboard" element={<Admindashboard />} />
-        <Route path="/display-content" element={<DisplayContent />} />
-        <Route path="/manage-doctors" element={<Managedoctor />} />
-        <Route path="/manage-receptionist" element={<RecpManage />} />
-        <Route path="/admin-report" element={<Report />} />
-        <Route path="/add-receptionist" element={<AddReceptionist />} />
-        <Route path="/add-doctor" element={<AddDoctor />} />
 
         {/* doctor routes */}
         <Route path="/Doctorlogin" element={<Doctorlogin />} />
-        <Route path="/doctor-dashboard" element={<Doctordashboard />} />
-        <Route path="/DoctorTreatment" element={<DoctorTreatment />} />
 
         <Route path="/register" element={<Register />} />
       </Routes>

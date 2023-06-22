@@ -15,7 +15,7 @@ const Admindashboard = () => {
               className="text-center fs-1 fw-bold"
               style={{ color: "#347571" }}
             >
-              Doctor Dashboard
+              Admin Dashboard
             </h1>
           </div>
           <div className="container-fluid">
@@ -92,7 +92,7 @@ const Admindashboard = () => {
                     <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
                       <div class="card">
                         <div class="card-body">
-                          <Link to="/token-generated">
+                          <Link to="/token-generation">
                             <h2>Token history</h2>
                           </Link>
                         </div>

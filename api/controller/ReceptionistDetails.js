@@ -73,24 +73,28 @@ export const updateReceptionist = (req, res) => {
 export const PatientTokenGeneration = (req, res) => {
   //CHECK USER IF EXISTS
 
-  const q = "SELECT * FROM patient_token WHERE P_ID = ?";
+  const q = "SELECT * FROM patient_token WHERE Token_ID = ?";
 
-  db.query(q, [req.body.P_ID], (err, data) => {
+  db.query(q, [req.body.Token_ID], (err, data) => {
     if (err) return res.status(500).json(err);
     if (data.length) return res.status(409).json("Token already Generated!");
     //CREATE A NEW USER
 
     const q =
-      "INSERT INTO patient_token (`P_Name`, `P_Contact`, `Assigned_doctor`,`Time`, `Dept`,`Token_Generated`, `Token_Generated_by`) VALUE (?)";
+      "INSERT INTO patient_token (`Token_ID`,`uhid`, `P_Email`, `P_Contact`, `Assigned_doctor`,`Time`, `Dept`,`Token_Generated`, `Token_Generated_by`, `Room_No`, `Counter_No`) VALUE (?)";
 
     const values = [
-      req.body.P_Name,
+      req.body.Token_ID,
+      req.body.uhid,
+      req.body.P_Email,
       req.body.P_Contact,
       req.body.Assigned_doctor,
       req.body.Time,
       req.body.Dept,
       req.body.Token_Generated,
       req.body.Token_Generated_by,
+      req.body.Room_No,
+      req.body.Counter_No,
     ];
 
     db.query(q, [values], (err, data) => {
@@ -99,4 +103,58 @@ export const PatientTokenGeneration = (req, res) => {
       return res.status(200).send("Token has been Generated successfully");
     });
   });
+};
+
+// get-patient
+
+export const getAllPatient = async (req, res) => {
+  db.query("SELECT * FROM patient_token", (error, results) => {
+    if (error) {
+      console.error(error);
+    } else {
+      res.send(results);
+    }
+  });
+};
+
+// join-tables
+export const joinPatientTable = async (req, res) => {
+  const query = `
+    SELECT *
+    FROM patient_token
+    JOIN patient_details ON  patient_token.uhid= patient_details.uhid
+    JOIN doctor_data ON patient_token.Assigned_doctor = doctor_data.Email
+    JOIN receptionist ON patient_token.Token_Generated_by = receptionist.email
+  `;
+
+  db.query(query, (error, results) => {
+    if (error) {
+      console.error("Error executing query:", error);
+      res.status(500).send("Error retrieving data");
+    } else {
+      res.json(results);
+    }
+  });
+};
+
+//Patient search controller
+export const SearchPatientController = async (req, res) => {
+  try {
+    const keyword = req.query.keyword;
+    // const query = `SELECT * FROM patient_token WHERE P_Email LIKE '%${keyword}%'`;
+    const query = `SELECT *
+    FROM patient_token
+    JOIN patient_details ON  patient_token.uhid= patient_details.uhid
+   
+    WHERE patient_token.P_Email LIKE '%${keyword}%'
+       OR patient_details.firstname LIKE '%${keyword}%'`;
+    //  OR doctor_data.Doctor_name LIKE '%${keyword}%'`;
+
+    db.query(query, (err, results) => {
+      if (err) throw err;
+      res.json(results);
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };

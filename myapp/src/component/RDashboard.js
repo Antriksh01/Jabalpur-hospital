@@ -7,6 +7,7 @@ import axios from "axios";
 
 const RDashboard = () => {
   const [users, setUsers] = useState([]);
+  const [patient, setPatient] = useState([]);
 
   const getAllUsers = async () => {
     try {
@@ -18,14 +19,28 @@ const RDashboard = () => {
     }
   };
 
+  const getAllPatients = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:8100/api/auth/getAllPatient"
+      );
+      // console.log(response.data);
+      setPatient(response.data);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
+  };
+
   useEffect(() => {
     getAllUsers();
+    getAllPatients();
   }, []);
 
   const roles = users.map(({ role }) => role);
   const matchingObject = roles.filter((item) => item === 1);
   console.log(roles);
   const showDoc = matchingObject.length;
+  const ptData = patient.length;
 
   return (
     <>
@@ -50,7 +65,7 @@ const RDashboard = () => {
                     <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
                       <div class="card">
                         <div class="card-body">
-                          <Link to="/token-gen-form">
+                          <Link to="/token-search">
                             <h2>Token Generation</h2>
                           </Link>
                         </div>
@@ -71,7 +86,7 @@ const RDashboard = () => {
                         <div class="card-body">
                           <Link to="/patient-assigned">
                             <h2>Patient assigned to specific doctors</h2>
-                            <h2>20</h2>
+                            <h2>{ptData}</h2>
                           </Link>
                         </div>
                       </div>

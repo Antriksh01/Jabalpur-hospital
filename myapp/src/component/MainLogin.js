@@ -24,7 +24,7 @@ const MainLogin = () => {
     axios
       .post("http://localhost:8100/api/auth/login", data)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setAuth({
           ...auth,
           user: res.data[0],
