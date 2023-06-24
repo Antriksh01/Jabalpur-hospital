@@ -17,6 +17,11 @@ import {
 } from "../controller/ReceptionistDetails.js";
 import { isAdmin, verifyUser } from "../middleware/middleware.js";
 import { addDoctor } from "../controller/DoctorDetails.js";
+import {
+  sendEmailSms,
+  sendSMS,
+  sendWhatsapp,
+} from "../controller/sendReciepts.js";
 
 const router = express.Router();
 
@@ -32,5 +37,8 @@ router.post("/PatientTokenGeneration", PatientTokenGeneration);
 router.get("/getAllPatient", getAllPatient);
 router.get("/tokenReciept", joinPatientTable);
 router.get("/Search-patient", SearchPatientController);
+router.post("/sendSMS", sendSMS);
+router.post("/sendWhatsapp", sendWhatsapp);
+router.post("/sendEmailSms", sendEmailSms);
 
 export default router;

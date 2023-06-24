@@ -24,7 +24,11 @@ const Doctordashboard = () => {
                 <div className="leftbox">
                   <button>Start Your day</button>
                   <button>Wrap the Day</button>
-                  <button>My Profile</button>
+
+                  <button>
+                    <Link to="/DoctorTreatment">Doctor Display </Link>
+                  </button>
+
                   <button>Report to Admin</button>
                 </div>
               </div>
@@ -35,7 +39,7 @@ const Doctordashboard = () => {
                       <div class="card">
                         <div class="card-body">
                           <Link to="/token-generation">
-                            <h2>Asigned Patient</h2>
+                            <h2>Patient in Queue</h2>
                             <h2>10</h2>
                           </Link>
                         </div>
@@ -139,11 +143,11 @@ const Container = styled.div`
         display: flex;
         align-items: center;
         justify-content: center;
-        a {
-          text-decoration: none;
-          color: black;
-        }
       }
     }
+  }
+  a {
+    text-decoration: none;
+    color: black;
   }
 `;

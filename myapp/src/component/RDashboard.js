@@ -38,7 +38,7 @@ const RDashboard = () => {
 
   const roles = users.map(({ role }) => role);
   const matchingObject = roles.filter((item) => item === 1);
-  console.log(roles);
+  // console.log(roles);
   const showDoc = matchingObject.length;
   const ptData = patient.length;
 
@@ -113,7 +113,7 @@ const RDashboard = () => {
                       <div class="card">
                         <div class="card-body">
                           <Link to="/token-generation">
-                            <h2>Token Generated</h2>
+                            <h2>Token History</h2>
                           </Link>
                         </div>
                       </div>
