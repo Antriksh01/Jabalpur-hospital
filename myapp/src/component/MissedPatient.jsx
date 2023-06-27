@@ -1,27 +1,25 @@
 import React, { useEffect, useState } from "react";
-import "./TokenGeneration.css";
-import Header from "./Header";
 import styled from "styled-components";
+import Header from "./Header";
 import axios from "axios";
 
-const TokenGeneration = () => {
-  const [patient, setPatient] = useState([]);
+const MissedPatient = () => {
+  const [patMissed, setPatMissed] = useState([]);
 
-  const getAllPatients = async () => {
+  const handleServedPatient = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:8100/api/auth/getAllPatient"
+      const dt = await axios.get("http://localhost:8100/api/auth/tokenReciept");
+      const data = dt.data;
+      const filteredData = data.filter(
+        (item) => item.treatment_status === "Patient_Absent"
       );
-      // console.log(response.data);
-      setPatient(response.data);
+      setPatMissed(filteredData);
     } catch (error) {
-      console.error("Error fetching users:", error);
+      console.log(error);
     }
   };
-  // console.log(patient);
-
   useEffect(() => {
-    getAllPatients();
+    handleServedPatient();
   }, []);
   return (
     <>
@@ -35,7 +33,7 @@ const TokenGeneration = () => {
                 className="text-center fs-1 fw-bold"
                 style={{ color: "#347571" }}
               >
-                Token History
+                Patients Missed/Absent
               </h1>
             </span>
           </div>
@@ -44,28 +42,26 @@ const TokenGeneration = () => {
             <table id="table" className="table">
               <thead>
                 <tr>
+                  <th>Token ID</th>
                   <th>P_ID</th>
                   <th>P_Name</th>
                   <th>P_Contact</th>
                   <th>Assigned_doctor</th>
-                  <th>Time</th>
                   <th>Dept</th>
-                  <th>Token Generated</th>
-                  <th>Token Generate Date & Time</th>
                 </tr>
               </thead>
               <tbody>
-                {patient.map((item, index) => (
+                {patMissed?.map((item, index) => (
                   <>
                     <tr key={index}>
-                      <td>{item.P_ID}</td>
-                      <td>{item.P_Name}</td>
+                      <td>{item.Token_ID}</td>
+                      <td>{item.uhid}</td>
+                      <td>
+                        {item.firstname} {item.lastname}
+                      </td>
                       <td>{item.P_Contact}</td>
                       <td>{item.Assigned_doctor}</td>
-                      <td>{item.Time}</td>
                       <td>{item.Dept}</td>
-                      <td>{item.Token_Generated}</td>
-                      <td>{item.Token_Generate_Time}</td>
                     </tr>
                   </>
                 ))}
@@ -77,13 +73,6 @@ const TokenGeneration = () => {
     </>
   );
 };
-export default TokenGeneration;
-const Container = styled.div`
-  th {
-    background-color: #ff9999;
-    text-align: center;
-  }
-  td {
-    text-align: center;
-  }
-`;
+
+export default MissedPatient;
+const Container = styled.div``;

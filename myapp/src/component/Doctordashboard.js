@@ -1,10 +1,83 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Doctordashboard.css";
 import Header from "./Header";
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
+import axios from "axios";
+import { useAuth } from "../context";
 
 const Doctordashboard = () => {
+  const [auth] = useAuth();
+  const [docStatus, setDocStatus] = useState("");
+  const [dayPlan, setDayPlan] = useState("");
+  const [getDoc, setGetDoc] = useState("");
+  const [serve, setServe] = useState([]);
+
+  // update_doctor_status
+  const handleUpdate = async (value) => {
+    // if()
+    try {
+      const updateData = await axios.put(
+        `http://localhost:8100/api/auth/doctor-availability-update/${auth.user.reg_email}`,
+        {
+          status: value,
+        }
+      );
+
+      console.log(updateData);
+      alert("status updated");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const patientStats = async () => {
+    try {
+      const { data } = await axios.get(
+        "http://localhost:8100/api/auth/patientServe"
+      );
+      setServe(data);
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const filteredData = serve.filter(
+    (item) => item.treatment_status === "Treated"
+  );
+  const filteredQueue = serve.filter(
+    (item) => item.treatment_status === "Pending"
+  );
+
+  const today = new Date();
+  const yesterday = new Date(today);
+  yesterday.setDate(today.getDate() - 1);
+  const formattedDate = yesterday
+    .toLocaleDateString("en-GB", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    })
+    .split("/")
+    .reverse()
+    .join("-");
+
+  const filteredYest = serve.filter(
+    (item) =>
+      item.treatment_status === "Treated" &&
+      item.Token_Generate_Date === formattedDate
+  );
+
+  const filterMissed = serve.filter(
+    (item) => item.treatment_status === "Patient_Absent"
+  );
+  console.log(filterMissed.length);
+
+  useEffect(() => {
+    patientStats();
+  }, []);
+
   return (
     <>
       <Container>
@@ -22,11 +95,15 @@ const Doctordashboard = () => {
             <div className="row g-0">
               <div className="col-xl-2 col-lg-2 col-md-2 col-sm-12">
                 <div className="leftbox">
-                  <button>Start Your day</button>
-                  <button>Wrap the Day</button>
+                  <button onClick={() => handleUpdate("yes")}>
+                    Start Your day
+                  </button>
+                  <button onClick={() => handleUpdate("no")}>
+                    Wrap the Day
+                  </button>
 
-                  <button>
-                    <Link to="/DoctorTreatment">Doctor Display </Link>
+                  <button onClick={() => handleUpdate("onBreak")}>
+                    Go for Break
                   </button>
 
                   <button>Report to Admin</button>
@@ -38,9 +115,9 @@ const Doctordashboard = () => {
                     <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
                       <div class="card">
                         <div class="card-body">
-                          <Link to="/token-generation">
+                          <Link to="/patient-queue">
                             <h2>Patient in Queue</h2>
-                            <h2>10</h2>
+                            <h2>{filteredQueue.length}</h2>
                           </Link>
                         </div>
                       </div>
@@ -48,9 +125,9 @@ const Doctordashboard = () => {
                     <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
                       <div class="card">
                         <div class="card-body">
-                          <Link to="/doctor-availablity">
+                          <Link to="/servePatient">
                             <h2>Served</h2>
-                            <h2>20</h2>
+                            <h2>{filteredData.length}</h2>
                           </Link>
                         </div>
                       </div>
@@ -58,9 +135,9 @@ const Doctordashboard = () => {
                     <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
                       <div class="card">
                         <div class="card-body">
-                          <Link to="/patient-assigned">
+                          <Link to="/patientTreated">
                             <h2>Patients Treated Yesterday</h2>
-                            <h2>20</h2>
+                            <h2>{filteredYest.length}</h2>
                           </Link>
                         </div>
                       </div>
@@ -68,9 +145,9 @@ const Doctordashboard = () => {
                     <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
                       <div class="card">
                         <div class="card-body">
-                          <Link to="/report-admin">
+                          <Link to="/patient-missed">
                             <h2>Missed</h2>
-                            <h2>10</h2>
+                            <h2>{filterMissed.length}</h2>
                           </Link>
                         </div>
                       </div>
@@ -87,8 +164,8 @@ const Doctordashboard = () => {
                     <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
                       <div class="card">
                         <div class="card-body">
-                          <Link to="/token-generated">
-                            <h2>Go for Break</h2>
+                          <Link to="/DoctorTreatment">
+                            <h2>Doctor Display</h2>
                           </Link>
                         </div>
                       </div>

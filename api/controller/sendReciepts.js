@@ -82,3 +82,27 @@ export const sendEmailSms = (req, res) => {
     }
   });
 };
+
+// updatetokenreciept
+
+export const tokenRecStatus = async (req, res) => {
+  try {
+    const userID = req.params.id;
+    const { status } = req.body;
+
+    const q = `UPDATE patient_token SET treatment_status = ? WHERE Token_ID = ?`;
+
+    db.query(q, [status, userID], (err, results) => {
+      if (err) {
+        console.error("Error executing update query:", err);
+        res.status(500).send("Error updating user");
+        return;
+      }
+
+      console.log("treatment status updated successfully");
+      res.send("treatment status updated successfully");
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};

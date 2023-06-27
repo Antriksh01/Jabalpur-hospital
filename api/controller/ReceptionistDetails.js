@@ -125,6 +125,7 @@ export const joinPatientTable = async (req, res) => {
     JOIN patient_details ON  patient_token.uhid= patient_details.uhid
     JOIN doctor_data ON patient_token.Assigned_doctor = doctor_data.Email
     JOIN receptionist ON patient_token.Token_Generated_by = receptionist.email
+    JOIN admin_register ON patient_token.Assigned_doctor = admin_register.reg_email
   `;
 
   db.query(query, (error, results) => {

@@ -16,11 +16,18 @@ import {
   updateReceptionist,
 } from "../controller/ReceptionistDetails.js";
 import { isAdmin, verifyUser } from "../middleware/middleware.js";
-import { addDoctor } from "../controller/DoctorDetails.js";
+import {
+  PatientServe,
+  addDoctor,
+  assignedPatientDoc,
+  doctorAvailabilityStatus,
+  getDoctorsStatus,
+} from "../controller/DoctorDetails.js";
 import {
   sendEmailSms,
   sendSMS,
   sendWhatsapp,
+  tokenRecStatus,
 } from "../controller/sendReciepts.js";
 
 const router = express.Router();
@@ -40,5 +47,10 @@ router.get("/Search-patient", SearchPatientController);
 router.post("/sendSMS", sendSMS);
 router.post("/sendWhatsapp", sendWhatsapp);
 router.post("/sendEmailSms", sendEmailSms);
+router.put("/tokenRecStatus/:id", tokenRecStatus);
+router.put("/doctor-availability-update/:id", doctorAvailabilityStatus);
+router.get("/getDoctorsStatus", getDoctorsStatus);
+router.get("/getAssignedDoc", assignedPatientDoc);
+router.get("/patientServe", PatientServe);
 
 export default router;

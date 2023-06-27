@@ -37,6 +37,10 @@ import AddDoctor from "./component/AddDoctor";
 import TokenGenForm from "./component/TokenGenForm";
 import { useAuth } from "./context";
 import TokenSearch from "./component/TokenSearch";
+import PatientQueue from "./component/PatientQueue";
+import ServePatient from "./component/ServePatient";
+import PatientTreatY from "./component/PatientTreatY";
+import MissedPatient from "./component/MissedPatient";
 axios.defaults.withCredentials = true;
 
 function App() {
@@ -85,6 +89,10 @@ function App() {
             {/* doctor-dashboard */}
             <Route path="/doctor-dashboard" element={<Doctordashboard />} />
             <Route path="/DoctorTreatment" element={<DoctorTreatment />} />
+            <Route path="/patient-queue" element={<PatientQueue />} />
+            <Route path="/servePatient" element={<ServePatient />} />
+            <Route path="/patientTreated" element={<PatientTreatY />} />
+            <Route path="/patient-missed" element={<MissedPatient />} />
           </>
         ) : (
           <Route path="/Login" element={<Login />} />

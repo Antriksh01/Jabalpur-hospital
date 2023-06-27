@@ -32,3 +32,76 @@ export const addDoctor = (req, res) => {
     });
   });
 };
+
+// update doctor availability
+export const doctorAvailabilityStatus = (req, res) => {
+  try {
+    const userID = req.params.id;
+    const { status } = req.body;
+    const q = `UPDATE doctor_data SET Doc_Availability = ? WHERE Email = ?`;
+
+    db.query(q, [status, userID], (err, results) => {
+      if (err) {
+        console.error("Error executing update query:", err);
+        res.status(500).send("Error updating user");
+        return;
+      }
+
+      console.log("doctor availability status updated successfully");
+      res.send("doctor availability status updated successfully");
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// getDoctorsStatus
+export const getDoctorsStatus = (req, res) => {
+  try {
+    db.query("SELECT * FROM doctor_data", (error, results) => {
+      if (error) {
+        console.error(error);
+      } else {
+        res.send(results);
+      }
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// getdoctors_assigned patient
+export const assignedPatientDoc = (req, res) => {
+  try {
+    db.query(
+      `SELECT *, COUNT(patient_token.Assigned_doctor) AS assigned_patient
+      FROM doctor_data 
+      LEFT JOIN patient_token ON doctor_data.Email = patient_token.Assigned_doctor
+      GROUP BY doctor_data.Email;`,
+      (error, results) => {
+        if (error) {
+          console.error(error);
+        } else {
+          res.send(results);
+        }
+      }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// patient-serve
+export const PatientServe = (req, res) => {
+  try {
+    db.query("SELECT * FROM patient_token", (error, results) => {
+      if (error) {
+        console.error(error);
+      } else {
+        res.send(results);
+      }
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};

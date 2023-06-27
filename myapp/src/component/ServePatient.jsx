@@ -1,28 +1,28 @@
 import React, { useEffect, useState } from "react";
-import "./TokenGeneration.css";
-import Header from "./Header";
 import styled from "styled-components";
+import Header from "./Header";
 import axios from "axios";
 
-const TokenGeneration = () => {
-  const [patient, setPatient] = useState([]);
+const ServePatient = () => {
+  const [served, setServed] = useState([]);
 
-  const getAllPatients = async () => {
+  const handleServedPatient = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:8100/api/auth/getAllPatient"
+      const dt = await axios.get("http://localhost:8100/api/auth/tokenReciept");
+      const data = dt.data;
+      const filteredData = data.filter(
+        (item) => item.treatment_status === "Treated"
       );
-      // console.log(response.data);
-      setPatient(response.data);
+      setServed(filteredData);
     } catch (error) {
-      console.error("Error fetching users:", error);
+      console.log(error);
     }
   };
-  // console.log(patient);
 
   useEffect(() => {
-    getAllPatients();
-  }, []);
+    handleServedPatient();
+  });
+
   return (
     <>
       <Container>
@@ -35,7 +35,7 @@ const TokenGeneration = () => {
                 className="text-center fs-1 fw-bold"
                 style={{ color: "#347571" }}
               >
-                Token History
+                Served patients
               </h1>
             </span>
           </div>
@@ -51,21 +51,23 @@ const TokenGeneration = () => {
                   <th>Time</th>
                   <th>Dept</th>
                   <th>Token Generated</th>
-                  <th>Token Generate Date & Time</th>
+                  <th>Token Generate Date</th>
                 </tr>
               </thead>
               <tbody>
-                {patient.map((item, index) => (
+                {served?.map((item, index) => (
                   <>
                     <tr key={index}>
-                      <td>{item.P_ID}</td>
-                      <td>{item.P_Name}</td>
+                      <td>{item.uhid}</td>
+                      <td>
+                        {item.firstname} {item.lastname}
+                      </td>
                       <td>{item.P_Contact}</td>
                       <td>{item.Assigned_doctor}</td>
                       <td>{item.Time}</td>
                       <td>{item.Dept}</td>
                       <td>{item.Token_Generated}</td>
-                      <td>{item.Token_Generate_Time}</td>
+                      <td>{item.Token_Generate_Date}</td>
                     </tr>
                   </>
                 ))}
@@ -77,13 +79,6 @@ const TokenGeneration = () => {
     </>
   );
 };
-export default TokenGeneration;
-const Container = styled.div`
-  th {
-    background-color: #ff9999;
-    text-align: center;
-  }
-  td {
-    text-align: center;
-  }
-`;
+
+export default ServePatient;
+const Container = styled.div``;

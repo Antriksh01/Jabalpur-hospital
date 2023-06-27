@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import Carousel from "react-multi-carousel";
+import Carousel, { ButtonGroupProps } from "react-multi-carousel";
 import { Form, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -8,6 +8,7 @@ import "react-multi-carousel/lib/styles.css";
 // import { Link } from "react-router-dom";
 import jbplogo from "../../photos/jbplogo.png";
 import axios from "axios";
+import { useAuth } from "../../context";
 
 const responsive = {
   desktop: {
@@ -30,10 +31,19 @@ const responsive = {
 const StoryPart = () => {
   const [results, setResults] = useState([]);
   const [selectedOption, setSelectedOption] = useState("");
+  const [treatStatus, setTreatStatus] = useState("");
+  const [tokenId, setTokenId] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [input, setInput] = useState("");
+  const [inputValue, setInputValue] = useState("");
+  const [auth] = useAuth();
+  const [showModal, setShowModal] = useState(false);
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
   };
+
+  // console.log(input);
 
   const handleButtonClick = () => {
     // Perform any desired actions before updating the state
@@ -47,16 +57,69 @@ const StoryPart = () => {
       const response = await axios.get(
         `http://localhost:8100/api/auth/tokenReciept`
       );
-      console.log(response.data);
-      setResults(response.data);
+      const dt = response.data;
+      // console.log(dt);
+      setResults(dt);
     } catch (error) {
       console.log(error);
     }
   };
 
+  // update treatment status
+
+  const testHandle = () => {
+    setShowModal(true);
+  };
+
+  const handleUpdate = async (value) => {
+    try {
+      const updateData = await axios.put(
+        `http://localhost:8100/api/auth/tokenRecStatus/${value}`,
+        {
+          status: selectedOption,
+        }
+      );
+
+      setTreatStatus(selectedOption);
+      console.log("Selected Option:", selectedOption);
+      alert("status updated");
+      console.log(updateData);
+      setInputValue("");
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const carouselRef = useRef(null);
+
+  const handlePrevious = () => {
+    if (carouselRef.current) {
+      carouselRef.current.slidePrev();
+    }
+  };
+
+  const filteredData = results.filter(
+    (item) =>
+      item.Assigned_doctor === auth.user.reg_email &&
+      item.treatment_status !== "Treated"
+  );
+  // console.log(auth);
+  // console.log(filteredData);
+
   useEffect(() => {
     handleSearch();
+
+    const filteredData = results.filter(
+      (item) =>
+        item.Assigned_doctor === auth.user.reg_email &&
+        item.treatment_status !== "Treated"
+    );
   }, []);
+
+  const testNoHandler = () => {
+    setShowModal(false);
+  };
+
   return (
     <>
       <Container>
@@ -66,9 +129,6 @@ const StoryPart = () => {
           // draggable={true}
           // showDots={true}
           responsive={responsive}
-          // ssr={true} // means to render carousel on server-side.
-          // infinite={true}
-          // autoPlay={true}
           autoPlaySpeed={1000}
           keyBoardControl={true}
           // customTransition="all 5s ease-in-out"
@@ -80,7 +140,7 @@ const StoryPart = () => {
           itemClass="carousel-item-padding-40-px"
           buttonType="button"
         >
-          {results.map((item) => (
+          {filteredData.map((item, index) => (
             <div key={item.id}>
               <div className="my-slide-component container">
                 <div class="card mt-5">
@@ -105,8 +165,16 @@ const StoryPart = () => {
                     </div>
                     <div className="statusPart">
                       <h3 className="text-center">
-                        Patient status : {item.treatment_status}
+                        Patient status :{" "}
+                        {treatStatus ? treatStatus : item.treatment_status}
                       </h3>
+                      {/* <input
+                        type="text"
+                        placeholder="Enter token Number"
+                        className="p-2"
+                        style={{ borderRadius: "0.5rem" }}
+                        // onChange={(e) => setInput(e.target.value)}
+                      /> */}
                       <div className="formRadio">
                         <Form>
                           <Form.Check
@@ -114,6 +182,7 @@ const StoryPart = () => {
                             label="Pending"
                             className="formcheck"
                             name="radioGroup"
+                            id={item.Token_ID}
                             value="Pending"
                             checked={selectedOption === "Pending"}
                             onChange={handleOptionChange}
@@ -122,35 +191,67 @@ const StoryPart = () => {
                             type="radio"
                             label="Treated"
                             name="radioGroup"
+                            id={item.Token_ID}
                             value="Treated"
                             checked={selectedOption === "Treated"}
                             onChange={handleOptionChange}
                           />
-                          <Form.Check
+                          {/* <Form.Check
                             type="radio"
                             label="Current"
+                            id={item.Token_ID}
                             name="radioGroup"
                             value="Current"
                             checked={selectedOption === "Current"}
                             onChange={handleOptionChange}
-                          />
+                          /> */}
                           <Form.Check
                             type="radio"
                             label="Patient Absent"
                             name="radioGroup"
+                            id={item.Token_ID}
                             value="Patient_Absent"
                             checked={selectedOption === "Patient_Absent"}
                             onChange={handleOptionChange}
                             // style={{ paddingLeft: "3rem !important" }}
                           />
                         </Form>
-                        <Button
-                          className="btn btn-success"
-                          style={{ backgroundColor: "#22923ad4" }}
-                          onClick={handleButtonClick}
-                        >
-                          Change Status
-                        </Button>
+                        {!showModal && (
+                          <Button
+                            className="btn btn-success"
+                            style={{ backgroundColor: "#22923ad4" }}
+                            // onClick={() => handleUpdate(item.Token_ID)}
+                            onClick={testHandle}
+                          >
+                            Change Status
+                          </Button>
+                        )}
+
+                        {showModal && (
+                          <>
+                            <div className="box">
+                              <div className="text">
+                                <h1>
+                                  Are you sure you want to update patient status
+                                </h1>
+                                <div className="btndiv">
+                                  <button
+                                    className="btn btn-primary"
+                                    onClick={() => handleUpdate(item.Token_ID)}
+                                  >
+                                    Yes
+                                  </button>
+                                  <button
+                                    className="btn btn-danger"
+                                    onClick={testNoHandler}
+                                  >
+                                    No
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -159,7 +260,6 @@ const StoryPart = () => {
             </div>
           ))}
         </Carousel>
-        ;
       </Container>
     </>
   );
@@ -244,5 +344,31 @@ const Container = styled.div`
     padding:1rem 0rem;
   }
   
+  .box{
+    display:flex;
+    padding-bottom:1rem;
+    justify-content:center;
+  .text{
+    // background-color:#47a45b;
+    padding:1rem;
+    border-radius:1.5rem;
+    // box-shadow: 1px 4px 4px black;
+   
+    width: 24rem;
+    text-align: center;
+    h1{
+      font-size: 16px;
+      
+      
+    }
+    .btndiv{
+      display:flex;
+      justify-content:space-evenly;
+      button{
+        width: 7rem;
+      }
+    }
+  }
+  }
 
 `;

@@ -24,7 +24,6 @@ const Admindashboard = () => {
                 <div className="leftbox">
                   <button>Start Your Day</button>
                   <button>This month's token</button>
-                  <button>Display content</button>
                   <button>
                     <Link to="/add-doctor">Add a Doctor</Link>
                   </button>
