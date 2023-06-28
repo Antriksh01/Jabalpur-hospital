@@ -12,8 +12,8 @@ function DoctorTreatment() {
     <>
       <Container>
         <Header />
-        <h1 className="text-center fs-1 fw-bold" style={{ color: "#347571" }}>
-          Doctor's Display
+        <h1 className="text-center fw-bold" style={{ color: "#347571" }}>
+          Patient Queue
         </h1>
 
         {/* center-test */}

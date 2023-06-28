@@ -30,7 +30,7 @@ const PatientQueue = () => {
       const filteredData = data.filter(
         (item) =>
           item.Assigned_doctor === auth.user.reg_email &&
-          item.treatment_status === "Treated" &&
+          item.treatment_status !== "Treated" &&
           item.Token_Generate_Date === formattedDate
       );
 

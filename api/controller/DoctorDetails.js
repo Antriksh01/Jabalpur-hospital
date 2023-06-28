@@ -105,3 +105,25 @@ export const PatientServe = (req, res) => {
     console.log(error);
   }
 };
+
+// DisplayDoctorScreen
+export const DisplayDoctorScreen = (req, res) => {
+  try {
+    const query = `
+    SELECT *
+    FROM patient_token
+    JOIN patient_details ON  patient_token.uhid= patient_details.uhid
+    JOIN doctor_data ON patient_token.Assigned_doctor = doctor_data.Email
+  `;
+    db.query(query, (error, results) => {
+      if (error) {
+        console.error("Error executing query:", error);
+        res.status(500).send("Error retrieving data");
+      } else {
+        res.json(results);
+      }
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};

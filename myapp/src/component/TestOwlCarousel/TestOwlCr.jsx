@@ -34,10 +34,11 @@ const StoryPart = () => {
   const [treatStatus, setTreatStatus] = useState("");
   const [tokenId, setTokenId] = useState(0);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [input, setInput] = useState("");
+  const [isTrue, setIsTrue] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [auth] = useAuth();
   const [showModal, setShowModal] = useState(false);
+  const carouselRef = useRef(null);
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
@@ -58,7 +59,6 @@ const StoryPart = () => {
         `http://localhost:8100/api/auth/tokenReciept`
       );
       const dt = response.data;
-      // console.log(dt);
       setResults(dt);
     } catch (error) {
       console.log(error);
@@ -71,30 +71,27 @@ const StoryPart = () => {
     setShowModal(true);
   };
 
+  const currentTimestamp = new Date().toISOString();
+  console.log(currentTimestamp);
+
   const handleUpdate = async (value) => {
     try {
       const updateData = await axios.put(
         `http://localhost:8100/api/auth/tokenRecStatus/${value}`,
         {
           status: selectedOption,
+          timestamp: "CURRENT_TIMESTAMP",
         }
       );
 
       setTreatStatus(selectedOption);
       console.log("Selected Option:", selectedOption);
-      alert("status updated");
+      // alert("status updated");
       console.log(updateData);
       setInputValue("");
       window.location.reload();
     } catch (error) {
       console.log(error);
-    }
-  };
-  const carouselRef = useRef(null);
-
-  const handlePrevious = () => {
-    if (carouselRef.current) {
-      carouselRef.current.slidePrev();
     }
   };
 
@@ -109,15 +106,33 @@ const StoryPart = () => {
   useEffect(() => {
     handleSearch();
 
-    const filteredData = results.filter(
-      (item) =>
-        item.Assigned_doctor === auth.user.reg_email &&
-        item.treatment_status !== "Treated"
-    );
+    // const filteredData = results.filter(
+    //   (item) =>
+    //     item.Assigned_doctor === auth.user.reg_email &&
+    //     item.treatment_status !== "Treated"
+    // );
   }, []);
 
   const testNoHandler = () => {
     setShowModal(false);
+  };
+
+  // update_doctor_status
+  const handleWrapDay = async (value) => {
+    // if()
+    try {
+      const updateData = await axios.put(
+        `http://localhost:8100/api/auth/doctor-availability-update/${auth.user.reg_email}`,
+        {
+          status: value,
+        }
+      );
+
+      console.log(updateData);
+      // alert("status updated");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -128,6 +143,8 @@ const StoryPart = () => {
           // swipeable={true}
           // draggable={true}
           // showDots={true}
+          className={showModal ? "carousel-stopped" : ""}
+          ref={carouselRef}
           responsive={responsive}
           autoPlaySpeed={1000}
           keyBoardControl={true}
@@ -136,17 +153,46 @@ const StoryPart = () => {
           containerClass="carousel-container"
           removeArrowOnDeviceType={["tablet", "mobile"]}
           // deviceType={this.props.deviceType}
+          swipeable={showModal}
+          stopOnHover={showModal}
           dotListClass="custom-dot-list-style"
           itemClass="carousel-item-padding-40-px"
           buttonType="button"
         >
           {filteredData.map((item, index) => (
             <div key={item.id}>
+              {showModal && (
+                <>
+                  <div
+                    className="box popup-overlay"
+                    data-aos="zoom-in"
+                    key={item.id}
+                  >
+                    <div className="text">
+                      <h1>Are you sure you want to update patient status</h1>
+                      <div className="btndiv">
+                        <button
+                          className="btn btn-primary"
+                          onClick={() => handleUpdate(item.Token_ID)}
+                        >
+                          Yes
+                        </button>
+                        <button
+                          className="btn btn-danger"
+                          onClick={testNoHandler}
+                        >
+                          No
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
               <div className="my-slide-component container">
-                <div class="card mt-5">
+                <div class="card">
                   <div class="card-body">
                     <img src={jbplogo} alt="Card" className="card-image" />
-                    <div className="cardp mt-5 text-start">
+                    <div className="cardp text-start">
                       <p className="fw-bold">UHID : {item.uhid}</p>
                       <p>
                         {" "}
@@ -160,7 +206,7 @@ const StoryPart = () => {
                       <p>Counter No : {item.Counter_No}</p>
                     </div>
 
-                    <div className="card-content mt-5">
+                    <div className="card-content">
                       <h2 className="cardh"> Token No: {item.Token_ID}</h2>
                     </div>
                     <div className="statusPart">
@@ -168,13 +214,6 @@ const StoryPart = () => {
                         Patient status :{" "}
                         {treatStatus ? treatStatus : item.treatment_status}
                       </h3>
-                      {/* <input
-                        type="text"
-                        placeholder="Enter token Number"
-                        className="p-2"
-                        style={{ borderRadius: "0.5rem" }}
-                        // onChange={(e) => setInput(e.target.value)}
-                      /> */}
                       <div className="formRadio">
                         <Form>
                           <Form.Check
@@ -196,15 +235,6 @@ const StoryPart = () => {
                             checked={selectedOption === "Treated"}
                             onChange={handleOptionChange}
                           />
-                          {/* <Form.Check
-                            type="radio"
-                            label="Current"
-                            id={item.Token_ID}
-                            name="radioGroup"
-                            value="Current"
-                            checked={selectedOption === "Current"}
-                            onChange={handleOptionChange}
-                          /> */}
                           <Form.Check
                             type="radio"
                             label="Patient Absent"
@@ -217,38 +247,22 @@ const StoryPart = () => {
                           />
                         </Form>
                         {!showModal && (
-                          <Button
-                            className="btn btn-success"
-                            style={{ backgroundColor: "#22923ad4" }}
-                            // onClick={() => handleUpdate(item.Token_ID)}
-                            onClick={testHandle}
-                          >
-                            Change Status
-                          </Button>
-                        )}
-
-                        {showModal && (
                           <>
-                            <div className="box">
-                              <div className="text">
-                                <h1>
-                                  Are you sure you want to update patient status
-                                </h1>
-                                <div className="btndiv">
-                                  <button
-                                    className="btn btn-primary"
-                                    onClick={() => handleUpdate(item.Token_ID)}
-                                  >
-                                    Yes
-                                  </button>
-                                  <button
-                                    className="btn btn-danger"
-                                    onClick={testNoHandler}
-                                  >
-                                    No
-                                  </button>
-                                </div>
-                              </div>
+                            <div className="btnBox d-flex justify-content-evenly">
+                              <Button
+                                className="btn btn-success"
+                                style={{ backgroundColor: "#22923ad4" }}
+                                // onClick={() => handleUpdate(item.Token_ID)}
+                                onClick={testHandle}
+                              >
+                                Change Status
+                              </Button>
+                              <button
+                                className="btn btn-danger"
+                                onClick={() => handleWrapDay("on_Break")}
+                              >
+                                Wrap the Day
+                              </button>
                             </div>
                           </>
                         )}
@@ -267,6 +281,12 @@ const StoryPart = () => {
 
 export default StoryPart;
 const Container = styled.div`
+.container{
+  position:relative;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
 .my-slide-component{
   display:flex;
   justify-content:center;
@@ -278,6 +298,7 @@ const Container = styled.div`
 // }
   .card {
     border: 1px solid black !important;
+    // z-index:-1;
   }
   .my-slide-component container{
     width: 100%,
@@ -347,19 +368,23 @@ const Container = styled.div`
   .box{
     display:flex;
     padding-bottom:1rem;
+    align-items:center;
     justify-content:center;
+    // background-color:red;
+    z-index:1;
+    position:absolute;
   .text{
-    // background-color:#47a45b;
-    padding:1rem;
-    border-radius:1.5rem;
-    // box-shadow: 1px 4px 4px black;
-   
-    width: 24rem;
+    background-color:#ade6e8;
+    padding: 4rem;
+    margin-left: 37rem;
+    margin-top: 10rem;
+    z-index: 1;
+    border-radius: 1.5rem;
+    box-shadow: 1px 4px 4px black;
     text-align: center;
+    width: 31rem;
     h1{
       font-size: 16px;
-      
-      
     }
     .btndiv{
       display:flex;
@@ -370,5 +395,12 @@ const Container = styled.div`
     }
   }
   }
+  // [type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled){
+  //   display:none;
+  // }
 
+
+  .carousel-stopped .react-multi-carousel-item {
+    transition: none !important;
+  }
 `;

@@ -10,7 +10,6 @@ import { useAuth } from "../context";
 
 const Header = () => {
   const [auth] = useAuth();
-  // console.log(auth.user);
   const navigate = useNavigate();
 
   const userProfile = async () => {
@@ -54,9 +53,6 @@ const Header = () => {
                   <h3>Hi {auth.user.username}</h3>
                   <h3>Employee Id :{auth.user.a_id} </h3>
                   <span Id="btu">
-                    {/* <button>
-                      <Link to="/receptionist-profile">My Profile</Link>{" "}
-                    </button> */}
                     <button onClick={logoutHandler}>Logout</button>
                   </span>
                 </>
@@ -75,6 +71,7 @@ const Header = () => {
 // }
 export default Header;
 const Container = styled.div`
+  background-color: transparent;
   button {
     width: auto;
     padding: 0.5rem 1.2rem;
@@ -93,5 +90,8 @@ const Container = styled.div`
   }
   h3 {
     padding-left: 1rem;
+  }
+  .navbar {
+    height: 9rem;
   }
 `;

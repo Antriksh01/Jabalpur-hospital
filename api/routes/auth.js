@@ -17,6 +17,7 @@ import {
 } from "../controller/ReceptionistDetails.js";
 import { isAdmin, verifyUser } from "../middleware/middleware.js";
 import {
+  DisplayDoctorScreen,
   PatientServe,
   addDoctor,
   assignedPatientDoc,
@@ -52,5 +53,6 @@ router.put("/doctor-availability-update/:id", doctorAvailabilityStatus);
 router.get("/getDoctorsStatus", getDoctorsStatus);
 router.get("/getAssignedDoc", assignedPatientDoc);
 router.get("/patientServe", PatientServe);
+router.get("/display-doctor-screen", DisplayDoctorScreen);
 
 export default router;

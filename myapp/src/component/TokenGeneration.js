@@ -10,7 +10,7 @@ const TokenGeneration = () => {
   const getAllPatients = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8100/api/auth/getAllPatient"
+        "http://localhost:8100/api/auth/tokenReciept"
       );
       // console.log(response.data);
       setPatient(response.data);
@@ -58,14 +58,16 @@ const TokenGeneration = () => {
                 {patient.map((item, index) => (
                   <>
                     <tr key={index}>
-                      <td>{item.P_ID}</td>
-                      <td>{item.P_Name}</td>
+                      <td>{item.uhid}</td>
+                      <td>
+                        {item.firstname} {item.lastname}
+                      </td>
                       <td>{item.P_Contact}</td>
-                      <td>{item.Assigned_doctor}</td>
+                      <td>{item.Doctor_name}</td>
                       <td>{item.Time}</td>
                       <td>{item.Dept}</td>
                       <td>{item.Token_Generated}</td>
-                      <td>{item.Token_Generate_Time}</td>
+                      <td>{item.regdatetime}</td>
                     </tr>
                   </>
                 ))}

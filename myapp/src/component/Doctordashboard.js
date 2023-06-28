@@ -25,7 +25,7 @@ const Doctordashboard = () => {
       );
 
       console.log(updateData);
-      alert("status updated");
+      // alert("status updated");
     } catch (error) {
       console.log(error);
     }
@@ -46,9 +46,6 @@ const Doctordashboard = () => {
   const filteredData = serve.filter(
     (item) => item.treatment_status === "Treated"
   );
-  const filteredQueue = serve.filter(
-    (item) => item.treatment_status === "Pending"
-  );
 
   const today = new Date();
   const yesterday = new Date(today);
@@ -62,6 +59,12 @@ const Doctordashboard = () => {
     .split("/")
     .reverse()
     .join("-");
+
+  const filteredQueue = serve.filter(
+    (item) =>
+      item.treatment_status === "Pending" &&
+      item.Token_Generate_Date === formattedDate
+  );
 
   const filteredYest = serve.filter(
     (item) =>
@@ -96,8 +99,9 @@ const Doctordashboard = () => {
               <div className="col-xl-2 col-lg-2 col-md-2 col-sm-12">
                 <div className="leftbox">
                   <button onClick={() => handleUpdate("yes")}>
-                    Start Your day
+                    <Link to="/DoctorTreatment">Start Your day </Link>
                   </button>
+
                   <button onClick={() => handleUpdate("no")}>
                     Wrap the Day
                   </button>
@@ -146,7 +150,7 @@ const Doctordashboard = () => {
                       <div class="card">
                         <div class="card-body">
                           <Link to="/patient-missed">
-                            <h2>Missed</h2>
+                            <h2>Patient Absent</h2>
                             <h2>{filterMissed.length}</h2>
                           </Link>
                         </div>
@@ -164,7 +168,7 @@ const Doctordashboard = () => {
                     <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
                       <div class="card">
                         <div class="card-body">
-                          <Link to="/DoctorTreatment">
+                          <Link to="/doctor-display">
                             <h2>Doctor Display</h2>
                           </Link>
                         </div>

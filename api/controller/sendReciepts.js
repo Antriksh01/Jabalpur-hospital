@@ -88,9 +88,9 @@ export const sendEmailSms = (req, res) => {
 export const tokenRecStatus = async (req, res) => {
   try {
     const userID = req.params.id;
-    const { status } = req.body;
+    const { status, timestamp } = req.body;
 
-    const q = `UPDATE patient_token SET treatment_status = ? WHERE Token_ID = ?`;
+    const q = `UPDATE patient_token SET treatment_status = ?, Time = CURRENT_TIMESTAMP WHERE Token_ID = ?`;
 
     db.query(q, [status, userID], (err, results) => {
       if (err) {

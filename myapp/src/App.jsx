@@ -41,6 +41,7 @@ import PatientQueue from "./component/PatientQueue";
 import ServePatient from "./component/ServePatient";
 import PatientTreatY from "./component/PatientTreatY";
 import MissedPatient from "./component/MissedPatient";
+import DoctorDisplay from "./component/DoctorDisplay";
 axios.defaults.withCredentials = true;
 
 function App() {
@@ -93,6 +94,7 @@ function App() {
             <Route path="/servePatient" element={<ServePatient />} />
             <Route path="/patientTreated" element={<PatientTreatY />} />
             <Route path="/patient-missed" element={<MissedPatient />} />
+            <Route path="/doctor-display" element={<DoctorDisplay />} />
           </>
         ) : (
           <Route path="/Login" element={<Login />} />

@@ -1,8 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import styled from "styled-components";
+import axios from "axios";
 
 const PatientAssigned = () => {
+  const [assignPat, setAssignPat] = useState([]);
+
+  const assignPatientData = async () => {
+    try {
+      const res = await axios.get(
+        "http://localhost:8100/api/auth/tokenReciept"
+      );
+      console.log(res.data);
+      setAssignPat(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    assignPatientData();
+  }, []);
   return (
     <>
       <Container>
@@ -28,30 +46,16 @@ const PatientAssigned = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Data 1</td>
-                  <td>Data 2</td>
-                  <td>Data 3</td>
-                  <td>Data 4</td>
-                </tr>
-                <tr>
-                  <td>Data 9</td>
-                  <td>Data 10</td>
-                  <td>Data 11</td>
-                  <td>Data 12</td>
-                </tr>
-                <tr>
-                  <td>Data 17</td>
-                  <td>Data 18</td>
-                  <td>Data 19</td>
-                  <td>Data 20</td>
-                </tr>
-                <tr>
-                  <td>Data 17</td>
-                  <td>Data 18</td>
-                  <td>Data 19</td>
-                  <td>Data 20</td>
-                </tr>
+                {assignPat?.map((item, index) => (
+                  <tr key={index}>
+                    <td>
+                      {item.firstname} {item.lastname}
+                    </td>
+                    <td>{item.Doctor_name}</td>
+                    <td>{item.Dept}</td>
+                    <td>{item.uhid}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>

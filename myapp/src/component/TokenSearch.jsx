@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Header from "./Header";
 import { BsSearch } from "react-icons/bs";
@@ -16,7 +16,9 @@ const TokenSearch = () => {
   const [whatsappNumber, setWhatsappNumber] = useState("");
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
+  const [patient, setPatient] = useState([]);
   const [content, setContent] = useState("");
+  const [searchError, setSearchError] = useState(false);
 
   const form = useRef();
   const printContentRef = useRef();
@@ -27,7 +29,15 @@ const TokenSearch = () => {
         `http://localhost:8100/api/auth/Search-patient?keyword=${keyword}`
       );
       console.log(response.data);
-      setResults(response.data);
+      const data = response.data;
+      if (data.length > 0) {
+        setResults(data);
+        setSearchError(false);
+      } else {
+        setResults([]);
+        setSearchError(true);
+      }
+      setKeyword("");
     } catch (error) {
       console.log(error);
     }
@@ -125,6 +135,33 @@ const TokenSearch = () => {
   };
 
   console.log(results);
+
+  const getAllPatients = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:8100/api/auth/tokenReciept"
+      );
+      // console.log(response.data);
+      setPatient(response.data);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
+  };
+  // console.log(patient);
+
+  useEffect(() => {
+    getAllPatients();
+  }, []);
+
+  useEffect(() => {
+    if (searchError) {
+      const timeout = setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [searchError]);
   return (
     <>
       <Container>
@@ -150,56 +187,104 @@ const TokenSearch = () => {
               </button>
             </div>
           </div>
-          {results.length === 0 ? (
+          {searchError ? (
             <>
-              <h1 className="text-center">No result found</h1>
+              <h1 className="text-center">No Token Found</h1>
             </>
           ) : (
             <>
-              <div className="container-fluid">
-                {results.map((result) => (
-                  // <li key={result.uhid}>{result.P_Email}</li>
-                  <>
-                    <div className="table-responsive mt-5">
-                      <table id="table" className="table">
-                        <thead>
-                          <tr>
-                            <th>P_ID</th>
-                            <th>P_Name</th>
-                            <th>P_Contact</th>
-                            <th>Assigned_doctor</th>
-                            <th>Time</th>
-                            <th>Dept</th>
-                            <th>Token ID</th>
-                            <th>Print Token</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr key={result.uhid}>
-                            <td>{result.uhid}</td>
-                            <td>
-                              {result.firstname} {result.lastname}
-                            </td>
-                            <td>{result.P_Contact}</td>
-                            <td>{result.Assigned_doctor}</td>
-                            <td>{result.Time}</td>
-                            <td>{result.Dept}</td>
-                            <td>{result.Token_ID}</td>
-                            <td>
-                              <button
-                                className="btn btn-primary"
-                                onClick={recieptHandler}
-                              >
-                                Print Token
-                              </button>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </>
-                ))}
-              </div>
+              {results.length === 0 ? (
+                <>
+                  <div className="table-responsive mt-5">
+                    <table id="table" className="table">
+                      <thead>
+                        <tr>
+                          <th>P_ID</th>
+                          <th>P_Name</th>
+                          <th>P_Contact</th>
+                          <th>Assigned_doctor</th>
+                          <th>Time</th>
+                          <th>Dept</th>
+                          <th>Token ID</th>
+                          <th>Print Token</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {patient?.map((item, index) => (
+                          <>
+                            <tr key={index}>
+                              <td>{item.uhid}</td>
+                              <td>
+                                {item.firstname} {item.lastname}
+                              </td>
+                              <td>{item.P_Contact}</td>
+                              <td>{item.Assigned_doctor}</td>
+                              <td>{item.Time}</td>
+                              <td>{item.Dept}</td>
+                              <td>{item.Token_ID}</td>
+                              <td>
+                                <button
+                                  className="btn btn-primary"
+                                  onClick={recieptHandler}
+                                >
+                                  Print Token
+                                </button>
+                              </td>
+                            </tr>
+                          </>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="container-fluid">
+                    {results.map((result) => (
+                      // <li key={result.uhid}>{result.P_Email}</li>
+                      <>
+                        <div className="table-responsive mt-5">
+                          <table id="table" className="table">
+                            <thead>
+                              <tr>
+                                <th>P_ID</th>
+                                <th>P_Name</th>
+                                <th>P_Contact</th>
+                                <th>Assigned_doctor</th>
+                                <th>Time</th>
+                                <th>Dept</th>
+                                <th>Token ID</th>
+                                <th>Print Token</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr key={result.uhid}>
+                                <td>{result.uhid}</td>
+                                <td>
+                                  {result.firstname} {result.lastname}
+                                </td>
+                                <td>{result.P_Contact}</td>
+                                <td>{result.Assigned_doctor}</td>
+                                <td>{result.Time}</td>
+                                <td>{result.Dept}</td>
+                                <td>{result.Token_ID}</td>
+                                <td>
+                                  <button
+                                    className="btn btn-primary"
+                                    onClick={recieptHandler}
+                                  >
+                                    Print Token
+                                  </button>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </>
+                    ))}
+                  </div>
+                </>
+              )}
             </>
           )}
 
