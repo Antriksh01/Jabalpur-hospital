@@ -100,7 +100,7 @@ const RDashboard = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+                    {/* <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
                       <div class="card">
                         <div class="card-body">
                           <Link to="/DoctorTreatment">
@@ -108,7 +108,7 @@ const RDashboard = () => {
                           </Link>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                     <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
                       <div class="card">
                         <div class="card-body">

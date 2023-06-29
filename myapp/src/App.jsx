@@ -42,6 +42,7 @@ import ServePatient from "./component/ServePatient";
 import PatientTreatY from "./component/PatientTreatY";
 import MissedPatient from "./component/MissedPatient";
 import DoctorDisplay from "./component/DoctorDisplay";
+import DoctorDisplayScr from "./component/DoctorDisplayScr";
 axios.defaults.withCredentials = true;
 
 function App() {
@@ -51,8 +52,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/forgot-password" element={<ForgetPassword />} />
-
         <Route path="/confirm-password" element={<ConfirmPassword />} />
+        <Route path="/doctorLive/:value" element={<DoctorDisplayScr />} />
 
         <Route path="/" element={<Frontpage />} />
         {/* receptionist routes */}

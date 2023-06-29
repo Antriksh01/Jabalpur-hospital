@@ -21,8 +21,10 @@ import {
   PatientServe,
   addDoctor,
   assignedPatientDoc,
+  deleteDoctorHandler,
   doctorAvailabilityStatus,
   doctorDataUpdate,
+  doctorLiveDisplay,
   getDoctorsStatus,
 } from "../controller/DoctorDetails.js";
 import {
@@ -55,6 +57,8 @@ router.get("/getDoctorsStatus", getDoctorsStatus);
 router.get("/getAssignedDoc", assignedPatientDoc);
 router.get("/patientServe", PatientServe);
 router.get("/display-doctor-screen", DisplayDoctorScreen);
-router.put("/doctorDataUpdate", doctorDataUpdate);
+router.put("/doctorDataUpdate/:Doc_ID", doctorDataUpdate);
+router.get("/doctorLive/:id", doctorLiveDisplay);
+router.delete("/doctor-data-delete/:Doc_ID", deleteDoctorHandler);
 
 export default router;

@@ -166,7 +166,7 @@ const TokenSearch = () => {
     <>
       <Container>
         <Header />
-        <div className="container">
+        <div className="container-fluid">
           <div class="input-group">
             <input
               type="search"

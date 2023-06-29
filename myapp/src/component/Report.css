@@ -37,7 +37,7 @@
 
 .container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 .nav button {
   text-align: center;

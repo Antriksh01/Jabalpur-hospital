@@ -1,10 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Doctordashboard.css";
 import Header from "./Header";
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
+import axios from "axios";
 
 const Admindashboard = () => {
+  const [docCount, setDocCount] = useState([]);
+
+  const countDoctors = async () => {
+    try {
+      const dt = await axios.get(
+        "http://localhost:8100/api/auth/getDoctorsStatus"
+      );
+      const res = dt.data;
+      setDocCount(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    countDoctors();
+  }, []);
+
   return (
     <>
       <Container>
@@ -22,7 +41,7 @@ const Admindashboard = () => {
             <div className="row g-0">
               <div className="col-xl-2 col-lg-2 col-md-2 col-sm-12">
                 <div className="leftbox">
-                  <button>Start Your Day</button>
+                  {/* <button>Start Your Day</button> */}
                   <button>This month's token</button>
                   <button>
                     <Link to="/add-doctor">Add a Doctor</Link>
@@ -44,7 +63,7 @@ const Admindashboard = () => {
                         <div class="card-body">
                           <Link to="/manage-doctors">
                             <h2>Doctors</h2>
-                            <h2>10</h2>
+                            <h2>{docCount.length}</h2>
                           </Link>
                         </div>
                       </div>
@@ -62,7 +81,7 @@ const Admindashboard = () => {
                     <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
                       <div class="card">
                         <div class="card-body">
-                          <Link to="/patient-assigned ">
+                          <Link to="/manage-doctors">
                             <h2>Monitor Doctors Logs</h2>
                             {/* <h2>20</h2> */}
                           </Link>

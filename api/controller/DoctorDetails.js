@@ -129,30 +129,120 @@ export const DisplayDoctorScreen = (req, res) => {
 };
 
 // doctor-data-update
+
 export const doctorDataUpdate = (req, res) => {
   try {
-    const { Doc_ID, Doctor_name, Email, Mobile, Department_name } = req.body;
+    const {
+      Doctor_name,
+      Email,
+      Mobile,
+      Department_name,
+      working_days,
+      off_days,
+    } = req.body;
 
-    const q = "SELECT * FROM doctor_data WHERE Email = ?";
-    db.query(q, [req.body.Email], (err, data) => {
+    const Doc_ID = req.params.Doc_ID;
+
+    const selectQuery = "SELECT * FROM doctor_data WHERE Email = ?";
+    db.query(selectQuery, [Email], (err, selectResult) => {
       if (err) return res.status(500).send(err);
 
-      const values = [
-        req.body.Doc_ID,
-        req.body.Doctor_name,
-        req.body.Email,
-        req.body.Mobile,
-        req.body.Department_name,
+      if (selectResult.length === 0) {
+        return res.status(404).json("Doctor not found");
+      }
+
+      const updateQuery =
+        "UPDATE doctor_data SET Doctor_name = ?, Mobile = ?, Department_name = ?, working_days = ?, off_days = ? WHERE Email = ? AND Doc_ID = ?";
+      const updateValues = [
+        Doctor_name,
+        Mobile,
+        Department_name,
+        working_days,
+        off_days,
+        Email,
+        Doc_ID,
       ];
 
-      const q = `UPDATE doctor_data SET Doc_ID = ?, Doctor_name = ?, Email = ?, Mobile = ?, Department_name = ? WHERE Email = ?`;
-
-      db.query(q, [values], (err, data) => {
+      db.query(updateQuery, updateValues, (err, updateResult) => {
         if (err) return res.status(500).send(err);
-        return res.status(200).json("password updated successfull");
+        return res.status(200).json("Doctor data updated successfully");
       });
+    });
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .send("An error occurred while updating the doctor data");
+  }
+};
+
+// display doctor via url parameter
+
+export const doctorLiveDisplay = (req, res) => {
+  const docId = req.params.id;
+  try {
+    const query = `
+    SELECT *
+    FROM patient_token
+    JOIN patient_details ON patient_token.uhid = patient_details.uhid
+    JOIN doctor_data ON patient_token.Assigned_doctor = doctor_data.Email
+    WHERE doctor_data.Doc_ID = ?  -- Add a WHERE condition to filter by Doc_ID
+  `;
+    db.query(query, [docId], (error, results) => {
+      if (error) {
+        console.error("Error executing query:", error);
+        res.status(500).send("Error retrieving data");
+      }
+
+      if (results.length > 0) {
+        res.json(results);
+      } else {
+        res.send({ msg: "No results found" });
+      }
     });
   } catch (error) {
     console.log(error);
   }
 };
+
+// delete Doctor
+export const deleteDoctorHandler = (req, res) => {
+  try {
+    const docID = req.params.Doc_ID;
+
+    const q = "DELETE FROM doctor_data WHERE Doc_ID = ?";
+    db.query(q, [docID], (err, result) => {
+      if (err) return res.status(500).send(err);
+
+      if (result.affectedRows === 0) {
+        return res.status(404).json("Doctor not found");
+      }
+      return res.status(200).json("Doctor data deleted successfully");
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send("error");
+  }
+};
+
+// export const doctorDataDelete = (req, res) => {
+//   try {
+//     const Doc_ID = req.params.Doc_ID;
+
+//     const deleteQuery = "DELETE FROM doctor_data WHERE Doc_ID = ?";
+//     db.query(deleteQuery, [Doc_ID], (err, deleteResult) => {
+//       if (err) return res.status(500).send(err);
+
+//       if (deleteResult.affectedRows === 0) {
+//         return res.status(404).json("Doctor not found");
+//       }
+
+//       return res.status(200).json("Doctor data deleted successfully");
+//     });
+//   } catch (error) {
+//     console.log(error);
+//     return res
+//       .status(500)
+//       .send("An error occurred while deleting the doctor data");
+//   }
+// };
