@@ -22,6 +22,7 @@ import {
   addDoctor,
   assignedPatientDoc,
   doctorAvailabilityStatus,
+  doctorDataUpdate,
   getDoctorsStatus,
 } from "../controller/DoctorDetails.js";
 import {
@@ -48,11 +49,12 @@ router.get("/Search-patient", SearchPatientController);
 router.post("/sendSMS", sendSMS);
 router.post("/sendWhatsapp", sendWhatsapp);
 router.post("/sendEmailSms", sendEmailSms);
-router.put("/tokenRecStatus/:id", tokenRecStatus);
+router.put("/tokenRecStatus/:tokenID/:userID", tokenRecStatus);
 router.put("/doctor-availability-update/:id", doctorAvailabilityStatus);
 router.get("/getDoctorsStatus", getDoctorsStatus);
 router.get("/getAssignedDoc", assignedPatientDoc);
 router.get("/patientServe", PatientServe);
 router.get("/display-doctor-screen", DisplayDoctorScreen);
+router.put("/doctorDataUpdate", doctorDataUpdate);
 
 export default router;

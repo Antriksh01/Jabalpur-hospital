@@ -15,16 +15,14 @@ const DoctorDisplay = () => {
       );
       const data = res.data;
       const filteredData = data.filter(
-        (item) => item.Assigned_doctor === auth.user.reg_email
+        (item) =>
+          item.Assigned_doctor === auth.user.reg_email &&
+          item.treatment_status === "Pending"
       );
-      const timeVal = 15;
-      for (let i = 1; i <= filteredData.length; i++) {
-        console.log(i);
-      }
+
       filteredData.forEach((item) => {
         const time = new Date(item.Time);
         const formattedTime = time.toLocaleTimeString();
-        const dtVal = timeval * i;
         item.Time = formattedTime;
       });
 

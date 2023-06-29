@@ -127,3 +127,32 @@ export const DisplayDoctorScreen = (req, res) => {
     console.log(error);
   }
 };
+
+// doctor-data-update
+export const doctorDataUpdate = (req, res) => {
+  try {
+    const { Doc_ID, Doctor_name, Email, Mobile, Department_name } = req.body;
+
+    const q = "SELECT * FROM doctor_data WHERE Email = ?";
+    db.query(q, [req.body.Email], (err, data) => {
+      if (err) return res.status(500).send(err);
+
+      const values = [
+        req.body.Doc_ID,
+        req.body.Doctor_name,
+        req.body.Email,
+        req.body.Mobile,
+        req.body.Department_name,
+      ];
+
+      const q = `UPDATE doctor_data SET Doc_ID = ?, Doctor_name = ?, Email = ?, Mobile = ?, Department_name = ? WHERE Email = ?`;
+
+      db.query(q, [values], (err, data) => {
+        if (err) return res.status(500).send(err);
+        return res.status(200).json("password updated successfull");
+      });
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};

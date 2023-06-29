@@ -38,13 +38,12 @@ const StoryPart = () => {
   const [inputValue, setInputValue] = useState("");
   const [auth] = useAuth();
   const [showModal, setShowModal] = useState(false);
+  const [timeSetup, setTimeSetup] = useState([]);
   const carouselRef = useRef(null);
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
   };
-
-  // console.log(input);
 
   const handleButtonClick = () => {
     // Perform any desired actions before updating the state
@@ -71,23 +70,32 @@ const StoryPart = () => {
     setShowModal(true);
   };
 
-  const currentTimestamp = new Date().toISOString();
-  console.log(currentTimestamp);
+  const timeInterval = 15 * 60000;
+  const currentTimestamp = new Date(); // Get the current timestamp
+  const updatedTimestamp = new Date(currentTimestamp.getTime() + timeInterval);
+  const formattedTimestamp = updatedTimestamp.toLocaleString("en-US", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
+  console.log(formattedTimestamp.split("T")[0]);
 
   const handleUpdate = async (value) => {
     try {
       const updateData = await axios.put(
-        `http://localhost:8100/api/auth/tokenRecStatus/${value}`,
+        `http://localhost:8100/api/auth/tokenRecStatus/${value}/${auth.user.reg_email}`,
         {
           status: selectedOption,
-          timestamp: "CURRENT_TIMESTAMP",
         }
       );
 
       setTreatStatus(selectedOption);
       console.log("Selected Option:", selectedOption);
       // alert("status updated");
-      console.log(updateData);
+      // console.log(updateData);
       setInputValue("");
       window.location.reload();
     } catch (error) {
@@ -98,19 +106,23 @@ const StoryPart = () => {
   const filteredData = results.filter(
     (item) =>
       item.Assigned_doctor === auth.user.reg_email &&
-      item.treatment_status !== "Treated"
+      item.treatment_status === "Pending"
   );
-  // console.log(auth);
-  // console.log(filteredData);
 
+  // time setup 15 minute
+  useEffect(() => {
+    const timeVal = 15 * 60000;
+    const timeSetting = [];
+
+    for (let i = 1; i <= filteredData.length; i++) {
+      timeSetting.push(timeVal * i);
+      setTimeSetup(timeSetting);
+    }
+  }, []);
+
+  console.log(timeSetup);
   useEffect(() => {
     handleSearch();
-
-    // const filteredData = results.filter(
-    //   (item) =>
-    //     item.Assigned_doctor === auth.user.reg_email &&
-    //     item.treatment_status !== "Treated"
-    // );
   }, []);
 
   const testNoHandler = () => {
