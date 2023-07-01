@@ -42,7 +42,9 @@ const Admindashboard = () => {
               <div className="col-xl-2 col-lg-2 col-md-2 col-sm-12">
                 <div className="leftbox">
                   {/* <button>Start Your Day</button> */}
-                  <button>This month's token</button>
+                  <button>
+                    <Link to="/month-wise-token">This month's token</Link>
+                  </button>
                   <button>
                     <Link to="/add-doctor">Add a Doctor</Link>
                   </button>

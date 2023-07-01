@@ -20,6 +20,8 @@
   font-size: medium;
   width: 100%;
   height: 40px;
+  padding: 1rem;
+  border-radius: 0.5rem;
 }
 
 /* .btn {

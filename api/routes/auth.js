@@ -11,8 +11,11 @@ import {
   PatientTokenGeneration,
   SearchPatientController,
   addReceptionist,
+  deleteReceptionistData,
   getAllPatient,
+  getPatientDetails,
   joinPatientTable,
+  receptionistDetailsUpdate,
   updateReceptionist,
 } from "../controller/ReceptionistDetails.js";
 import { isAdmin, verifyUser } from "../middleware/middleware.js";
@@ -60,5 +63,8 @@ router.get("/display-doctor-screen", DisplayDoctorScreen);
 router.put("/doctorDataUpdate/:Doc_ID", doctorDataUpdate);
 router.get("/doctorLive/:id", doctorLiveDisplay);
 router.delete("/doctor-data-delete/:Doc_ID", deleteDoctorHandler);
+router.get("/get-patient-details", getPatientDetails);
+router.put("/update-rec-details/:Rec_ID", receptionistDetailsUpdate);
+router.delete("/delete-receptionist/:id", deleteReceptionistData);
 
 export default router;

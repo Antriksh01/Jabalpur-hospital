@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import MainLogin from "./MainLogin";
 import { useAuth } from "../context";
+import styled from "styled-components";
 
 const Login = () => {
   const [auth, setAuth] = useAuth();
@@ -54,31 +55,41 @@ const Login = () => {
   //   // Handle registration logic here
   // };
   return (
-    <div>
-      <nav className="navbar">
-        <div id="logo" className="logo">
-          <img src={jbplogo} alt="Logo" />
-        </div>
-        {/* <div className='title'> <span> </span></div> */}
-        <div className="links">
-          <h3> </h3>
-          <h3> </h3>
-        </div>
-      </nav>
-      <div className="title text-center">
-        <span className="text-center">Receptionist login</span>
-      </div>
-      <div className="maincontainer">
-        <div className="left-container">
-          <div id="container-img" className="container-img">
-            <img src={Receptionist} alt="img" />
+    <>
+      <Container>
+        <div>
+          <nav className="navbar">
+            <div id="logo" className="logo">
+              <img src={jbplogo} alt="Logo" />
+            </div>
+            {/* <div className='title'> <span> </span></div> */}
+            <div className="links">
+              <h3> </h3>
+              <h3> </h3>
+            </div>
+          </nav>
+          <div className="title text-center">
+            <span className="text-center">Receptionist login</span>
+          </div>
+          <div className="maincontainer">
+            <div className="left-container">
+              <div id="container-img" className="container-img">
+                <img src={Receptionist} alt="img" />
+              </div>
+            </div>
+            <div className="right-container">
+              <MainLogin />
+            </div>
           </div>
         </div>
-        <div className="right-container">
-          <MainLogin />
-        </div>
-      </div>
-    </div>
+      </Container>
+    </>
   );
 };
 export default Login;
+const Container = styled.div`
+  .container-img {
+    @media screen and (max-width: 500px) {
+    }
+  }
+`;

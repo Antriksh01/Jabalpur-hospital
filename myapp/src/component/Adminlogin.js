@@ -44,7 +44,7 @@ const Adminlogin = () => {
           <h3> </h3>
         </div>
       </nav>
-      <div className="title">
+      <div className="title text-center">
         <span>Admin Login</span>
       </div>
       <div className="maincontainer">

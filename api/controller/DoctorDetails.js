@@ -224,25 +224,3 @@ export const deleteDoctorHandler = (req, res) => {
     return res.status(500).send("error");
   }
 };
-
-// export const doctorDataDelete = (req, res) => {
-//   try {
-//     const Doc_ID = req.params.Doc_ID;
-
-//     const deleteQuery = "DELETE FROM doctor_data WHERE Doc_ID = ?";
-//     db.query(deleteQuery, [Doc_ID], (err, deleteResult) => {
-//       if (err) return res.status(500).send(err);
-
-//       if (deleteResult.affectedRows === 0) {
-//         return res.status(404).json("Doctor not found");
-//       }
-
-//       return res.status(200).json("Doctor data deleted successfully");
-//     });
-//   } catch (error) {
-//     console.log(error);
-//     return res
-//       .status(500)
-//       .send("An error occurred while deleting the doctor data");
-//   }
-// };

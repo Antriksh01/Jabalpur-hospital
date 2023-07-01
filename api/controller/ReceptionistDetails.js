@@ -159,3 +159,86 @@ export const SearchPatientController = async (req, res) => {
     console.log(error);
   }
 };
+
+// get patient details
+export const getPatientDetails = (req, res) => {
+  try {
+    db.query("SELECT * FROM receptionist", (error, results) => {
+      if (error) {
+        console.error(error);
+      } else {
+        res.send(results);
+      }
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// receptionistDetailsUpdate
+export const receptionistDetailsUpdate = (req, res) => {
+  try {
+    const {
+      fullname,
+      mobile,
+      email,
+      Rec_ID,
+      Workingday,
+      Offday,
+      AssignedCounter,
+    } = req.body;
+    const recID = req.params.Rec_ID;
+    const selectQuery = "SELECT * FROM receptionist WHERE email = ?";
+
+    db.query(selectQuery, [email], (err, selectResult) => {
+      if (err) return res.status(500).send(err);
+
+      if (selectResult.length === 0) {
+        return res.status(404).json("Receptionist not found");
+      }
+
+      const updateQuery =
+        "UPDATE receptionist SET fullname =?, mobile = ?, Workingday = ?, Offday = ?, AssignedCounter = ? WHERE email = ? AND Rec_ID = ?";
+      const updateValues = [
+        fullname,
+        mobile,
+        Workingday,
+        Offday,
+        AssignedCounter,
+        email,
+        recID,
+      ];
+
+      db.query(updateQuery, updateValues, (err, updateResult) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({ error: "Database error" });
+        }
+
+        return res
+          .status(200)
+          .json({ message: "Receptionist data updated successfully" });
+      });
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//delete receptionist data
+export const deleteReceptionistData = (req, res) => {
+  try {
+    const rec_ID = req.params.id;
+    const q = "DELETE FROM receptionist WHERE Rec_ID = ?";
+
+    db.query(q, [rec_ID], (err, results) => {
+      if (err) return res.status(500).send(err);
+      if (results.affectedRows === 0) {
+        return res.status(404).json("receptionist not found");
+      }
+      return res.status(200).json("receptionist data deleted");
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};

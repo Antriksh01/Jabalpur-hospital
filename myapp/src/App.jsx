@@ -44,6 +44,7 @@ import MissedPatient from "./component/MissedPatient";
 import DoctorDisplay from "./component/DoctorDisplay";
 import DoctorDisplayScr from "./component/DoctorDisplayScr";
 import ManageRec from "./component/ManageRec";
+import MonthWiseToken from "./component/MonthWiseToken";
 axios.defaults.withCredentials = true;
 
 function App() {
@@ -88,6 +89,7 @@ function App() {
             <Route path="/admin-report" element={<Report />} />
             <Route path="/add-receptionist" element={<AddReceptionist />} />
             <Route path="/add-doctor" element={<AddDoctor />} />
+            <Route path="/month-wise-token" element={<MonthWiseToken />} />
 
             {/* doctor-dashboard */}
             <Route path="/doctor-dashboard" element={<Doctordashboard />} />

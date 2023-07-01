@@ -45,18 +45,17 @@ const RDashboard = () => {
   return (
     <>
       <Container>
+        <Header />
         <div>
-          <Header />
-
           <div
             className="text-center fs-1 fw-bold"
             style={{ color: "#347571" }}
           >
             <span>Receptionist Dashboard</span>
           </div>
-          <div className="container-fluid">
+          <div className="container">
             <div className="row g-0">
-              <div className="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+              <div className="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12">
                 <div className="leftbox"></div>
               </div>
               <div className="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">

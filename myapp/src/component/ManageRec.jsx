@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./Managedoctor.css";
+// import "./Managedoctor.css";
 import Header from "./Header";
 // import jbplogo from './jbplogo.png';
 import { styled } from "styled-components";
@@ -17,10 +17,11 @@ const ManageRec = () => {
   const countDoctors = async () => {
     try {
       const dt = await axios.get(
-        "http://localhost:8100/api/auth/getDoctorsStatus"
+        "http://localhost:8100/api/auth/get-patient-details"
       );
       const res = dt.data;
       setData(res);
+      console.log(res);
     } catch (error) {
       console.log(error);
     }
@@ -39,7 +40,7 @@ const ManageRec = () => {
       const updatedItem = updatedData[selectedItem];
       console.log(updatedItem);
       await axios.put(
-        `http://localhost:8100/api/auth/doctorDataUpdate/${updatedItem.Doc_ID}`,
+        `http://localhost:8100/api/auth/update-rec-details/${updatedItem.Rec_ID}`,
         updatedItem
       );
 
@@ -60,7 +61,7 @@ const ManageRec = () => {
       const deletedItem = data[selectedItem];
       console.log(deletedItem);
       await axios.delete(
-        `http://localhost:8100/api/auth/doctor-data-delete/${deletedItem.Doc_ID}`
+        `http://localhost:8100/api/auth/delete-receptionist/${deletedItem.Rec_ID}`
       );
 
       handleCloseModal();
@@ -72,6 +73,7 @@ const ManageRec = () => {
   const handleOpenModal = (index) => {
     setSelectedItem(index);
     setModalValues(data[index]);
+    console.log(modalValues);
     setShowModal(true);
   };
 
@@ -106,24 +108,23 @@ const ManageRec = () => {
                   <th>Name</th>
                   <th>Email</th>
                   <th>Contact</th>
-                  <th>Dept</th>
                   <th>Availability</th>
                   <th>Off Days</th>
-
+                  <th>Assigned Counter</th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {data?.map((item, index) => (
                   <>
-                    <tr key={item.Doc_ID}>
-                      <td>{item.Doc_ID}</td>
-                      <td>{item.Doctor_name}</td>
-                      <td>{item.Email}</td>
-                      <td>{item.Mobile}</td>
-                      <td>{item.Department_name}</td>
-                      <td>{item.working_days}</td>
-                      <td>{item.off_days}</td>
+                    <tr key={item.Rec_ID}>
+                      <td>{item.Rec_ID}</td>
+                      <td>{item.fullname}</td>
+                      <td>{item.email}</td>
+                      <td>{item.mobile}</td>
+                      <td>{item.Workingday}</td>
+                      <td>{item.Offday}</td>
+                      <td>{item.AssignedCounter}</td>
                       <td>
                         <div className="actButton d-flex flex-column justify-content-between">
                           <button
@@ -153,27 +154,14 @@ const ManageRec = () => {
                     <Modal.Title>Update Values</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                    {/* <input
-                      type="text"
-                      name="value1"
-                      value={modalValues.value1 || ""}
-                      onChange={handleInputChange}
-                    />
-                    <input
-                      type="text"
-                      name="value2"
-                      value={modalValues.value2 || ""}
-                      onChange={handleInputChange}
-                    /> */}
-
                     <form onSubmit={handleUpdate}>
                       <div className="form">
                         <input
                           type="text"
-                          placeholder="Doctor ID"
+                          placeholder="Receptionist ID"
                           style={{ border: "none" }}
-                          name="Doc_ID"
-                          value={modalValues.Doc_ID || ""}
+                          name="Rec_ID"
+                          value={modalValues.Rec_ID || ""}
                           onChange={handleInputChange}
                           required
                         />
@@ -181,10 +169,10 @@ const ManageRec = () => {
                         <br />
                         <input
                           type="text"
-                          placeholder="Doctor name"
+                          placeholder="Receptionist name"
                           style={{ border: "none" }}
-                          name="Doctor_name"
-                          value={modalValues.Doctor_name || ""}
+                          name="fullname"
+                          value={modalValues.fullname || ""}
                           onChange={handleInputChange}
                           required
                         />
@@ -194,8 +182,8 @@ const ManageRec = () => {
                           type="text"
                           placeholder="Email"
                           style={{ border: "none" }}
-                          value={modalValues.Email || ""}
-                          name="Email"
+                          value={modalValues.email || ""}
+                          name="email"
                           onChange={handleInputChange}
                           required
                         />
@@ -205,30 +193,19 @@ const ManageRec = () => {
                           type="text"
                           placeholder="Mobile"
                           style={{ border: "none" }}
-                          value={modalValues.Mobile || ""}
+                          value={modalValues.mobile || ""}
                           onChange={handleInputChange}
-                          name="Mobile"
+                          name="mobile"
                           required
                         />
                         <br />
                         <br />
                         <input
                           type="text"
-                          placeholder="Department name"
+                          placeholder="Working days"
                           style={{ border: "none" }}
-                          name="Department_name"
-                          value={modalValues.Department_name || ""}
-                          onChange={handleInputChange}
-                          required
-                        />
-                        <br />
-                        <br />
-                        <input
-                          type="text"
-                          placeholder="Working Days"
-                          style={{ border: "none" }}
-                          name="working_days"
-                          value={modalValues.working_days || ""}
+                          name="Workingday"
+                          value={modalValues.Workingday || ""}
                           onChange={handleInputChange}
                           required
                         />
@@ -236,10 +213,21 @@ const ManageRec = () => {
                         <br />
                         <input
                           type="text"
-                          placeholder="Off Days"
+                          placeholder="Off days"
                           style={{ border: "none" }}
-                          name="off_days"
-                          value={modalValues.off_days || ""}
+                          name="Offday"
+                          value={modalValues.Offday || ""}
+                          onChange={handleInputChange}
+                          required
+                        />
+                        <br />
+                        <br />
+                        <input
+                          type="text"
+                          placeholder="Assigned Counter"
+                          style={{ border: "none" }}
+                          name="AssignedCounter"
+                          value={modalValues.AssignedCounter || ""}
                           onChange={handleInputChange}
                           required
                         />
@@ -320,5 +308,10 @@ const Container = styled.div`
   a {
     text-decoration: none;
     color: white;
+  }
+  .form {
+    input {
+      padding: 1rem !important;
+    }
   }
 `;
