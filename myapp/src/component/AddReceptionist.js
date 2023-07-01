@@ -47,91 +47,93 @@ const AddReceptionist = () => {
         <h1 className="text-center fs-1 fw-bold" style={{ color: "#347571" }}>
           Add Receptionist
         </h1>
-        <form onSubmit={handleClick}>
-          <div className="form">
-            <input
-              type="text"
-              placeholder="Full Name"
-              style={{ border: "none" }}
-              name="fullname"
-              value={data.fullname}
-              onChange={handleChange}
-              required
-            />
-            <br />
-            <br />
-            <input
-              type="text"
-              placeholder="Moblie No"
-              style={{ border: "none" }}
-              value={data.mobile}
-              name="mobile"
-              onChange={handleChange}
-              required
-            />
-            <br />
-            <br />
-            <input
-              type="text"
-              placeholder="Working Day"
-              style={{ border: "none" }}
-              value={data.Workingday}
-              onChange={handleChange}
-              name="Workingday"
-              required
-            />
-            <br />
-            <br />
-            <input
-              type="text"
-              placeholder="Off Day"
-              style={{ border: "none" }}
-              name="Offday"
-              value={data.Offday}
-              onChange={handleChange}
-              required
-            />
-            <br />
-            <br />
-            <input
-              type="text"
-              placeholder="Email"
-              style={{ border: "none" }}
-              value={data.email}
-              name="email"
-              onChange={handleChange}
-              required
-            />
-            <br />
-            <br />
-            <input
-              type="text"
-              placeholder="Assigned Counter"
-              style={{ border: "none" }}
-              name="AssignedCounter"
-              value={data.AssignedCounter}
-              onChange={handleChange}
-              required
-            />
-            <br />
-            <br />
-            <input
-              type="text"
-              placeholder="Additional Notes"
-              style={{ border: "none" }}
-              name="Additionalnotes"
-              value={data.Additionalnotes}
-              onChange={handleChange}
-              required
-            />
-            <br />
-          </div>
-          <div className="d-flex justify-content-center">
-            <button type="submit" className="btn">
-              Submit
-            </button>
-          </div>
-        </form>
+        <div className="container">
+          <form onSubmit={handleClick}>
+            <div className="form">
+              <input
+                type="text"
+                placeholder="Full Name"
+                style={{ border: "none" }}
+                name="fullname"
+                value={data.fullname}
+                onChange={handleChange}
+                required
+              />
+              <br />
+              <br />
+              <input
+                type="text"
+                placeholder="Moblie No"
+                style={{ border: "none" }}
+                value={data.mobile}
+                name="mobile"
+                onChange={handleChange}
+                required
+              />
+              <br />
+              <br />
+              <input
+                type="text"
+                placeholder="Working Day"
+                style={{ border: "none" }}
+                value={data.Workingday}
+                onChange={handleChange}
+                name="Workingday"
+                required
+              />
+              <br />
+              <br />
+              <input
+                type="text"
+                placeholder="Off Day"
+                style={{ border: "none" }}
+                name="Offday"
+                value={data.Offday}
+                onChange={handleChange}
+                required
+              />
+              <br />
+              <br />
+              <input
+                type="text"
+                placeholder="Email"
+                style={{ border: "none" }}
+                value={data.email}
+                name="email"
+                onChange={handleChange}
+                required
+              />
+              <br />
+              <br />
+              <input
+                type="text"
+                placeholder="Assigned Counter"
+                style={{ border: "none" }}
+                name="AssignedCounter"
+                value={data.AssignedCounter}
+                onChange={handleChange}
+                required
+              />
+              <br />
+              <br />
+              <input
+                type="text"
+                placeholder="Additional Notes"
+                style={{ border: "none" }}
+                name="Additionalnotes"
+                value={data.Additionalnotes}
+                onChange={handleChange}
+                required
+              />
+              <br />
+            </div>
+            <div className="d-flex justify-content-center">
+              <button type="submit" className="btn btn-success">
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
       </Container>
     </>
   );
@@ -139,6 +141,7 @@ const AddReceptionist = () => {
 export default AddReceptionist;
 const Container = styled.div`
   input {
-    padding: 0.5rem;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
   }
 `;

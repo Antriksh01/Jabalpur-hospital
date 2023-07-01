@@ -50,15 +50,15 @@ const Admindashboard = () => {
                     {" "}
                     <Link to="/add-receptionist">Add a Receptionist</Link>
                   </button>
-                  <button>
+                  {/* <button>
                     <Link to="/admin-report">Report</Link>
-                  </button>
+                  </button> */}
                 </div>
               </div>
               <div className="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
                 <div className="container cardContainer">
                   <div className="row g-5">
-                    <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+                    {/* <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
                       <div class="card">
                         <div class="card-body">
                           <Link to="/manage-doctors">
@@ -67,8 +67,8 @@ const Admindashboard = () => {
                           </Link>
                         </div>
                       </div>
-                    </div>
-                    <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+                    </div> */}
+                    {/* <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
                       <div class="card">
                         <div class="card-body">
                           <Link to="/doctor-availablity">
@@ -77,12 +77,12 @@ const Admindashboard = () => {
                           </Link>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                     <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
                       <div class="card">
                         <div class="card-body">
                           <Link to="/manage-doctors">
-                            <h2>Monitor Doctors Logs</h2>
+                            <h2>Monitor Doctors</h2>
                             {/* <h2>20</h2> */}
                           </Link>
                         </div>
@@ -92,13 +92,13 @@ const Admindashboard = () => {
                       <div class="card">
                         <div class="card-body">
                           <Link to="/manage-receptionist">
-                            <h2>Monitors Receptionist Logs</h2>
+                            <h2>Monitors Receptionist</h2>
                             {/* <h2>10</h2> */}
                           </Link>
                         </div>
                       </div>
                     </div>
-                    <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+                    {/* <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
                       <div class="card">
                         <div class="card-body">
                           <Link to="/display-content">
@@ -106,7 +106,7 @@ const Admindashboard = () => {
                           </Link>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                     <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
                       <div class="card">
                         <div class="card-body">
@@ -130,7 +130,7 @@ export default Admindashboard;
 const Container = styled.div`
   .leftbox {
     width: 100%;
-    height: 90%;
+    height: 30rem;
     margin-top: 1.5rem;
     background-color: #dcf4ce;
     display: flex;

@@ -30,7 +30,7 @@ import PatientAssigned from "./component/PatientAssigned";
 import ReportAdmin from "./component/ReportAdmin";
 import ReceptionistProfile from "./component/ReceptionistProfile";
 import Managedoctor from "./component/Managedoctor";
-import RecpManage from "./component/RecpManage";
+// import RecpManage from "./component/RecpManage";
 import Report from "./component/Report";
 import AddReceptionist from "./component/AddReceptionist";
 import AddDoctor from "./component/AddDoctor";
@@ -43,6 +43,7 @@ import PatientTreatY from "./component/PatientTreatY";
 import MissedPatient from "./component/MissedPatient";
 import DoctorDisplay from "./component/DoctorDisplay";
 import DoctorDisplayScr from "./component/DoctorDisplayScr";
+import ManageRec from "./component/ManageRec";
 axios.defaults.withCredentials = true;
 
 function App() {
@@ -83,7 +84,7 @@ function App() {
             <Route path="/admin-dashboard" element={<Admindashboard />} />
             <Route path="/display-content" element={<DisplayContent />} />
             <Route path="/manage-doctors" element={<Managedoctor />} />
-            <Route path="/manage-receptionist" element={<RecpManage />} />
+            <Route path="/manage-receptionist" element={<ManageRec />} />
             <Route path="/admin-report" element={<Report />} />
             <Route path="/add-receptionist" element={<AddReceptionist />} />
             <Route path="/add-doctor" element={<AddDoctor />} />

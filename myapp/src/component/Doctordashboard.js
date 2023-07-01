@@ -110,7 +110,7 @@ const Doctordashboard = () => {
                     Go for Break
                   </button>
 
-                  <button>Report to Admin</button>
+                  {/* <button>Report to Admin</button> */}
                 </div>
               </div>
               <div className="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
@@ -156,7 +156,7 @@ const Doctordashboard = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+                    {/* <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
                       <div class="card">
                         <div class="card-body">
                           <Link to="/token-generation">
@@ -164,7 +164,7 @@ const Doctordashboard = () => {
                           </Link>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                     <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
                       <div class="card">
                         <div class="card-body">

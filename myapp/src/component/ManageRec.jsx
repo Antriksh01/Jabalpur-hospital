@@ -7,7 +7,7 @@ import axios from "axios";
 import { Button, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-const Managedoctor = () => {
+const ManageRec = () => {
   const [docCount, setDocCount] = useState([]);
   const [data, setData] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -96,7 +96,7 @@ const Managedoctor = () => {
           <Header />
           <div className="title text-center">
             {" "}
-            <span>Manage Doctor</span>
+            <span>Manage Receptionists</span>
           </div>
           <div className="table-responsive">
             <table className="table">
@@ -276,12 +276,12 @@ const Managedoctor = () => {
               <div className="col-4"></div>
               <div className="col-4  d-flex justify-content-center">
                 <button>
-                  <Link to="/add-doctor">Add a Doctor</Link>{" "}
+                  <Link to="/add-receptionist">Add a Receptionist</Link>{" "}
                 </button>
               </div>
               <div className="col-4 d-flex justify-content-center">
                 <button>
-                  <Link to="/admin-dashboard">Go to Dashboard</Link>
+                  <Link to="/admin-dashboard">Go to Dashboard</Link>{" "}
                 </button>
               </div>
             </div>
@@ -291,7 +291,8 @@ const Managedoctor = () => {
     </>
   );
 };
-export default Managedoctor;
+
+export default ManageRec;
 const Container = styled.div`
   .container-fluid {
     button {
@@ -316,7 +317,6 @@ const Container = styled.div`
     padding: 1rem;
     border-radius: 0.5rem;
   }
-
   a {
     text-decoration: none;
     color: white;
