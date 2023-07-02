@@ -46,7 +46,7 @@ const RDashboard = () => {
     <>
       <Container>
         <Header />
-        <div>
+        <div className="bxcont">
           <div
             className="text-center fs-1 fw-bold"
             style={{ color: "#347571" }}
@@ -136,7 +136,7 @@ const Container = styled.div`
     margin-top: 1.5rem;
     background-color: #dcf4ce;
     @media (max-width: 500px) {
-      display: none;
+      display: inline;
     }
     @media (max-width: 376px) {
       display: none;
@@ -162,6 +162,11 @@ const Container = styled.div`
           color: black;
         }
       }
+    }
+  }
+  .bxcont {
+    @media screen and (max-width: 500px) {
+      margin-top: 10rem;
     }
   }
 `;

@@ -46,47 +46,49 @@ const PatientTreatY = () => {
       <Container>
         <div>
           <Header />
-          <div className="title">
-            {" "}
-            <span>
-              <h1
-                className="text-center fs-1 fw-bold"
-                style={{ color: "#347571" }}
-              >
-                Patients Treated yesterday
-              </h1>
-            </span>
-          </div>
+          <div className="contMain">
+            <div className="title">
+              {" "}
+              <span>
+                <h1
+                  className="text-center fs-1 fw-bold"
+                  style={{ color: "#347571" }}
+                >
+                  Patients Treated yesterday
+                </h1>
+              </span>
+            </div>
 
-          <div className="table-responsive mt-5">
-            <table id="table" className="table">
-              <thead>
-                <tr>
-                  <th>Token ID</th>
-                  <th>P_ID</th>
-                  <th>P_Name</th>
-                  <th>P_Contact</th>
-                  <th>Assigned_doctor</th>
-                  <th>Dept</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredYest?.map((item, index) => (
-                  <>
-                    <tr key={index}>
-                      <td>{item.Token_ID}</td>
-                      <td>{item.uhid}</td>
-                      <td>
-                        {item.firstname} {item.lastname}
-                      </td>
-                      <td>{item.P_Contact}</td>
-                      <td>{item.Assigned_doctor}</td>
-                      <td>{item.Dept}</td>
-                    </tr>
-                  </>
-                ))}
-              </tbody>
-            </table>
+            <div className="table-responsive mt-5">
+              <table id="table" className="table">
+                <thead>
+                  <tr>
+                    <th>Token ID</th>
+                    <th>P_ID</th>
+                    <th>P_Name</th>
+                    <th>P_Contact</th>
+                    <th>Assigned_doctor</th>
+                    <th>Dept</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredYest?.map((item, index) => (
+                    <>
+                      <tr key={index}>
+                        <td>{item.Token_ID}</td>
+                        <td>{item.uhid}</td>
+                        <td>
+                          {item.firstname} {item.lastname}
+                        </td>
+                        <td>{item.P_Contact}</td>
+                        <td>{item.Assigned_doctor}</td>
+                        <td>{item.Dept}</td>
+                      </tr>
+                    </>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </Container>
@@ -95,4 +97,8 @@ const PatientTreatY = () => {
 };
 
 export default PatientTreatY;
-const Container = styled.div``;
+const Container = styled.div`
+.contMain {
+  @media screen and (max-width: 500px) {
+    margin-top: 10rem;
+  }`;

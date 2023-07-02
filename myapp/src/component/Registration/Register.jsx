@@ -117,7 +117,7 @@ const Register = () => {
         <br />
         <br />
 
-        <button type="submit" className="btn">
+        <button type="submit" className="btn btn-success">
           Submit
         </button>
       </form>

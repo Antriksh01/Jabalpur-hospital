@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import pic from "../photos/jbplogo.png";
+import styled from "styled-components";
 
 import "./ForgatePassword.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Header from "./Header";
 const ForgetPassword = () => {
   const navigate = useNavigate();
   const [data, setData] = useState({
@@ -37,57 +39,64 @@ const ForgetPassword = () => {
 
   return (
     <>
-      <div className="header">
-        <img id="img1" src={pic} alt="img" />
-        <h1 id="adm1">Forget Password</h1>
-        <h3 id="hd">
-          Hi, Admin Name <br />
-          Employee Id
-        </h3>
-        {/* <button className="btn1">Logout</button> */}
-      </div>
+      <Container>
+        <Header />
+        <div className="container d-flex flex-column">
+          <h1 className="text-center">Reset Password</h1>
+          <form className="form" onSubmit={onsubmit}>
+            <input
+              type="text"
+              placeholder="Enter your email"
+              name="username"
+              value={data.username}
+              onChange={handleChange}
+              required
+            />
+            <br />
+            <br />
+            <input
+              type="password"
+              placeholder="Password"
+              name="password"
+              value={data.password}
+              onChange={handleChange}
+              required
+            />
+            <br />
+            <br />
+            <input
+              type="password"
+              name="cpassword"
+              value={data.cpassword}
+              placeholder="Confirm Password"
+              onChange={handleChange}
+              required
+            />
+            <br />
+            <br />
 
-      <form className="form" onSubmit={onsubmit}>
-        <input
-          type="text"
-          placeholder="Enter your email"
-          name="username"
-          value={data.username}
-          style={{ border: "none", width: "100%" }}
-          onChange={handleChange}
-          required
-        />
-        <br />
-        <br />
-        <input
-          type="password"
-          placeholder="Password"
-          style={{ border: "none", width: "100%" }}
-          name="password"
-          value={data.password}
-          onChange={handleChange}
-          required
-        />
-        <br />
-        <br />
-        <input
-          type="password"
-          name="cpassword"
-          value={data.cpassword}
-          placeholder="Confirm Password"
-          style={{ border: "none", width: "100%" }}
-          onChange={handleChange}
-          required
-        />
-        <br />
-        <br />
-
-        <button type="submit" className="btn">
-          Reset Password{" "}
-        </button>
-      </form>
+            <button type="submit" className="btn btn-success">
+              Reset Password{" "}
+            </button>
+          </form>
+        </div>
+      </Container>
     </>
   );
 };
 
 export default ForgetPassword;
+const Container = styled.div`
+  .form {
+    input {
+      border: none;
+      width: 50%;
+      @media screen and (max-width: 500px) {
+        width: 100%;
+      }
+    }
+    button {
+      margin-left: 0rem;
+    }
+  }
+`;

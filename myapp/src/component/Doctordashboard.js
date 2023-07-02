@@ -86,77 +86,78 @@ const Doctordashboard = () => {
       <Container>
         <div>
           <Header />
-          <div className="title">
-            <h1
-              className="text-center fs-1 fw-bold"
-              style={{ color: "#347571" }}
-            >
-              Doctor Dashboard
-            </h1>
-          </div>
-          <div className="container-fluid">
-            <div className="row g-0">
-              <div className="col-xl-2 col-lg-2 col-md-2 col-sm-12">
-                <div className="leftbox">
-                  <button onClick={() => handleUpdate("yes")}>
-                    <Link to="/DoctorTreatment">Start Your day </Link>
-                  </button>
+          <div className="contMain">
+            <div className="title">
+              <h1
+                className="text-center fs-1 fw-bold"
+                style={{ color: "#347571" }}
+              >
+                Doctor Dashboard
+              </h1>
+            </div>
+            <div className="container-fluid">
+              <div className="row g-5">
+                <div className="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                  <div className="leftbox">
+                    <button onClick={() => handleUpdate("yes")}>
+                      <Link to="/DoctorTreatment">Start Your day </Link>
+                    </button>
 
-                  <button onClick={() => handleUpdate("no")}>
-                    Wrap the Day
-                  </button>
+                    <button onClick={() => handleUpdate("no")}>
+                      Wrap the Day
+                    </button>
 
-                  <button onClick={() => handleUpdate("onBreak")}>
-                    Go for Break
-                  </button>
+                    <button onClick={() => handleUpdate("onBreak")}>
+                      Go for Break
+                    </button>
 
-                  {/* <button>Report to Admin</button> */}
+                    {/* <button>Report to Admin</button> */}
+                  </div>
                 </div>
-              </div>
-              <div className="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
-                <div className="container cardContainer">
-                  <div className="row g-5">
-                    <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
-                      <div class="card">
-                        <div class="card-body">
-                          <Link to="/patient-queue">
-                            <h2>Patient in Queue</h2>
-                            <h2>{filteredQueue.length}</h2>
-                          </Link>
+                <div className="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                  <div className="container cardContainer">
+                    <div className="row g-5">
+                      <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+                        <div class="card">
+                          <div class="card-body">
+                            <Link to="/patient-queue">
+                              <h2>Patient in Queue</h2>
+                              <h2>{filteredQueue.length}</h2>
+                            </Link>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
-                      <div class="card">
-                        <div class="card-body">
-                          <Link to="/servePatient">
-                            <h2>Served</h2>
-                            <h2>{filteredData.length}</h2>
-                          </Link>
+                      <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+                        <div class="card">
+                          <div class="card-body">
+                            <Link to="/servePatient">
+                              <h2>Served</h2>
+                              <h2>{filteredData.length}</h2>
+                            </Link>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
-                      <div class="card">
-                        <div class="card-body">
-                          <Link to="/patientTreated">
-                            <h2>Patients Treated Yesterday</h2>
-                            <h2>{filteredYest.length}</h2>
-                          </Link>
+                      <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+                        <div class="card">
+                          <div class="card-body">
+                            <Link to="/patientTreated">
+                              <h2>Patients Treated Yesterday</h2>
+                              <h2>{filteredYest.length}</h2>
+                            </Link>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
-                      <div class="card">
-                        <div class="card-body">
-                          <Link to="/patient-missed">
-                            <h2>Patient Absent</h2>
-                            <h2>{filterMissed.length}</h2>
-                          </Link>
+                      <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+                        <div class="card">
+                          <div class="card-body">
+                            <Link to="/patient-missed">
+                              <h2>Patient Absent</h2>
+                              <h2>{filterMissed.length}</h2>
+                            </Link>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    {/* <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+                      {/* <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
                       <div class="card">
                         <div class="card-body">
                           <Link to="/token-generation">
@@ -165,12 +166,13 @@ const Doctordashboard = () => {
                         </div>
                       </div>
                     </div> */}
-                    <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
-                      <div class="card">
-                        <div class="card-body">
-                          <Link to="/doctor-display">
-                            <h2>Doctor Display</h2>
-                          </Link>
+                      <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+                        <div class="card">
+                          <div class="card-body">
+                            <Link to="/doctor-display">
+                              <h2>Doctor Display</h2>
+                            </Link>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -203,7 +205,14 @@ const Container = styled.div`
       border-radius: 1.5rem;
     }
     @media (max-width: 500px) {
-      display: none;
+      display: flex;
+      padding: 1rem;
+      height: 100%;
+      margin-bottom: 1rem;
+      width: 100%;
+      align-content: space-around;
+      justify-content: space-between;
+      align-items: center;
     }
     @media (max-width: 376px) {
       display: none;
@@ -229,6 +238,10 @@ const Container = styled.div`
   }
   a {
     text-decoration: none;
-    color: black;
+    color:black;
   }
+  .contMain {
+    @media screen and (max-width: 500px) {
+      margin-top: 10rem;
+    }
 `;

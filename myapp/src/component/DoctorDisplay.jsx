@@ -40,47 +40,49 @@ const DoctorDisplay = () => {
     <>
       <Container>
         <Header />
-        <h1 className="text-center fw-bold" style={{ color: "#347571" }}>
-          Doctor's Display
-        </h1>
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
-              <div className="leftCont">
-                <h1>Doctor Name : {content[0]?.Doctor_name}</h1>
-                <h1>Degree : </h1>
-                <h1>Department : {content[0]?.Dept}</h1>
-                <h1>Room No. : {content[0]?.Room_No}</h1>
+        <div className="contMain">
+          <h1 className="text-center fw-bold" style={{ color: "#347571" }}>
+            Doctor's Display
+          </h1>
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+                <div className="leftbox">
+                  <h1>Doctor Name : {content[0]?.Doctor_name}</h1>
+                  <h1>Degree : </h1>
+                  <h1>Department : {content[0]?.Dept}</h1>
+                  <h1>Room No. : {content[0]?.Room_No}</h1>
+                </div>
               </div>
-            </div>
-            <div className="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12">
-              <div className="table-responsive">
-                <table id="table" className="table">
-                  <thead>
-                    <tr>
-                      <th>Token No</th>
-                      <th>Patient Name</th>
-                      <th>Approximate Time</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {content?.map((item, index) => (
-                      <>
-                        <tr
-                          key={item.uhid}
-                          className={index === 0 ? "first-row" : ""}
-                        >
-                          <td>{item.uhid}</td>
-                          <td>
-                            {item.firstname} {item.lastname}
-                          </td>
-                          {}
-                          <td>{item.Time}</td>
-                        </tr>
-                      </>
-                    ))}
-                  </tbody>
-                </table>
+              <div className="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12">
+                <div className="table-responsive">
+                  <table id="table" className="table">
+                    <thead>
+                      <tr>
+                        <th className="text-center">Token No</th>
+                        <th className="text-center">Patient Name</th>
+                        <th className="text-center">Approximate Time</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {content?.map((item, index) => (
+                        <>
+                          <tr
+                            key={item.uhid}
+                            className={index === 0 ? "first-row" : ""}
+                          >
+                            <td>{item.uhid}</td>
+                            <td>
+                              {item.firstname} {item.lastname}
+                            </td>
+                            {}
+                            <td>{item.Time}</td>
+                          </tr>
+                        </>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
@@ -92,13 +94,16 @@ const DoctorDisplay = () => {
 
 export default DoctorDisplay;
 const Container = styled.div`
-  .leftCont {
+  .leftbox {
     height: 100%;
     background-color: #dcf4ce;
     margin-top: 14px;
     padding: 7rem 1rem;
     h1 {
       font-size: 2rem;
+    }
+    @media screen and (max-width:500px){
+        display:inline;
     }
   }
   th {
@@ -107,6 +112,11 @@ const Container = styled.div`
     background-color: #b8e28a;
     color: #347571;
     font-size: 2rem;
+    @media screen and (max-width:500px){
+      padding: 1rem;
+      font-size:1rem;
+      
+    }
   }
   td {
     padding: 2rem;
@@ -114,6 +124,10 @@ const Container = styled.div`
     background-color: #ecf8e5;
     color: #347571;
     font-size: 2rem;
+    @media screen and (max-width:500px){
+      padding: 1rem;
+      font-size:1rem;
+    }
   }
   .table > :not(:last-child) > :last-child > * {
     border-bottom-color: white;
@@ -122,5 +136,16 @@ const Container = styled.div`
   .first-row {
     background-color: red !important;
   }
+
+  .contMain {
+    @media screen and (max-width: 500px) {
+      margin-top: 10rem;
+    }
+    .table-responsive{
+      margin:0rem;
+      @media screen and (max-width:500px){
+        margin-left:-1rem;
+      }
+    }
 `;
 // Approximate time

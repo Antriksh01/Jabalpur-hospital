@@ -93,5 +93,10 @@ const Container = styled.div`
   }
   .navbar {
     height: 9rem;
+    @media screen and (max-width: 500px) {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+    }
   }
 `;

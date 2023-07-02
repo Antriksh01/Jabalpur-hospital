@@ -96,181 +96,185 @@ const ManageRec = () => {
       <Container>
         <div>
           <Header />
-          <div className="title text-center">
-            {" "}
-            <span>Manage Receptionists</span>
-          </div>
-          <div className="table-responsive">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Contact</th>
-                  <th>Availability</th>
-                  <th>Off Days</th>
-                  <th>Assigned Counter</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {data?.map((item, index) => (
-                  <>
-                    <tr key={item.Rec_ID}>
-                      <td>{item.Rec_ID}</td>
-                      <td>{item.fullname}</td>
-                      <td>{item.email}</td>
-                      <td>{item.mobile}</td>
-                      <td>{item.Workingday}</td>
-                      <td>{item.Offday}</td>
-                      <td>{item.AssignedCounter}</td>
-                      <td>
-                        <div className="actButton d-flex flex-column justify-content-between">
-                          <button
-                            className="btn btn-primary mb-2"
-                            style={{
-                              backgroundColor: "#5ec57e",
-                              border: "none",
-                            }}
-                            onClick={() => handleOpenModal(index)}
-                          >
-                            update
-                          </button>
-                          {/* <button
+          <div className="contMain">
+            <div className="title text-center">
+              {" "}
+              <span>Manage Receptionists</span>
+            </div>
+            <div className="table-responsive">
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Contact</th>
+                    <th>Availability</th>
+                    <th>Off Days</th>
+                    <th>Assigned Counter</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data?.map((item, index) => (
+                    <>
+                      <tr key={item.Rec_ID}>
+                        <td>{item.Rec_ID}</td>
+                        <td>{item.fullname}</td>
+                        <td>{item.email}</td>
+                        <td>{item.mobile}</td>
+                        <td>{item.Workingday}</td>
+                        <td>{item.Offday}</td>
+                        <td>{item.AssignedCounter}</td>
+                        <td>
+                          <div className="actButton d-flex flex-column justify-content-between">
+                            <button
+                              className="btn btn-primary mb-2"
+                              style={{
+                                backgroundColor: "#5ec57e",
+                                border: "none",
+                              }}
+                              onClick={() => handleOpenModal(index)}
+                            >
+                              update
+                            </button>
+                            {/* <button
                             className="btn btn-danger"
                             onClick={handleDelete}
                           >
                             Delete
                           </button> */}
-                        </div>
-                      </td>
-                    </tr>
-                  </>
-                ))}
+                          </div>
+                        </td>
+                      </tr>
+                    </>
+                  ))}
 
-                <Modal show={showModal} onHide={handleCloseModal}>
-                  <Modal.Header closeButton>
-                    <Modal.Title>Update Values</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <form onSubmit={handleUpdate}>
-                      <div className="form">
-                        <input
-                          type="text"
-                          placeholder="Receptionist ID"
-                          style={{ border: "none" }}
-                          name="Rec_ID"
-                          value={modalValues.Rec_ID || ""}
-                          onChange={handleInputChange}
-                          required
-                        />
-                        <br />
-                        <br />
-                        <input
-                          type="text"
-                          placeholder="Receptionist name"
-                          style={{ border: "none" }}
-                          name="fullname"
-                          value={modalValues.fullname || ""}
-                          onChange={handleInputChange}
-                          required
-                        />
-                        <br />
-                        <br />
-                        <input
-                          type="text"
-                          placeholder="Email"
-                          style={{ border: "none" }}
-                          value={modalValues.email || ""}
-                          name="email"
-                          onChange={handleInputChange}
-                          required
-                        />
-                        <br />
-                        <br />
-                        <input
-                          type="text"
-                          placeholder="Mobile"
-                          style={{ border: "none" }}
-                          value={modalValues.mobile || ""}
-                          onChange={handleInputChange}
-                          name="mobile"
-                          required
-                        />
-                        <br />
-                        <br />
-                        <input
-                          type="text"
-                          placeholder="Working days"
-                          style={{ border: "none" }}
-                          name="Workingday"
-                          value={modalValues.Workingday || ""}
-                          onChange={handleInputChange}
-                          required
-                        />
-                        <br />
-                        <br />
-                        <input
-                          type="text"
-                          placeholder="Off days"
-                          style={{ border: "none" }}
-                          name="Offday"
-                          value={modalValues.Offday || ""}
-                          onChange={handleInputChange}
-                          required
-                        />
-                        <br />
-                        <br />
-                        <input
-                          type="text"
-                          placeholder="Assigned Counter"
-                          style={{ border: "none" }}
-                          name="AssignedCounter"
-                          value={modalValues.AssignedCounter || ""}
-                          onChange={handleInputChange}
-                          required
-                        />
+                  <Modal show={showModal} onHide={handleCloseModal}>
+                    <Modal.Header closeButton>
+                      <Modal.Title>Update Values</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <form onSubmit={handleUpdate}>
+                        <div className="form">
+                          <input
+                            type="text"
+                            placeholder="Receptionist ID"
+                            style={{ border: "none" }}
+                            name="Rec_ID"
+                            value={modalValues.Rec_ID || ""}
+                            onChange={handleInputChange}
+                            required
+                          />
+                          <br />
+                          <br />
+                          <input
+                            type="text"
+                            placeholder="Receptionist name"
+                            style={{ border: "none" }}
+                            name="fullname"
+                            value={modalValues.fullname || ""}
+                            onChange={handleInputChange}
+                            required
+                          />
+                          <br />
+                          <br />
+                          <input
+                            type="text"
+                            placeholder="Email"
+                            style={{ border: "none" }}
+                            value={modalValues.email || ""}
+                            name="email"
+                            onChange={handleInputChange}
+                            required
+                          />
+                          <br />
+                          <br />
+                          <input
+                            type="text"
+                            placeholder="Mobile"
+                            style={{ border: "none" }}
+                            value={modalValues.mobile || ""}
+                            onChange={handleInputChange}
+                            name="mobile"
+                            required
+                          />
+                          <br />
+                          <br />
+                          <input
+                            type="text"
+                            placeholder="Working days"
+                            style={{ border: "none" }}
+                            name="Workingday"
+                            value={modalValues.Workingday || ""}
+                            onChange={handleInputChange}
+                            required
+                          />
+                          <br />
+                          <br />
+                          <input
+                            type="text"
+                            placeholder="Off days"
+                            style={{ border: "none" }}
+                            name="Offday"
+                            value={modalValues.Offday || ""}
+                            onChange={handleInputChange}
+                            required
+                          />
+                          <br />
+                          <br />
+                          <input
+                            type="text"
+                            placeholder="Assigned Counter"
+                            style={{ border: "none" }}
+                            name="AssignedCounter"
+                            value={modalValues.AssignedCounter || ""}
+                            onChange={handleInputChange}
+                            required
+                          />
+                        </div>
+                        <div className="d-flex justify-content-center btnBx">
+                          <button
+                            type="submit"
+                            className="btn btn-primary"
+                            style={{
+                              backgroundColor: "#22923ad4",
+                              border: "none",
+                            }}
+                            onClick={handleUpdate}
+                          >
+                            Submit
+                          </button>
+                        </div>
+                      </form>
+                      {/* Add more input fields as needed */}
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <div
+                        style={{ display: "flex", justifyContent: "center" }}
+                      >
+                        <Button variant="danger" onClick={handleDelete}>
+                          Delete
+                        </Button>
                       </div>
-                      <div className="d-flex justify-content-center btnBx">
-                        <button
-                          type="submit"
-                          className="btn btn-primary"
-                          style={{
-                            backgroundColor: "#22923ad4",
-                            border: "none",
-                          }}
-                          onClick={handleUpdate}
-                        >
-                          Submit
-                        </button>
-                      </div>
-                    </form>
-                    {/* Add more input fields as needed */}
-                  </Modal.Body>
-                  <Modal.Footer>
-                    <div style={{ display: "flex", justifyContent: "center" }}>
-                      <Button variant="danger" onClick={handleDelete}>
-                        Delete
-                      </Button>
-                    </div>
-                  </Modal.Footer>
-                </Modal>
-              </tbody>
-            </table>
-          </div>
-          <div className="container-fluid">
-            <div className="row">
-              <div className="col-4"></div>
-              <div className="col-4  d-flex justify-content-center">
-                <button>
-                  <Link to="/add-receptionist">Add a Receptionist</Link>{" "}
-                </button>
-              </div>
-              <div className="col-4 d-flex justify-content-center">
-                <button>
-                  <Link to="/admin-dashboard">Go to Dashboard</Link>{" "}
-                </button>
+                    </Modal.Footer>
+                  </Modal>
+                </tbody>
+              </table>
+            </div>
+            <div className="container-fluid">
+              <div className="row g-5">
+                <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12"></div>
+                <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12  d-flex justify-content-center">
+                  <button>
+                    <Link to="/add-receptionist">Add a Receptionist</Link>{" "}
+                  </button>
+                </div>
+                <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 d-flex justify-content-center">
+                  <button>
+                    <Link to="/admin-dashboard">Go to Dashboard</Link>{" "}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -291,6 +295,9 @@ const Container = styled.div`
       font-size: 1.5rem;
       background-color: #5ec57e;
       border-radius: 1.5rem;
+      @media screen and (max-width:500px){
+        width:100%;
+      }
     }
   }
   .modal-footer {
@@ -314,4 +321,8 @@ const Container = styled.div`
       padding: 1rem !important;
     }
   }
+  .contMain {
+    @media screen and (max-width: 500px) {
+      margin-top: 10rem;
+    }
 `;

@@ -30,7 +30,7 @@ const PatientQueue = () => {
       const filteredData = data.filter(
         (item) =>
           item.Assigned_doctor === auth.user.reg_email &&
-          item.treatment_status !== "Treated" &&
+          item.treatment_status === "Pending" &&
           item.Token_Generate_Date === formattedDate
       );
 
@@ -49,51 +49,53 @@ const PatientQueue = () => {
       <Container>
         <div>
           <Header />
-          <div className="title">
-            {" "}
-            <span>
-              <h1
-                className="text-center fs-1 fw-bold"
-                style={{ color: "#347571" }}
-              >
-                Patient in Queue
-              </h1>
-            </span>
-          </div>
+          <div className="contMain">
+            <div className="title">
+              {" "}
+              <span>
+                <h1
+                  className="text-center fs-1 fw-bold"
+                  style={{ color: "#347571" }}
+                >
+                  Patient in Queue
+                </h1>
+              </span>
+            </div>
 
-          <div className="table-responsive mt-5">
-            <table id="table" className="table">
-              <thead>
-                <tr>
-                  <th>P_ID</th>
-                  <th>P_Name</th>
-                  <th>P_Contact</th>
-                  <th>Assigned_doctor</th>
-                  <th>Time</th>
-                  <th>Dept</th>
-                  <th>Token Generated</th>
-                  <th>Token Generate Date</th>
-                </tr>
-              </thead>
-              <tbody>
-                {patient?.map((item, index) => (
-                  <>
-                    <tr key={index}>
-                      <td>{item.uhid}</td>
-                      <td>
-                        {item.firstname} {item.lastname}
-                      </td>
-                      <td>{item.P_Contact}</td>
-                      <td>{item.Assigned_doctor}</td>
-                      <td>{item.Time}</td>
-                      <td>{item.Dept}</td>
-                      <td>{item.Token_Generated}</td>
-                      <td>{item.Token_Generate_Date}</td>
-                    </tr>
-                  </>
-                ))}
-              </tbody>
-            </table>
+            <div className="table-responsive mt-5">
+              <table id="table" className="table">
+                <thead>
+                  <tr>
+                    <th>P_ID</th>
+                    <th>P_Name</th>
+                    <th>P_Contact</th>
+                    <th>Assigned_doctor</th>
+                    <th>Time</th>
+                    <th>Dept</th>
+                    <th>Token Generated</th>
+                    <th>Token Generate Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {patient?.map((item, index) => (
+                    <>
+                      <tr key={index}>
+                        <td>{item.uhid}</td>
+                        <td>
+                          {item.firstname} {item.lastname}
+                        </td>
+                        <td>{item.P_Contact}</td>
+                        <td>{item.Assigned_doctor}</td>
+                        <td>{item.Time}</td>
+                        <td>{item.Dept}</td>
+                        <td>{item.Token_Generated}</td>
+                        <td>{item.Token_Generate_Date}</td>
+                      </tr>
+                    </>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </Container>
@@ -102,4 +104,8 @@ const PatientQueue = () => {
 };
 
 export default PatientQueue;
-const Container = styled.div``;
+const Container = styled.div`
+.contMain {
+  @media screen and (max-width: 500px) {
+    margin-top: 10rem;
+  }`;

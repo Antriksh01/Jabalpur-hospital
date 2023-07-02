@@ -41,76 +41,78 @@ const AddDoctor = () => {
     <>
       <Container>
         <Header />
-        <h1 className="text-center fs-1 fw-bold" style={{ color: "#347571" }}>
-          Add Doctor
-        </h1>
-        <div className="container">
-          <form onSubmit={handleClick}>
-            <div className="form">
-              <input
-                type="text"
-                placeholder="Doctor ID"
-                style={{ border: "none" }}
-                name="Doc_ID"
-                value={data.Doc_ID}
-                onChange={handleChange}
-                required
-              />
-              <br />
-              <br />
-              <input
-                type="text"
-                placeholder="Doctor name"
-                style={{ border: "none" }}
-                name="Doctor_name"
-                value={data.Doctor_name}
-                onChange={handleChange}
-                required
-              />
-              <br />
-              <br />
-              <input
-                type="text"
-                placeholder="Email"
-                style={{ border: "none" }}
-                value={data.email}
-                name="email"
-                onChange={handleChange}
-                required
-              />
-              <br />
-              <br />
-              <input
-                type="text"
-                placeholder="Mobile"
-                style={{ border: "none" }}
-                value={data.mobile}
-                onChange={handleChange}
-                name="mobile"
-                required
-              />
-              <br />
-              <br />
-              <input
-                type="text"
-                placeholder="Department name"
-                style={{ border: "none" }}
-                name="Department_name"
-                value={data.Department_name}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="d-flex justify-content-center">
-              <button
-                type="submit"
-                className="btn btn-primary"
-                style={{ backgroundColor: "#22923ad4", border: "none" }}
-              >
-                Submit
-              </button>
-            </div>
-          </form>
+        <div className="contMain">
+          <h1 className="text-center fs-1 fw-bold" style={{ color: "#347571" }}>
+            Add Doctor
+          </h1>
+          <div className="container">
+            <form onSubmit={handleClick}>
+              <div className="form">
+                <input
+                  type="text"
+                  placeholder="Doctor ID"
+                  style={{ border: "none" }}
+                  name="Doc_ID"
+                  value={data.Doc_ID}
+                  onChange={handleChange}
+                  required
+                />
+                <br />
+                <br />
+                <input
+                  type="text"
+                  placeholder="Doctor name"
+                  style={{ border: "none" }}
+                  name="Doctor_name"
+                  value={data.Doctor_name}
+                  onChange={handleChange}
+                  required
+                />
+                <br />
+                <br />
+                <input
+                  type="text"
+                  placeholder="Email"
+                  style={{ border: "none" }}
+                  value={data.email}
+                  name="email"
+                  onChange={handleChange}
+                  required
+                />
+                <br />
+                <br />
+                <input
+                  type="text"
+                  placeholder="Mobile"
+                  style={{ border: "none" }}
+                  value={data.mobile}
+                  onChange={handleChange}
+                  name="mobile"
+                  required
+                />
+                <br />
+                <br />
+                <input
+                  type="text"
+                  placeholder="Department name"
+                  style={{ border: "none" }}
+                  name="Department_name"
+                  value={data.Department_name}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="d-flex justify-content-center">
+                <button
+                  type="submit"
+                  className="btn btn-primary btnsub"
+                  // style={{ backgroundColor: "#22923ad4", border: "none" }}
+                >
+                  Submit
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </Container>
     </>
@@ -123,4 +125,15 @@ const Container = styled.div`
     padding: 1.5rem;
     border-radius: 0.5rem;
   }
+  .contMain {
+    @media screen and (max-width: 500px) {
+      margin-top: 10rem;
+    }
+    .btnsub{
+      background-color:#22923ad4;
+      border:none;
+      @media screen and (max-width: 500px) {
+        width:50%;
+      }
+    }
 `;

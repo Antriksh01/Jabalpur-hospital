@@ -192,7 +192,7 @@ const TokenSearch = () => {
     <>
       <Container>
         <Header />
-        <div className="container-fluid">
+        <div className="container-fluid bxt-btn">
           <div class="input-group">
             <input
               type="search"
@@ -502,6 +502,9 @@ const Container = styled.div`
     align-content: center;
     justify-content: center;
     padding: 1rem 20rem;
+    @media screen and (max-width: 500px) {
+      padding: 1rem 3rem;
+    }
 
     input {
       border-radius: 1rem;
@@ -602,5 +605,11 @@ const Container = styled.div`
 
   a {
     text-decoration: none;
+  }
+
+  .bxt-btn {
+    @media screen and (max-width: 500px) {
+      margin-top: 10rem;
+    }
   }
 `;

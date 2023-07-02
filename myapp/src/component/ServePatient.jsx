@@ -28,51 +28,53 @@ const ServePatient = () => {
       <Container>
         <div>
           <Header />
-          <div className="title">
-            {" "}
-            <span>
-              <h1
-                className="text-center fs-1 fw-bold"
-                style={{ color: "#347571" }}
-              >
-                Served patients
-              </h1>
-            </span>
-          </div>
+          <div className="contMain">
+            <div className="title">
+              {" "}
+              <span>
+                <h1
+                  className="text-center fs-1 fw-bold"
+                  style={{ color: "#347571" }}
+                >
+                  Served patients
+                </h1>
+              </span>
+            </div>
 
-          <div className="table-responsive mt-5">
-            <table id="table" className="table">
-              <thead>
-                <tr>
-                  <th>P_ID</th>
-                  <th>P_Name</th>
-                  <th>P_Contact</th>
-                  <th>Assigned_doctor</th>
-                  <th>Time</th>
-                  <th>Dept</th>
-                  <th>Token Generated</th>
-                  <th>Token Generate Date</th>
-                </tr>
-              </thead>
-              <tbody>
-                {served?.map((item, index) => (
-                  <>
-                    <tr key={index}>
-                      <td>{item.uhid}</td>
-                      <td>
-                        {item.firstname} {item.lastname}
-                      </td>
-                      <td>{item.P_Contact}</td>
-                      <td>{item.Assigned_doctor}</td>
-                      <td>{item.Time}</td>
-                      <td>{item.Dept}</td>
-                      <td>{item.Token_Generated}</td>
-                      <td>{item.Token_Generate_Date}</td>
-                    </tr>
-                  </>
-                ))}
-              </tbody>
-            </table>
+            <div className="table-responsive mt-5">
+              <table id="table" className="table">
+                <thead>
+                  <tr>
+                    <th>P_ID</th>
+                    <th>P_Name</th>
+                    <th>P_Contact</th>
+                    <th>Assigned_doctor</th>
+                    <th>Time</th>
+                    <th>Dept</th>
+                    <th>Token Generated</th>
+                    <th>Token Generate Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {served?.map((item, index) => (
+                    <>
+                      <tr key={index}>
+                        <td>{item.uhid}</td>
+                        <td>
+                          {item.firstname} {item.lastname}
+                        </td>
+                        <td>{item.P_Contact}</td>
+                        <td>{item.Assigned_doctor}</td>
+                        <td>{item.Time}</td>
+                        <td>{item.Dept}</td>
+                        <td>{item.Token_Generated}</td>
+                        <td>{item.Token_Generate_Date}</td>
+                      </tr>
+                    </>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </Container>
@@ -81,4 +83,8 @@ const ServePatient = () => {
 };
 
 export default ServePatient;
-const Container = styled.div``;
+const Container = styled.div`
+.contMain {
+  @media screen and (max-width: 500px) {
+    margin-top: 10rem;
+  }`;

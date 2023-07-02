@@ -26,38 +26,39 @@ const PatientAssigned = () => {
       <Container>
         <div>
           <Header />
-
-          <span>
-            <h1
-              className="text-center fs-1 fw-bold"
-              style={{ color: "#347571" }}
-            >
-              Assigned Patient
-            </h1>
-          </span>
-          <div className="table-responsive mt-5">
-            <table id="table" className="table">
-              <thead>
-                <tr>
-                  <th>Patient Name</th>
-                  <th>Doctor Name</th>
-                  <th>Department</th>
-                  <th>P_ID</th>
-                </tr>
-              </thead>
-              <tbody>
-                {assignPat?.map((item, index) => (
-                  <tr key={index}>
-                    <td>
-                      {item.firstname} {item.lastname}
-                    </td>
-                    <td>{item.Doctor_name}</td>
-                    <td>{item.Dept}</td>
-                    <td>{item.uhid}</td>
+          <div className="contMain">
+            <span>
+              <h1
+                className="text-center fs-1 fw-bold"
+                style={{ color: "#347571" }}
+              >
+                Assigned Patient
+              </h1>
+            </span>
+            <div className="table-responsive mt-5">
+              <table id="table" className="table">
+                <thead>
+                  <tr>
+                    <th>Patient Name</th>
+                    <th>Doctor Name</th>
+                    <th>Department</th>
+                    <th>P_ID</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {assignPat?.map((item, index) => (
+                    <tr key={index}>
+                      <td>
+                        {item.firstname} {item.lastname}
+                      </td>
+                      <td>{item.Doctor_name}</td>
+                      <td>{item.Dept}</td>
+                      <td>{item.uhid}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </Container>
@@ -70,8 +71,18 @@ const Container = styled.div`
   th {
     background-color: #ff9999;
     text-align: center;
+    @media screen and (max-width: 500px) {
+      padding:0.5rem
+    }
   }
   td {
     text-align: center;
+    @media screen and (max-width: 500px) {
+      padding:0.5rem
+    }
   }
+  .contMain {
+    @media screen and (max-width: 500px) {
+      margin-top: 10rem;
+    }
 `;
