@@ -505,6 +505,9 @@ const Container = styled.div`
     @media screen and (max-width: 500px) {
       padding: 1rem 3rem;
     }
+    @media screen and (min-width: 501px) and (max-width: 900px) {
+      padding: 1rem 6rem;
+    }
 
     input {
       border-radius: 1rem;

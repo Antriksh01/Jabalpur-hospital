@@ -40,7 +40,7 @@ const Admindashboard = () => {
             </div>
             <div className="container-fluid">
               <div className="row g-5">
-                <div className="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                <div className="col-xl-2 col-lg-2 col-md-12 col-sm-12">
                   <div className="leftbox">
                     {/* <button>Start Your Day</button> */}
                     <button>
@@ -152,6 +152,9 @@ const Container = styled.div`
         text-decoration: none;
         color: white;
       }
+      @media screen and (min-width:501px) and (max-width:900px){
+        width:10rem;
+      }
     }
     @media (max-width: 500px) {
       display: flex;
@@ -165,6 +168,15 @@ const Container = styled.div`
     }
     @media (max-width: 376px) {
       display: none;
+    }
+    @media screen and (min-width:501px) and (max-width:900px){
+      height: auto;
+    padding: 2rem 1rem;
+    display: flex;
+    align-content: space-around;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
     }
   }
   .cardContainer {

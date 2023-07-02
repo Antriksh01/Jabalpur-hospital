@@ -103,8 +103,15 @@ const Container = styled.div`
       font-size: 2rem;
     }
     @media screen and (max-width:500px){
-        display:inline;
+      display: flex;
+      flex-direction: column;
     }
+    h1{
+      @media screen and (min-width:501px) and (max-width:900px){
+        font-size:18px;
+      }
+    }
+    
   }
   th {
     padding: 2rem;

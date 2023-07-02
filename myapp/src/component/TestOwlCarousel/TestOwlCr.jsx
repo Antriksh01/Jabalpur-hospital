@@ -385,16 +385,25 @@ const Container = styled.div`
     // background-color:red;
     z-index:1;
     position:absolute;
+    @media screen and (max-width:500px){
+      width:24rem;
+    }
   .text{
     background-color:#ade6e8;
     padding: 4rem;
-    margin-left: 37rem;
+    margin-left: 32rem;
     margin-top: 10rem;
     z-index: 1;
     border-radius: 1.5rem;
     box-shadow: 1px 4px 4px black;
     text-align: center;
     width: 31rem;
+    @media screen and (min-width:501px) and (max-width:900px){
+      margin-left:8rem;
+    }
+    @media screen and (max-width:500px){
+      margin-left:0rem;
+    }
     h1{
       font-size: 16px;
     }

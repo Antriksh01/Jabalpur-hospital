@@ -3,6 +3,7 @@ import "./Register.css";
 import Header from "../Header";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -40,89 +41,94 @@ const Register = () => {
 
   return (
     <>
-      <Header />
-      <h1 id="adm1">Sign up</h1>
-      <form className="form" onSubmit={handleClick}>
-        <input
-          type="text"
-          placeholder="Username"
-          name="username"
-          value={data.username}
-          style={{ border: "none" }}
-          onChange={handleChange}
-          required
-        />
-        <br />
-        <br />
-        <input
-          type="text"
-          placeholder="Moblie No"
-          name="mobile"
-          value={data.mobile}
-          style={{ border: "none" }}
-          onChange={handleChange}
-          required
-        />
-        <br />
-        <br />
-        <input
-          type="text"
-          placeholder="Email Id"
-          name="email"
-          value={data.email}
-          style={{ border: "none" }}
-          onChange={handleChange}
-          required
-        />
-        <br />
-        <br />
-        <input
-          type={showPassword ? "text" : "password"}
-          placeholder="Password"
-          name="password"
-          value={data.password}
-          style={{ border: "none" }}
-          onChange={handleChange}
-          required
-        />
-        <br />
-        <br />
-        <input
-          type="password"
-          name="cpassword"
-          value={data.cpassword}
-          placeholder="Confirm Password"
-          style={{ border: "none" }}
-          onChange={handleChange}
-          required
-        />
-        {/* <button
+      <Container>
+        <Header />
+        <div className="contMain">
+          <h1 className="text-center">Sign up</h1>
+          <div className="container">
+            <form className="form" onSubmit={handleClick}>
+              <input
+                type="text"
+                placeholder="Username"
+                name="username"
+                value={data.username}
+                style={{ border: "none" }}
+                onChange={handleChange}
+                required
+              />
+              <br />
+              <br />
+              <input
+                type="text"
+                placeholder="Moblie No"
+                name="mobile"
+                value={data.mobile}
+                style={{ border: "none" }}
+                onChange={handleChange}
+                required
+              />
+              <br />
+              <br />
+              <input
+                type="text"
+                placeholder="Email Id"
+                name="email"
+                value={data.email}
+                style={{ border: "none" }}
+                onChange={handleChange}
+                required
+              />
+              <br />
+              <br />
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                name="password"
+                value={data.password}
+                style={{ border: "none" }}
+                onChange={handleChange}
+                required
+              />
+              <br />
+              <br />
+              <input
+                type="password"
+                name="cpassword"
+                value={data.cpassword}
+                placeholder="Confirm Password"
+                style={{ border: "none" }}
+                onChange={handleChange}
+                required
+              />
+              {/* <button
           type="button"
           className="show-password"
           onClick={handleShowPasswordToggle}
         >
           {showPassword ? "Hide" : "Show"}
         </button> */}
-        <br />
-        <br />
-        {/* <input
-          type="text"
-          name="role"
-          value={data.role}
-          placeholder="Designation"
-          style={{ border: "none" }}
-          onChange={handleChange}
-          required
-        /> */}
-        <br />
-        <br />
 
-        <button type="submit" className="btn btn-success">
-          Submit
-        </button>
-      </form>
+              <button type="submit" className="btn btn-success mt-2">
+                Submit
+              </button>
+            </form>
+          </div>
+        </div>
+      </Container>
     </>
   );
 };
 
 export default Register;
+const Container = styled.div`
+  .form {
+    button {
+      @media screen and (max-width: 500px) {
+        margin-left: 0rem;
+      }
+      @media screen and (min-width: 501px) and (max-width: 900px) {
+        margin-left: 0rem;
+      }
+    }
+  }
+`;

@@ -48,7 +48,7 @@ const RDashboard = () => {
         <Header />
         <div className="bxcont">
           <div
-            className="text-center fs-1 fw-bold"
+            className="text-center fs-1 fw-bold mt-5"
             style={{ color: "#347571" }}
           >
             <span>Receptionist Dashboard</span>
@@ -160,6 +160,11 @@ const Container = styled.div`
         a {
           text-decoration: none;
           color: black;
+        }
+        h2 {
+          @media screen and (min-width: 501px) and (max-width: 900px) {
+            font-size: 18px;
+          }
         }
       }
     }

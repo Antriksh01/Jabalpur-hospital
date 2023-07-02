@@ -154,5 +154,8 @@ const Container = styled.div`
       @media screen and (max-width: 500px) {
         width:50%;
       }
+      @media screen and (min-width:501px) and (max-width:900px){
+        width:50%;
+      }
     }
 `;

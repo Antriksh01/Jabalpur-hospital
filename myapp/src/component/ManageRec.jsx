@@ -264,13 +264,13 @@ const ManageRec = () => {
             </div>
             <div className="container-fluid">
               <div className="row g-5">
-                <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12"></div>
-                <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12  d-flex justify-content-center">
+                <div className="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12"></div>
+                <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12  d-flex justify-content-center">
                   <button>
                     <Link to="/add-receptionist">Add a Receptionist</Link>{" "}
                   </button>
                 </div>
-                <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 d-flex justify-content-center">
+                <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 d-flex justify-content-center">
                   <button>
                     <Link to="/admin-dashboard">Go to Dashboard</Link>{" "}
                   </button>

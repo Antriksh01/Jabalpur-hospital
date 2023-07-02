@@ -97,7 +97,7 @@ const Doctordashboard = () => {
             </div>
             <div className="container-fluid">
               <div className="row g-5">
-                <div className="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                <div className="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12">
                   <div className="leftbox">
                     <button onClick={() => handleUpdate("yes")}>
                       <Link to="/DoctorTreatment">Start Your day </Link>
@@ -203,6 +203,9 @@ const Container = styled.div`
       border: none;
       background-color: #5ec57e;
       border-radius: 1.5rem;
+      @media screen and (min-width: 501px) and (max-width: 900px){
+        width:12rem;
+      }
     }
     @media (max-width: 500px) {
       display: flex;
@@ -216,6 +219,14 @@ const Container = styled.div`
     }
     @media (max-width: 376px) {
       display: none;
+    }
+    @media screen and (min-width: 501px) and (max-width: 900px) {
+      padding:2rem 0rem;
+      display:flex;
+      align-content: space-between;
+      justify-content: space-evenly;
+      align-items: center;
+      flex-direction: row;
     }
   }
   .cardContainer {
@@ -233,6 +244,11 @@ const Container = styled.div`
         display: flex;
         align-items: center;
         justify-content: center;
+        h2 {
+          @media screen and (min-width: 501px) and (max-width: 900px) {
+            font-size: 18px;
+          }
+        }
       }
     }
   }
