@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 import axios from "axios";
 import { useAuth } from "../context";
+import cogoToast from "cogo-toast";
 
 const Doctordashboard = () => {
   const [auth] = useAuth();
@@ -24,7 +25,7 @@ const Doctordashboard = () => {
         }
       );
 
-      console.log(updateData);
+      cogoToast.success("status Updated");
       // alert("status updated");
     } catch (error) {
       console.log(error);
@@ -49,7 +50,7 @@ const Doctordashboard = () => {
 
   const today = new Date();
   const yesterday = new Date(today);
-  yesterday.setDate(today.getDate() - 1);
+  yesterday.setDate(today.getDate());
   const formattedDate = yesterday
     .toLocaleDateString("en-GB", {
       year: "numeric",
@@ -60,11 +61,15 @@ const Doctordashboard = () => {
     .reverse()
     .join("-");
 
+  console.log(formattedDate);
+
   const filteredQueue = serve.filter(
     (item) =>
       item.treatment_status === "Pending" &&
-      item.Token_Generate_Date === formattedDate
+      item.Token_Generate_Date === formattedDate &&
+      item.Assigned_doctor === auth.user.reg_email
   );
+  console.log(filteredQueue);
 
   const filteredYest = serve.filter(
     (item) =>
@@ -97,8 +102,8 @@ const Doctordashboard = () => {
             </div>
             <div className="container-fluid">
               <div className="row g-5">
-                <div className="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12">
-                  <div className="leftbox">
+                <div className="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+                  <div className="leftbox px-3">
                     <button onClick={() => handleUpdate("yes")}>
                       <Link to="/DoctorTreatment">Start Your day </Link>
                     </button>
@@ -114,7 +119,7 @@ const Doctordashboard = () => {
                     {/* <button>Report to Admin</button> */}
                   </div>
                 </div>
-                <div className="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                <div className="col-xl-9 col-lg-9 col-md-10 col-sm-12 col-12">
                   <div className="container cardContainer">
                     <div className="row g-5">
                       <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
@@ -218,7 +223,14 @@ const Container = styled.div`
       align-items: center;
     }
     @media (max-width: 376px) {
-      display: none;
+      display: flex;
+      padding: 1rem;
+      height: 100%;
+      margin-bottom: 1rem;
+      width: 100%;
+      align-content: space-around;
+      justify-content: space-between;
+      align-items: center;
     }
     @media screen and (min-width: 501px) and (max-width: 900px) {
       padding:2rem 0rem;

@@ -15,11 +15,26 @@ const DoctorDisplayScr = () => {
       const res = await axios.get(
         `http://localhost:8100/api/auth/doctorLive/${value}`
       );
-
+      console.log(value);
       const data = res.data;
       console.log(res);
+      const today = new Date();
+      const yesterday = new Date(today);
+      const formattedDate = yesterday
+        .toLocaleDateString("en-GB", {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+        })
+        .split("/")
+        .reverse()
+        .join("-");
+      console.log(formattedDate);
       const filteredData = data.filter(
-        (item) => item.Doc_ID === value && item.treatment_status === "Pending"
+        (item) =>
+          item.Doc_ID === value &&
+          item.treatment_status === "Pending" &&
+          item.Token_Generate_Date === formattedDate
       );
 
       filteredData.forEach((item) => {

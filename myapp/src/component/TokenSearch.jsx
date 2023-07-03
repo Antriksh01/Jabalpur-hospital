@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import ReactToPrint from "react-to-print";
 import { Button, Modal } from "react-bootstrap";
 import Header from "./Header";
+import cogoToast from "cogo-toast";
 
 const TokenSearch = () => {
   const [keyword, setKeyword] = useState("");
@@ -83,7 +84,7 @@ const TokenSearch = () => {
       });
 
       console.log("Message sent successfully!");
-      alert("Message sent successfully!");
+      cogoToast.success("Message sent successfully!");
     } catch (error) {
       console.error("Error sending SMS:", error);
     }
@@ -114,7 +115,7 @@ const TokenSearch = () => {
       });
 
       console.log("Message sent successfully!");
-      alert("Message sent successfully!");
+      cogoToast.success("Message sent successfully!");
     } catch (error) {
       console.error("Error sending SMS:", error);
     }
@@ -145,7 +146,7 @@ const TokenSearch = () => {
         }
       );
       console.log(emailSmsSend);
-      alert("email sent successfully");
+      cogoToast.success("email sent successfully");
     } catch (error) {
       console.log(error);
     }
@@ -172,7 +173,7 @@ const TokenSearch = () => {
         }
       );
       console.log(emailSmsSend);
-      alert("email sent successfully");
+      cogoToast.success("email sent successfully");
     } catch (error) {
       console.log(error);
     }
@@ -196,7 +197,7 @@ const TokenSearch = () => {
         { phoneNumber: whatNum, message: recptsmsData }
       );
       console.log(whatsappRes);
-      alert("whatsapp msg send");
+      cogoToast.success("whatsapp msg send");
     } catch (error) {
       console.log(error);
     }
@@ -223,7 +224,7 @@ const TokenSearch = () => {
         { phoneNumber: whatNum, message: recptsmsData }
       );
       console.log(whatsappRes);
-      alert("whatsapp msg send");
+      cogoToast.success("whatsapp msg send");
     } catch (error) {
       console.log(error);
     }

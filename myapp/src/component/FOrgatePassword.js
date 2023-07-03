@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import pic from "../photos/jbplogo.png";
 import styled from "styled-components";
+import cogoToast from "cogo-toast";
 
 import "./ForgatePassword.css";
 import { useNavigate } from "react-router-dom";
@@ -29,7 +30,7 @@ const ForgetPassword = () => {
         data
       );
       console.log(input);
-      alert("password updated");
+      cogoToast.success("password updated");
       navigate("/Login");
     } catch (err) {
       //   setErr(err.response.data);

@@ -5,6 +5,7 @@ import Header from "./Header";
 import { styled } from "styled-components";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import cogoToast from "cogo-toast";
 
 const AddDoctor = () => {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ const AddDoctor = () => {
       );
 
       console.log(input);
-      alert("Doctors Data Added Successfully");
+      cogoToast.success("Doctors Data Added Successfully");
       navigate("/admin-dashboard");
     } catch (err) {
       console.log(err);
@@ -121,10 +122,14 @@ const AddDoctor = () => {
 
 export default AddDoctor;
 const Container = styled.div`
-  input {
-    padding: 1.5rem;
-    border-radius: 0.5rem;
+input {
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  width: 31rem;
+  @media screen and (max-width: 500px) {
+   width:18rem;
   }
+}
   .contMain {
     @media screen and (max-width: 500px) {
       margin-top: 10rem;
@@ -138,5 +143,14 @@ const Container = styled.div`
       @media screen and (min-width:501px) and (max-width:900px){
         width:50%;
       }
+    }
+
+    button{
+      width:31rem;
+      // padding:0.8rem;
+      font-size: 25px;
+      @media screen and (max-width: 500px) {
+        width:18rem !important;
+       }
     }
 `;

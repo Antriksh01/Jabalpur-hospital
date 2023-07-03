@@ -7,6 +7,7 @@ import axios from "axios";
 
 const Admindashboard = () => {
   const [docCount, setDocCount] = useState([]);
+  const [pendingUserCount, setPendingUserCount] = useState([]);
 
   const countDoctors = async () => {
     try {
@@ -20,10 +21,28 @@ const Admindashboard = () => {
     }
   };
 
+  console.log(docCount.length);
   useEffect(() => {
     countDoctors();
+    pendingApprovalList();
   }, []);
 
+  // pending admin approval length
+  const pendingApprovalList = async () => {
+    try {
+      const res = await axios.get("http://localhost:8100/api/auth/users");
+      console.log(res.data);
+      setPendingUserCount(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const filterData = pendingUserCount.filter(
+    (item) => item.Admin_Approval === null
+  );
+
+  console.log(filterData.length);
   return (
     <>
       <Container>
@@ -40,8 +59,8 @@ const Admindashboard = () => {
             </div>
             <div className="container-fluid">
               <div className="row g-5">
-                <div className="col-xl-2 col-lg-2 col-md-12 col-sm-12">
-                  <div className="leftbox">
+                <div className="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                  <div className="leftbox rounded-4 px-2">
                     {/* <button>Start Your Day</button> */}
                     <button>
                       <Link to="/month-wise-token">This month's token</Link>
@@ -58,7 +77,7 @@ const Admindashboard = () => {
                   </button> */}
                   </div>
                 </div>
-                <div className="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                <div className="col-xl-9 col-lg-9 col-md-10 col-sm-12 col-12">
                   <div className="container cardContainer">
                     <div className="row g-5">
                       {/* <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
@@ -101,15 +120,16 @@ const Admindashboard = () => {
                           </div>
                         </div>
                       </div>
-                      {/* <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
-                      <div class="card">
-                        <div class="card-body">
-                          <Link to="/display-content">
-                            <h2>Display Content</h2>
-                          </Link>
+                      <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+                        <div class="card">
+                          <div class="card-body">
+                            <Link to="/pending-approval">
+                              <h2>Pending Approval</h2>
+                              <h2>{filterData.length}</h2>
+                            </Link>
+                          </div>
                         </div>
                       </div>
-                    </div> */}
                       <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
                         <div class="card">
                           <div class="card-body">
@@ -132,6 +152,7 @@ const Admindashboard = () => {
 };
 export default Admindashboard;
 const Container = styled.div`
+overflow-x: hidden;
   .leftbox {
     width: 100%;
     height: 30rem;

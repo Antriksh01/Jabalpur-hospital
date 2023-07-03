@@ -19,7 +19,7 @@ export const register = (req, res) => {
     const hashedPassword = bcrypt.hashSync(req.body.password, salt);
 
     const q =
-      "INSERT INTO admin_register (`username`,`mobile`,`reg_email`, `password`,`cpassword`) VALUE (?)";
+      "INSERT INTO admin_register (`username`,`mobile`,`reg_email`, `password`,`cpassword`,`role`) VALUE (?)";
 
     const values = [
       req.body.username,
@@ -27,6 +27,7 @@ export const register = (req, res) => {
       req.body.reg_email,
       hashedPassword,
       hashedPassword,
+      req.body.role,
     ];
 
     db.query(q, [values], (err, data) => {
@@ -121,4 +122,30 @@ export const getAllUsers = async (req, res) => {
       res.send(results);
     }
   });
+};
+
+// admin approval
+export const adminApproval = (req, res) => {
+  try {
+    const userID = req.params.id;
+    const Admin_Approval = req.body.Admin_Approval;
+    const selectQuery = "SELECT * FROM admin_register WHERE reg_email = ?";
+    db.query(selectQuery, [userID], (err, selectResult) => {
+      if (err) return res.status(500).send(err);
+
+      if (selectResult.length === 0) {
+        return res.status(404).json("Invalid user");
+      }
+      const updateQuery =
+        "UPDATE admin_register SET Admin_Approval = ? WHERE reg_email = ?";
+      const updateValues = [Admin_Approval, userID];
+
+      db.query(updateQuery, updateValues, (err, updateResult) => {
+        if (err) return res.status(500).send(err);
+        return res.status(200).json("Approved successfully");
+      });
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };

@@ -14,10 +14,25 @@ const DoctorDisplay = () => {
         "http://localhost:8100/api/auth/display-doctor-screen"
       );
       const data = res.data;
+
+      const today = new Date();
+      const yesterday = new Date(today);
+      const formattedDate = yesterday
+        .toLocaleDateString("en-GB", {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+        })
+        .split("/")
+        .reverse()
+        .join("-");
+      console.log(formattedDate);
+
       const filteredData = data.filter(
         (item) =>
           item.Assigned_doctor === auth.user.reg_email &&
-          item.treatment_status === "Pending"
+          item.treatment_status === "Pending" &&
+          item.Token_Generate_Date === formattedDate
       );
 
       filteredData.forEach((item) => {
@@ -108,6 +123,9 @@ const Container = styled.div`
     }
     h1{
       @media screen and (min-width:501px) and (max-width:900px){
+        font-size:18px;
+      }
+      @media screen and (max-width:500px){
         font-size:18px;
       }
     }

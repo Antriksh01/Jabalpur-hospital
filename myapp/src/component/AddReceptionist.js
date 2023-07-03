@@ -5,6 +5,7 @@ import Header from "./Header";
 import { styled } from "styled-components";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import cogoToast from "cogo-toast";
 
 const AddReceptionist = () => {
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ const AddReceptionist = () => {
       );
 
       console.log(input);
-      alert("Receptionist Data added successful");
+      cogoToast.success("Receptionist Data added successful");
       navigate("/admin-dashboard");
     } catch (err) {
       console.log(err);
@@ -145,6 +146,10 @@ const Container = styled.div`
   input {
     padding: 1.5rem;
     border-radius: 0.5rem;
+    width: 31rem;
+    @media screen and (max-width: 500px) {
+     width:18rem;
+    }
   }
   .contMain {
     @media screen and (max-width: 500px) {
@@ -157,5 +162,13 @@ const Container = styled.div`
       @media screen and (min-width:501px) and (max-width:900px){
         width:50%;
       }
+    }
+    button{
+      width:31rem;
+      // padding:0.8rem;
+      font-size: 25px;
+      @media screen and (max-width: 500px) {
+        width:18rem !important;
+       }
     }
 `;

@@ -8,6 +8,7 @@ import MainLogin from "./MainLogin";
 import styled from "styled-components";
 import { useAuth } from "../context";
 import axios from "axios";
+import cogoToast from "cogo-toast";
 // Import the CSS file for styling
 
 const Adminlogin = () => {
@@ -29,19 +30,28 @@ const Adminlogin = () => {
       .post("http://localhost:8100/api/auth/login", data)
       .then((res) => {
         // console.log(res.data);
-        setAuth({
-          ...auth,
-          user: res.data[0],
-          token: res.data.token,
-        });
+        if (Array.isArray(res.data) && res.data.length > 0) {
+          setAuth({
+            ...auth,
+            user: res.data[0],
+            token: res.data.token,
+          });
 
-        console.log(res.data[0].role);
-        if (res.data[0].role === 0) {
-          console.log("Admin login successful");
-          navigate("/admin-dashboard");
-          localStorage.setItem("auth", JSON.stringify(res.data));
+          console.log(res.data[0].role);
+          if (
+            res.data[0].role === "Admin" &&
+            res.data[0].Admin_Approval === "Approved"
+          ) {
+            cogoToast.success("Admin login successful");
+            navigate("/admin-dashboard");
+            localStorage.setItem("auth", JSON.stringify(res.data));
+          } else if (res.data[0].Admin_Approval !== "Approved") {
+            cogoToast.error("Approval Pending");
+          } else {
+            cogoToast.error("wrong password or username");
+          }
         } else {
-          alert("wrong password or username");
+          cogoToast.error("invalid credientials");
         }
       })
       .catch((err) => console.log(err, "login failed"));
@@ -57,7 +67,7 @@ const Adminlogin = () => {
       <Container>
         <div>
           <nav className="navbar">
-            <div id="logo" className="logo">
+            <div id="logo" className="logo ms-3">
               <img src={jbplogo} alt="Logo" />
             </div>
             {/* <div className='title'> <span>Admin Login</span></div> */}
@@ -67,70 +77,83 @@ const Adminlogin = () => {
             </div>
           </nav>
           <div className="title text-center">
-            <span>Admin Login</span>
+            <span className="fs-1">Admin Login</span>
           </div>
           <div className="maincontainer">
-            <div className="left-container">
-              <div id="container-img" className="container-img">
-                <img src={Admin} alt="img" />
+            <div className="row">
+              <div className="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
+                <div className="left-container">
+                  <div id="container-img" className="container-img">
+                    <img src={Admin} alt="img" />
+                  </div>
+                </div>
               </div>
-            </div>
-            <div className="right-container">
-              <div className="container-login">
-                <form
-                  id="login-from"
-                  className="login-form"
-                  onSubmit={handleLogin}
-                >
-                  <h2>Login</h2>
-                  <div className="form-group">
-                    <label htmlFor="username">Username</label>
-                    <input
-                      type="text"
-                      id="username"
-                      name="username"
-                      value={data.username}
-                      onChange={handleChange}
-                      required
-                    />
+              <div className="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                {" "}
+                <div className="right-container">
+                  <div
+                    className="container-login"
+                    style={{ alignItems: "stretch" }}
+                  >
+                    <form
+                      id="login-from"
+                      className="login-form"
+                      onSubmit={handleLogin}
+                    >
+                      <h2>Login</h2>
+                      <div className="form-group">
+                        <label htmlFor="username">Username</label>
+                        <input
+                          type="text"
+                          id="username"
+                          name="username"
+                          value={data.username}
+                          onChange={handleChange}
+                          required
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label htmlFor="password">Password</label>
+                        <div className="password-input">
+                          <input
+                            type={showPassword ? "text" : "password"}
+                            id="password"
+                            name="password"
+                            value={data.password}
+                            onChange={handleChange}
+                            required
+                          />
+                          <button
+                            type="button"
+                            className="show-password"
+                            onClick={handleShowPasswordToggle}
+                          >
+                            {showPassword ? "Hide" : "Show"}
+                          </button>
+                        </div>
+                      </div>
+                      <div className="form-group">
+                        <span className="forgot-password-button">
+                          <Link to="/forgot-password">Forgot Password</Link>
+                        </span>
+                      </div>
+                      <div className="form-group">
+                        <button
+                          type="submit"
+                          className="btn btn-success btnbxd"
+                        >
+                          Login
+                        </button>
+                      </div>
+                      <div className="form-group">
+                        <span>Don't have an Account ? </span>
+                        <span className="register-button">
+                          <Link to="/register">Register </Link>
+                        </span>
+                      </div>
+                    </form>
                   </div>
-                  <div className="form-group">
-                    <label htmlFor="password">Password</label>
-                    <div className="password-input">
-                      <input
-                        type={showPassword ? "text" : "password"}
-                        id="password"
-                        name="password"
-                        value={data.password}
-                        onChange={handleChange}
-                        required
-                      />
-                      <button
-                        type="button"
-                        className="show-password"
-                        onClick={handleShowPasswordToggle}
-                      >
-                        {showPassword ? "Hide" : "Show"}
-                      </button>
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <span className="forgot-password-button">
-                      <Link to="/forgot-password">Forgot Password</Link>
-                    </span>
-                  </div>
-                  <div className="form-group">
-                    <button type="submit" className="login-button">
-                      Login
-                    </button>
-                  </div>
-                  <div className="form-group">
-                    <span>Don't have an Account ? </span>
-                    <span className="register-button">
-                      <Link to="/register">Register </Link>
-                    </span>
-                  </div>
-                </form>
+                </div>
               </div>
             </div>
           </div>
@@ -141,6 +164,7 @@ const Adminlogin = () => {
 };
 export default Adminlogin;
 const Container = styled.div`
+  overflow-x: hidden;
   .container-img {
     @media screen and (max-width: 500px) {
     }
@@ -148,12 +172,19 @@ const Container = styled.div`
   input {
     width: 100%;
     padding: 0.5rem;
-    border-radius: 0.8rem;
+    border-radius: 8px;
+    border: 1px solid #0000003d;
   }
   button {
-    border-radius: 0.8rem;
+    border-radius: 8px;
   }
   a {
     text-decoration: none;
+  }
+  .btnbxd {
+    width: 100%;
+    @media screen and (max-width: 500px) {
+      margin-left: 0rem;
+    }
   }
 `;

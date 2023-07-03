@@ -45,12 +45,13 @@ import DoctorDisplay from "./component/DoctorDisplay";
 import DoctorDisplayScr from "./component/DoctorDisplayScr";
 import ManageRec from "./component/ManageRec";
 import MonthWiseToken from "./component/MonthWiseToken";
+import PendingApproval from "./component/PendingApproval";
 axios.defaults.withCredentials = true;
 
 function App() {
   const [auth] = useAuth();
 
-  console.log(auth.user.role);
+  console.log(auth);
   return (
     <BrowserRouter>
       <Routes>
@@ -62,7 +63,7 @@ function App() {
         {/* receptionist routes */}
         <Route path="/Login" element={<Login />} />
         <Route path="/admin-login" element={<Adminlogin />} />
-        {auth.user.role === 2 ? (
+        {auth.user.role === "Receptionist" ? (
           <>
             <Route path="/receptionist-dashboard" element={<RDashboard />} />
             <Route path="/token-generation" element={<TokenGeneration />} />
@@ -87,7 +88,7 @@ function App() {
           <Route path="/Login" element={<Login />} />
         )}
 
-        {auth.user.role === 0 ? (
+        {auth.user.role === "Admin" ? (
           <>
             {/* admin-dashboard */}
             <Route path="/admin-dashboard" element={<Admindashboard />} />
@@ -99,12 +100,13 @@ function App() {
             <Route path="/token-generation" element={<TokenGeneration />} />
             <Route path="/add-doctor" element={<AddDoctor />} />
             <Route path="/month-wise-token" element={<MonthWiseToken />} />
+            <Route path="/pending-approval" element={<PendingApproval />} />
           </>
         ) : (
           <Route path="/Adminlogin" element={<Adminlogin />} />
         )}
 
-        {auth.user.role === 1 ? (
+        {auth.user.role === "Doctor" ? (
           <>
             {/* doctor-dashboard */}
             <Route path="/doctor-dashboard" element={<Doctordashboard />} />
@@ -122,6 +124,9 @@ function App() {
         {/* doctor routes */}
 
         <Route path="/register" element={<Register />} />
+        <Route path="/Adminlogin" element={<Adminlogin />} />
+        <Route path="/Login" element={<Login />} />
+        <Route path="/Doctorlogin" element={<Doctorlogin />} />
       </Routes>
     </BrowserRouter>
   );

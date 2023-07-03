@@ -102,20 +102,21 @@
   max-width: 100%;
   position: relative;
   height: auto;
+  border-radius: 1rem;
 }
 
 #button-container {
   flex: 1;
-  height: 30rem;
+  height: 23rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 20px;
-  margin: 30px;
+  /* padding: 20px; */
+  margin: 15px;
   box-sizing: border-box;
   background-color: white;
-  box-shadow: 10px 10px 10px 10px rgb(26, 24, 24);
+  box-shadow: 1px 4px 12px 0px rgb(26, 24, 24);
   border-radius: 10px;
 }
 .button-container span {

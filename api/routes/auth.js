@@ -6,6 +6,7 @@ import {
   dataLogin,
   logout,
   getAllUsers,
+  adminApproval,
 } from "../controller/auth.js";
 import {
   PatientTokenGeneration,
@@ -66,5 +67,6 @@ router.delete("/doctor-data-delete/:Doc_ID", deleteDoctorHandler);
 router.get("/get-patient-details", getPatientDetails);
 router.put("/update-rec-details/:Rec_ID", receptionistDetailsUpdate);
 router.delete("/delete-receptionist/:id", deleteReceptionistData);
+router.put("/admin-approval-update/:id", adminApproval);
 
 export default router;

@@ -3,9 +3,7 @@ import pic from "../photos/jbplogo.png";
 import "./DoctorTreatment.css";
 import styled from "styled-components";
 import Header from "./Header";
-import TestCarousel from "./TestCarousel";
 import TestOwlCr from "./TestOwlCarousel/TestOwlCr";
-// import TestOwlCr from "./TestOwlCarousel/TestOwlCr";
 
 function DoctorTreatment() {
   return (

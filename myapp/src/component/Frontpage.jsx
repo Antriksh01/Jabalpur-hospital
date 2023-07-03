@@ -10,12 +10,12 @@ const Frontpage = () => {
     <>
       <Container>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <div id="logo" className="logo">
+          <div id="logo" className="logo ps-3">
             <img src={jbplogo} alt="Logo" />
           </div>
 
           <div
-            className="title text-center mt-5 fs-1"
+            className="title text-center mt-3 fs-1"
             style={{ color: "#0fab53" }}
           >
             Welcome to jabalpur Hospital and Research Centre Queue Management
@@ -24,21 +24,21 @@ const Frontpage = () => {
         </nav>
         <div>
           <div>
-            <div className="container">
+            <div className="container ">
               <div id="image-container" className="image-container">
                 <img src={jbpHospital} alt="img" />
               </div>
               <div id="button-container" className="button-container">
-                <span>Login As</span>
+                <span className="fs-2">Login as</span>
                 <Link to="/Adminlogin">
-                  <button className="button">Admin</button>
+                  <button className="btn btn-success">Admin</button>
                 </Link>
                 <Link to="./Doctorlogin">
-                  <button className="button">Doctor</button>
+                  <button className="btn btn-success">Doctor</button>
                 </Link>
 
                 <Link to="Login">
-                  <button className="button">Receptionist</button>
+                  <button className="btn btn-success">Receptionist</button>
                 </Link>
               </div>
             </div>
@@ -52,5 +52,29 @@ export default Frontpage;
 const Container = styled.div`
   .navbar {
     background-color: #fff !important;
+  }
+  .title {
+    @media screen and (max-width: 500px) {
+      font-size: 19px !important;
+      margin-top: 4rem !important;
+    }
+  }
+  .button-container {
+    @media screen and (max-width: 500px) {
+      background-color: white !important;
+      box-shadow: 1px 1px 7px #d5d9dc !important;
+    }
+    @media screen and (min-width: 501px) and (max-width: 800px) {
+      background-color: white !important;
+      box-shadow: 1px 1px 7px #d5d9dc !important;
+    }
+    @media screen and (min-width: 801px) and (max-width: 1200px) {
+      background-color: white !important;
+      box-shadow: 1px 1px 7px #d5d9dc !important;
+    }
+  }
+  button {
+    margin: 0.5rem;
+    width: 12rem;
   }
 `;

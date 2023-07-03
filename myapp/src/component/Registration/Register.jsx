@@ -4,6 +4,7 @@ import Header from "../Header";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import cogoToast from "cogo-toast";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ const Register = () => {
       );
 
       console.log(input);
-      alert("sign up successful");
+      cogoToast.success("sign up successful");
       navigate("/Login");
     } catch (err) {
       console.log(err);

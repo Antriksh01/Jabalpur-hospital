@@ -5,6 +5,7 @@ import Header from "./Header";
 import { styled } from "styled-components";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import cogoToast from "cogo-toast";
 
 const TokenGenForm = () => {
   const navigate = useNavigate();
@@ -37,7 +38,7 @@ const TokenGenForm = () => {
       );
 
       console.log(input);
-      alert("Token generated successful");
+      cogoToast.success("Token generated successful");
       navigate("/token-generated");
     } catch (err) {
       console.log(err);

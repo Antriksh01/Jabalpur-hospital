@@ -93,6 +93,7 @@ const Container = styled.div`
   }
   .navbar {
     height: 9rem;
+    padding: 0rem 2rem;
     @media screen and (max-width: 500px) {
       display: flex;
       flex-direction: row;

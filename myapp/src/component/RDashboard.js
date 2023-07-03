@@ -37,7 +37,7 @@ const RDashboard = () => {
   }, []);
 
   const roles = users.map(({ role }) => role);
-  const matchingObject = roles.filter((item) => item === 1);
+  const matchingObject = roles.filter((item) => item === "Doctor");
   // console.log(roles);
   const showDoc = matchingObject.length;
   const ptData = patient.length;
@@ -55,10 +55,10 @@ const RDashboard = () => {
           </div>
           <div className="container">
             <div className="row g-0">
-              <div className="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12">
+              {/* <div className="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12">
                 <div className="leftbox"></div>
-              </div>
-              <div className="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+              </div> */}
+              <div className="col-xl-12 col-lg-12 col-md-10 col-sm-12 col-12">
                 <div className="container cardContainer">
                   <div className="row g-5">
                     <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
