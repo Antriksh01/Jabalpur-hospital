@@ -19,15 +19,14 @@ export const register = (req, res) => {
     const hashedPassword = bcrypt.hashSync(req.body.password, salt);
 
     const q =
-      "INSERT INTO admin_register (`username`,`mobile`,`email`, `password`,`cpassword`,`role`) VALUE (?)";
+      "INSERT INTO admin_register (`username`,`mobile`,`reg_email`, `password`,`cpassword`) VALUE (?)";
 
     const values = [
       req.body.username,
       req.body.mobile,
-      req.body.email,
+      req.body.reg_email,
       hashedPassword,
       hashedPassword,
-      req.body.role,
     ];
 
     db.query(q, [values], (err, data) => {
@@ -39,18 +38,18 @@ export const register = (req, res) => {
 
 //forgot password
 export const sendEmail = (req, res) => {
-  const { email, password, cpassword } = req.body;
-  const q = "SELECT * FROM admin_register WHERE email = ?";
+  const { reg_email, password, cpassword } = req.body;
+  const q = "SELECT * FROM admin_register WHERE reg_email = ?";
 
-  db.query(q, [req.body.email], (err, data) => {
+  db.query(q, [req.body.reg_email], (err, data) => {
     if (err) return res.status(500).send(err);
 
     const salt = bcrypt.genSaltSync(10);
     const hashedPassword = bcrypt.hashSync(req.body.password, salt);
 
-    const q = `UPDATE admin_register SET password = ? WHERE email = ?`;
+    const q = `UPDATE admin_register SET password = ? WHERE reg_email = ?`;
 
-    db.query(q, [req.body.email, req.body.hashedPassword], (err, data) => {
+    db.query(q, [req.body.reg_email, req.body.hashedPassword], (err, data) => {
       if (err) return res.status(500).send(err);
       return res.status(200).json("password updated successfull");
     });

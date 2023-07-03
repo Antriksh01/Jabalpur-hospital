@@ -9,7 +9,7 @@ import Header from "./Header";
 const ForgetPassword = () => {
   const navigate = useNavigate();
   const [data, setData] = useState({
-    email: "",
+    reg_email: "",
     password: "",
     cpassword: "",
   });
@@ -47,8 +47,8 @@ const ForgetPassword = () => {
             <input
               type="text"
               placeholder="Enter your email"
-              name="username"
-              value={data.username}
+              name="reg_email"
+              value={data.reg_email}
               onChange={handleChange}
               required
             />

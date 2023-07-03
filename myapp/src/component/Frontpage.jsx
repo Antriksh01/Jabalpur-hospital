@@ -13,26 +13,13 @@ const Frontpage = () => {
           <div id="logo" className="logo">
             <img src={jbplogo} alt="Logo" />
           </div>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
 
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <div className="title text-center">
-              {" "}
-              <span>
-                Welcome to jabalpur Hospital and Research Centre Queue
-                Management Application{" "}
-              </span>
-            </div>
+          <div
+            className="title text-center mt-5 fs-1"
+            style={{ color: "#0fab53" }}
+          >
+            Welcome to jabalpur Hospital and Research Centre Queue Management
+            Application
           </div>
         </nav>
         <div>

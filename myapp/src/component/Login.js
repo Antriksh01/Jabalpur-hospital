@@ -4,7 +4,7 @@ import jbplogo from "../photos/jbplogo.png";
 import Receptionist from "../photos/Receptionist.png";
 import React, { useState } from "react";
 import "./Login.css"; // Import the CSS file for styling
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import MainLogin from "./MainLogin";
 import { useAuth } from "../context";
@@ -22,28 +22,29 @@ const Login = () => {
   const handleShowPasswordToggle = () => {
     setShowPassword(!showPassword);
   };
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    sendRequest().then(() => navigate("/"));
-  };
 
-  const sendRequest = async () => {
-    try {
-      const input = await axios.post(
-        "http://localhost:8100/api/auth/login",
-        data
-      );
-      setAuth({
-        ...auth,
-        user: input.data.username,
-        token: input.data.token,
-      });
-      localStorage.setItem("auth", JSON.stringify(input.data));
-      console.log(input);
-      alert("login successfully");
-    } catch (error) {
-      console.log(error);
-    }
+  const handleLogin = (e) => {
+    e.preventDefault();
+    axios
+      .post("http://localhost:8100/api/auth/login", data)
+      .then((res) => {
+        // console.log(res.data);
+        setAuth({
+          ...auth,
+          user: res.data[0],
+          token: res.data.token,
+        });
+
+        console.log(res.data[0].role);
+        if (res.data[0].role === 2) {
+          console.log("receptionist login successful");
+          navigate("/receptionist-dashboard");
+          localStorage.setItem("auth", JSON.stringify(res.data));
+        } else {
+          alert("wrong password or username");
+        }
+      })
+      .catch((err) => console.log(err, "login failed"));
   };
 
   const handleChange = (e) => {
@@ -51,9 +52,7 @@ const Login = () => {
     console.log(data);
   };
 
-  // const handleRegister = () => {
-  //   // Handle registration logic here
-  // };
+  // console.log(data);
   return (
     <>
       <Container>
@@ -78,7 +77,62 @@ const Login = () => {
               </div>
             </div>
             <div className="right-container">
-              <MainLogin />
+              <div className="container-login">
+                <form
+                  id="login-from"
+                  className="login-form"
+                  onSubmit={handleLogin}
+                >
+                  <h2>Login</h2>
+                  <div className="form-group">
+                    <label htmlFor="username">Username</label>
+                    <input
+                      type="text"
+                      id="username"
+                      name="username"
+                      value={data.username}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="password">Password</label>
+                    <div className="password-input">
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        id="password"
+                        name="password"
+                        value={data.password}
+                        onChange={handleChange}
+                        required
+                      />
+                      <button
+                        type="button"
+                        className="show-password"
+                        onClick={handleShowPasswordToggle}
+                      >
+                        {showPassword ? "Hide" : "Show"}
+                      </button>
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <span className="forgot-password-button">
+                      <Link to="/forgot-password">Forgot Password</Link>
+                    </span>
+                  </div>
+                  <div className="form-group">
+                    <button type="submit" className="login-button">
+                      Login
+                    </button>
+                  </div>
+                  <div className="form-group">
+                    <span>Don't have an Account ? </span>
+                    <span className="register-button">
+                      <Link to="/register">Register </Link>
+                    </span>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
@@ -91,5 +145,17 @@ const Container = styled.div`
   .container-img {
     @media screen and (max-width: 500px) {
     }
+  }
+
+  input {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 0.8rem;
+  }
+  button {
+    border-radius: 0.8rem;
+  }
+  a {
+    text-decoration: none;
   }
 `;

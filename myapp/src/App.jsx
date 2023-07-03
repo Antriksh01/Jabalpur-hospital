@@ -49,7 +49,8 @@ axios.defaults.withCredentials = true;
 
 function App() {
   const [auth] = useAuth();
-  // console.log(auth);
+
+  console.log(auth.user.role);
   return (
     <BrowserRouter>
       <Routes>
@@ -60,7 +61,8 @@ function App() {
         <Route path="/" element={<Frontpage />} />
         {/* receptionist routes */}
         <Route path="/Login" element={<Login />} />
-        {auth.user !== "" ? (
+        <Route path="/admin-login" element={<Adminlogin />} />
+        {auth.user.role === 2 ? (
           <>
             <Route path="/receptionist-dashboard" element={<RDashboard />} />
             <Route path="/token-generation" element={<TokenGeneration />} />
@@ -80,7 +82,13 @@ function App() {
               path="/receptionist-profile"
               element={<ReceptionistProfile />}
             />
+          </>
+        ) : (
+          <Route path="/Login" element={<Login />} />
+        )}
 
+        {auth.user.role === 0 ? (
+          <>
             {/* admin-dashboard */}
             <Route path="/admin-dashboard" element={<Admindashboard />} />
             <Route path="/display-content" element={<DisplayContent />} />
@@ -88,9 +96,16 @@ function App() {
             <Route path="/manage-receptionist" element={<ManageRec />} />
             <Route path="/admin-report" element={<Report />} />
             <Route path="/add-receptionist" element={<AddReceptionist />} />
+            <Route path="/token-generation" element={<TokenGeneration />} />
             <Route path="/add-doctor" element={<AddDoctor />} />
             <Route path="/month-wise-token" element={<MonthWiseToken />} />
+          </>
+        ) : (
+          <Route path="/Adminlogin" element={<Adminlogin />} />
+        )}
 
+        {auth.user.role === 1 ? (
+          <>
             {/* doctor-dashboard */}
             <Route path="/doctor-dashboard" element={<Doctordashboard />} />
             <Route path="/DoctorTreatment" element={<DoctorTreatment />} />
@@ -101,14 +116,10 @@ function App() {
             <Route path="/doctor-display" element={<DoctorDisplay />} />
           </>
         ) : (
-          <Route path="/Login" element={<Login />} />
+          <Route path="/Doctorlogin" element={<Doctorlogin />} />
         )}
 
-        {/* admin-dashboard */}
-        <Route path="/Adminlogin" element={<Adminlogin />} />
-
         {/* doctor routes */}
-        <Route path="/Doctorlogin" element={<Doctorlogin />} />
 
         <Route path="/register" element={<Register />} />
       </Routes>

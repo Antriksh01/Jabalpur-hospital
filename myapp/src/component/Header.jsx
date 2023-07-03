@@ -26,7 +26,7 @@ const Header = () => {
       .get("http://localhost:8100/api/auth/logout")
       .then((res) => {
         localStorage.removeItem("auth");
-        navigate("/Login");
+        navigate("/");
       })
       .catch((err) => console.log(err));
   };

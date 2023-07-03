@@ -271,7 +271,7 @@ const StoryPart = () => {
                               </Button>
                               <button
                                 className="btn btn-danger"
-                                onClick={() => handleWrapDay("on_Break")}
+                                onClick={() => handleWrapDay("no")}
                               >
                                 Wrap the Day
                               </button>

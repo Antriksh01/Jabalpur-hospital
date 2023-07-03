@@ -10,10 +10,9 @@ const Register = () => {
   const [data, setData] = useState({
     username: "",
     mobile: "",
-    email: "",
+    reg_email: "",
     password: "",
     cpassword: "",
-    role: "",
   });
   const [showPassword, setShowPassword] = useState(false);
 
@@ -72,8 +71,8 @@ const Register = () => {
               <input
                 type="text"
                 placeholder="Email Id"
-                name="email"
-                value={data.email}
+                name="reg_email"
+                value={data.reg_email}
                 style={{ border: "none" }}
                 onChange={handleChange}
                 required
@@ -100,6 +99,17 @@ const Register = () => {
                 onChange={handleChange}
                 required
               />
+              {/* <br />
+              <br />
+              <input
+                type="text"
+                name="role"
+                value={data.role}
+                placeholder="Define rol"
+                style={{ border: "none" }}
+                onChange={handleChange}
+                required
+              /> */}
               {/* <button
           type="button"
           className="show-password"
