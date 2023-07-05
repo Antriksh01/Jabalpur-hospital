@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Header from "./Header";
 import axios from "axios";
 import cogoToast from "cogo-toast";
+import { Link } from "react-router-dom";
 
 const PendingApproval = () => {
   const [userData, setUserData] = useState([]);
@@ -28,6 +29,7 @@ const PendingApproval = () => {
       { Admin_Approval: "Approved" }
     );
     cogoToast.success("Approved");
+    setApprove(true);
   };
 
   useEffect(() => {
@@ -49,6 +51,11 @@ const PendingApproval = () => {
                   Pending Approval
                 </h1>
               </span>
+            </div>
+            <div className="container contBx">
+              <button className="btn btn-success btnDash">
+                <Link to="/admin-dashboard">Go to Dashboard</Link>
+              </button>
             </div>
 
             <div className="table-responsive mt-5">
@@ -84,6 +91,11 @@ const PendingApproval = () => {
                 </tbody>
               </table>
             </div>
+            <div className="container contBx">
+              <button className="btn btn-success btnDash">
+                <Link to="/admin-dashboard">Go to Dashboard</Link>
+              </button>
+            </div>
           </div>
         </div>
       </Container>
@@ -92,4 +104,17 @@ const PendingApproval = () => {
 };
 
 export default PendingApproval;
-const Container = styled.div``;
+const Container = styled.div`
+  a {
+    text-decoration: none;
+    color: white;
+  }
+
+  tr {
+    font-size: 20px;
+  }
+
+  td {
+    font-size: 18px;
+  }
+`;

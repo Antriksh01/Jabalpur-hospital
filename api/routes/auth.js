@@ -1,12 +1,13 @@
 import express from "express";
 import {
   login,
-  sendEmail,
   register,
   dataLogin,
   logout,
   getAllUsers,
   adminApproval,
+  sendOtp,
+  verifyOtpPasswordUpdate,
 } from "../controller/auth.js";
 import {
   PatientTokenGeneration,
@@ -40,9 +41,9 @@ import {
 
 const router = express.Router();
 
-router.post("/login", isAdmin, login);
+router.post("/login", login);
 router.post("/register", register);
-router.post("/password-reset", sendEmail);
+router.put("/reset-password/verify", verifyOtpPasswordUpdate);
 router.get("/", verifyUser, isAdmin, dataLogin);
 router.get("/logout", logout);
 router.get("/users", getAllUsers);
@@ -68,5 +69,6 @@ router.get("/get-patient-details", getPatientDetails);
 router.put("/update-rec-details/:Rec_ID", receptionistDetailsUpdate);
 router.delete("/delete-receptionist/:id", deleteReceptionistData);
 router.put("/admin-approval-update/:id", adminApproval);
+router.post("/sendOtp", sendOtp);
 
 export default router;

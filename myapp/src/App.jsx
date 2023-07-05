@@ -46,6 +46,8 @@ import DoctorDisplayScr from "./component/DoctorDisplayScr";
 import ManageRec from "./component/ManageRec";
 import MonthWiseToken from "./component/MonthWiseToken";
 import PendingApproval from "./component/PendingApproval";
+import SendOtp from "./component/SendOtp";
+import ResetPassword from "./component/ResetPassword";
 axios.defaults.withCredentials = true;
 
 function App() {
@@ -55,7 +57,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/forgot-password" element={<ForgetPassword />} />
+        {/* <Route path="/forgot-password" element={<ForgetPassword />} /> */}
         <Route path="/confirm-password" element={<ConfirmPassword />} />
         <Route path="/doctorLive/:value" element={<DoctorDisplayScr />} />
 
@@ -127,6 +129,8 @@ function App() {
         <Route path="/Adminlogin" element={<Adminlogin />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Doctorlogin" element={<Doctorlogin />} />
+        <Route path="/forgot-password" element={<SendOtp />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
       </Routes>
     </BrowserRouter>
   );

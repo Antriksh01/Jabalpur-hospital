@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import styled from "styled-components";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const PatientAssigned = () => {
   const [assignPat, setAssignPat] = useState([]);
@@ -59,6 +60,11 @@ const PatientAssigned = () => {
                 </tbody>
               </table>
             </div>
+            <div className="container contBx">
+              <button className="btn btn-success btnDash">
+                <Link to="/receptionist-dashboard">Go to Dashboard</Link>
+              </button>
+            </div>
           </div>
         </div>
       </Container>
@@ -84,5 +90,18 @@ const Container = styled.div`
   .contMain {
     @media screen and (max-width: 500px) {
       margin-top: 10rem;
+    }
+
+    a{
+      text-decoration:none;
+      color:white;
+    }
+    
+    tr{
+      font-size:20px;
+    }
+    
+    td{
+      font-size:18px;
     }
 `;

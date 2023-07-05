@@ -31,7 +31,7 @@ const ForgetPassword = () => {
       );
       console.log(input);
       cogoToast.success("password updated");
-      navigate("/Login");
+      navigate("/");
     } catch (err) {
       //   setErr(err.response.data);
       console.log(err);

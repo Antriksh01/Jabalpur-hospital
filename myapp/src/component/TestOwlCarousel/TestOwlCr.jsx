@@ -364,7 +364,7 @@ const Container = styled.div`
     padding-top:1rem;
     padding: 1rem;
     border-radius: 1rem;
-    background-color:#95d3a2d4;
+    background-color:#deeee1d4;
     width:100%;
     height:100%;
     display:flex;
@@ -408,7 +408,7 @@ const Container = styled.div`
       width:17rem !important;
     }
   .text{
-    background-color:#ade6e8;
+    background-color:#47a45b;
     padding: 4rem;
     // margin-left: 32rem;
     // margin-top: 10rem;
@@ -439,6 +439,7 @@ const Container = styled.div`
       justify-content:space-evenly;
       button{
         width: 7rem;
+        box-shadow: 1px 2px 7px black;
       }
     }
   }

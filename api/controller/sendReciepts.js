@@ -81,6 +81,8 @@ export const sendEmailSms = (req, res) => {
       res.status(200).send("Email sent successfully!");
     }
   });
+
+  
 };
 
 // updatetokenreciept

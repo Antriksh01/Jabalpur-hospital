@@ -6,55 +6,155 @@ import mysql from "mysql";
 import session from "express-session";
 
 export const register = (req, res) => {
-  //CHECK USER IF EXISTS
+  const { username, mobile, reg_email, password, role } = req.body;
 
-  const q = "SELECT * FROM admin_register WHERE username = ?";
+  // Check if the user already exists in admin_register table
+  const checkUserQuery = "SELECT * FROM admin_register WHERE username = ?";
+  db.query(checkUserQuery, [username], (err, data) => {
+    if (err) {
+      return res.status(500).json(err);
+    }
+    if (data.length) {
+      return res.status(409).json("User already exists!");
+    }
 
-  db.query(q, [req.body.username], (err, data) => {
-    if (err) return res.status(500).json(err);
-    if (data.length) return res.status(409).json("User already exists!");
-    //CREATE A NEW USER
-    //Hash the password
+    // Hash the password
     const salt = bcrypt.genSaltSync(10);
-    const hashedPassword = bcrypt.hashSync(req.body.password, salt);
+    const hashedPassword = bcrypt.hashSync(password, salt);
 
-    const q =
-      "INSERT INTO admin_register (`username`,`mobile`,`reg_email`, `password`,`cpassword`,`role`) VALUE (?)";
+    // Insert user into admin_register table
+    const insertUserQuery =
+      "INSERT INTO admin_register (username, mobile, reg_email, password, role) VALUES (?, ?, ?, ?, ?)";
+    const values = [username, mobile, reg_email, hashedPassword, role];
+    db.query(insertUserQuery, values, (err, result) => {
+      if (err) {
+        return res.status(500).json(err);
+      }
 
-    const values = [
-      req.body.username,
-      req.body.mobile,
-      req.body.reg_email,
-      hashedPassword,
-      hashedPassword,
-      req.body.role,
-    ];
-
-    db.query(q, [values], (err, data) => {
-      if (err) return res.status(500).json(err);
-      return res.status(200).send("User has been created.");
+      // Insert user into otp_details table
+      const insertOTPQuery =
+        "INSERT INTO otp_details (ID, Email) VALUES (?, ?)";
+      const otpValues = [result.insertId, reg_email];
+      db.query(insertOTPQuery, otpValues, (err, otpResult) => {
+        if (err) {
+          // Handle database error
+          return res.status(500).json({ message: "Failed to register user" });
+        }
+        if (otpResult) {
+          return res.status(200).json("User has been created.");
+        }
+      });
     });
   });
 };
 
-//forgot password
-export const sendEmail = (req, res) => {
-  const { reg_email, password, cpassword } = req.body;
-  const q = "SELECT * FROM admin_register WHERE reg_email = ?";
+// send-otp
+export const sendOtp = (req, res) => {
+  const { email } = req.body;
+  // random otp
+  function generateOTP(length) {
+    const chars = "0123456789";
+    let otp = "";
 
-  db.query(q, [req.body.reg_email], (err, data) => {
-    if (err) return res.status(500).send(err);
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * chars.length);
+      otp += chars[randomIndex];
+    }
 
-    const salt = bcrypt.genSaltSync(10);
-    const hashedPassword = bcrypt.hashSync(req.body.password, salt);
-
-    const q = `UPDATE admin_register SET password = ? WHERE reg_email = ?`;
-
-    db.query(q, [req.body.reg_email, req.body.hashedPassword], (err, data) => {
-      if (err) return res.status(500).send(err);
-      return res.status(200).json("password updated successfull");
+    return otp;
+  }
+  const OTP = generateOTP(6);
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "Gmail",
+      auth: {
+        user: "abhishekdoaguru@gmail.com",
+        pass: "onmkmsfelvgnfnoa",
+      },
     });
-  });
+
+    const mailOptions = {
+      from: "Abhishek_doaguru@gmail.com",
+      to: email,
+      subject: "Password Reset Otp",
+      text: `Your OTP for password reset is: ${OTP}`,
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error(error);
+        res.status(500).json("An error occurred while sending the email.");
+      } else {
+        console.log("Otp sent:", info.response);
+        res.status(200).send("Otp sent successfully!");
+      }
+    });
+
+    db.query(
+      "UPDATE otp_details SET Otp = ? WHERE Email = ?",
+      [OTP, email],
+      (err, result) => {
+        if (err) {
+          return res.status(500).send({ message: "Failed to store OTP" });
+        }
+
+        res.status(200).json({ message: "OTP sent successfully" });
+      }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//forgot password
+export const verifyOtpPasswordUpdate = (req, res) => {
+  const { email, otp, password } = req.body;
+
+  // Verify OTP logic
+  // Retrieve the stored OTP and its expiration timestamp from the otp_details table for the given email
+  db.query(
+    "SELECT Otp FROM otp_details WHERE Email = ? AND Otp = ? AND NOW() <= Otp_expiry",
+    [email, otp],
+    (err, data) => {
+      if (err) {
+        // Handle database error
+        return res.status(500).json({ message: "Failed to verify OTP" });
+      }
+      console.log(data);
+      // Check if the OTP exists in the database response
+      if (data.length === []) {
+        return res
+          .status(400)
+          .json({ message: "Invalid OTP or OTP has expired" });
+      }
+
+      // Generate salt and hash the new password
+      const salt = bcrypt.genSaltSync(10);
+      const hashedPassword = bcrypt.hashSync(password, salt);
+
+      // Update the user's password in the admin_register table
+      db.query(
+        "UPDATE admin_register SET password = ? WHERE reg_email = ?",
+        [hashedPassword, email],
+        (err, result) => {
+          if (err) {
+            // Handle database error
+            return res
+              .status(500)
+              .json({ message: "Failed to update password" });
+          }
+
+          // Check if any rows were affected by the update query
+          if (result.affectedRows === 0) {
+            return res.status(400).json({ message: "User not found" });
+          }
+
+          // Return success response
+          res.status(200).json({ message: "Password updated successfully" });
+        }
+      );
+    }
+  );
 };
 
 export const dataLogin = async (req, res) => {
@@ -64,44 +164,29 @@ export const dataLogin = async (req, res) => {
 
 // login
 export const login = async (req, res) => {
-  const { username, password } = req.body;
-
+  const username = req.body.username;
+  const password = req.body.password;
   db.query(
     "SELECT * FROM admin_register WHERE username = ?",
-    [username],
+    username,
     (err, result) => {
-      console.log(result);
       if (err) {
-        return console.log("login error in server");
+        console.error("Login error in server:", err);
+        return res
+          .status(500)
+          .send({ status: "error", message: "Internal server error" });
       }
-      // console.log(result);
+
       if (result.length > 0) {
-        bcrypt.compare(
-          password.toString(),
-          result[0].password,
-          (err, response) => {
-            if (err) return console.log("password compare errror");
-
-            if (response) {
-              const name = result[0].name;
-              const token = jwt.sign({ name }, "secretkey", {
-                expiresIn: "10m",
-              });
-              console.warn(token, "token");
-              res.cookie("token", token, {
-                httpOnly: true,
-              });
-
-              return res.send({ status: "success" });
-            } else {
-              return console.log("password not matched");
-            }
+        bcrypt.compare(password, result[0].password, (err, response) => {
+          if (response) {
+            res.send(result);
+          } else {
+            res.send({ message: "wrong username/password" });
           }
-        );
-        console.log(token, "token");
-        console.log("Login successfully");
+        });
       } else {
-        res.json("no user found");
+        res.send({ msg: "user doesn't exist" });
       }
     }
   );

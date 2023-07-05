@@ -3,6 +3,7 @@ import "./Doctor.css";
 import Header from "./Header";
 import styled from "styled-components";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Doctor = () => {
   const [docData, setDocData] = useState([]);
@@ -62,6 +63,11 @@ const Doctor = () => {
                 </tbody>
               </table>
             </div>
+            <div className="container contBx">
+              <button className="btn btn-success btnDash">
+                <Link to="/receptionist-dashboard">Go to Dashboard</Link>
+              </button>
+            </div>
           </div>
         </div>
       </Container>
@@ -96,5 +102,17 @@ const Container = styled.div`
     @media screen and (max-width: 500px) {
       margin-top: 10rem;
     }
+  }
+  a {
+    text-decoration: none;
+    color: white;
+  }
+
+  tr {
+    font-size: 20px;
+  }
+
+  td {
+    font-size: 18px;
   }
 `;

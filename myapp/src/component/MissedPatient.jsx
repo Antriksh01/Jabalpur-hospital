@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Header from "./Header";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const MissedPatient = () => {
   const [patMissed, setPatMissed] = useState([]);
@@ -34,7 +35,7 @@ const MissedPatient = () => {
                   className="text-center fs-1 fw-bold"
                   style={{ color: "#347571" }}
                 >
-                  Patients Missed/Absent
+                  Patients Missed-Absent-Not Treated
                 </h1>
               </span>
             </div>
@@ -69,6 +70,11 @@ const MissedPatient = () => {
                 </tbody>
               </table>
             </div>
+            <div className="container contBx">
+              <button className="btn btn-success btnDash">
+                <Link to="/doctor-dashboard">Go to Dashboard</Link>
+              </button>
+            </div>
           </div>
         </div>
       </Container>
@@ -81,4 +87,17 @@ const Container = styled.div`
 .contMain {
   @media screen and (max-width: 500px) {
     margin-top: 10rem;
+  }
+  
+  a{
+    text-decoration:none;
+    color:white;
+  }
+  
+  tr{
+    font-size:20px;
+  }
+  
+  td{
+    font-size:18px;
   }`;

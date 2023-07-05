@@ -8,34 +8,40 @@ import cogoToast from "cogo-toast";
 
 const Register = () => {
   const navigate = useNavigate();
-  const [data, setData] = useState({
-    username: "",
-    mobile: "",
-    reg_email: "",
-    password: "",
-    cpassword: "",
-  });
+  const [username, setUsername] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
-  const handleChange = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value });
-    console.log(data);
-  };
 
   const handleClick = async (e) => {
     e.preventDefault();
 
-    try {
-      const input = await axios.post(
-        "http://localhost:8100/api/auth/register",
-        data
-      );
+    const user = {
+      username,
+      mobile,
+      reg_email: email,
+      password,
+      role,
+    };
 
-      console.log(input);
-      cogoToast.success("sign up successful");
+    try {
+      const response = await axios.post(
+        "http://localhost:8100/api/auth/register",
+        user
+      );
+      setUsername("");
+      setMobile("");
+      setEmail("");
+      setPassword("");
+      setRole("");
+      console.log(response);
+      cogoToast.success("User registered successfully!");
       navigate("/Login");
     } catch (err) {
       console.log(err);
+      cogoToast.error("Failed to register user. Please try again.");
     }
   };
 
@@ -50,10 +56,9 @@ const Register = () => {
               <input
                 type="text"
                 placeholder="Username"
-                name="username"
-                value={data.username}
                 style={{ border: "none" }}
-                onChange={handleChange}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 required
               />
               <br />
@@ -61,10 +66,9 @@ const Register = () => {
               <input
                 type="text"
                 placeholder="Moblie No"
-                name="mobile"
-                value={data.mobile}
                 style={{ border: "none" }}
-                onChange={handleChange}
+                value={mobile}
+                onChange={(e) => setMobile(e.target.value)}
                 required
               />
               <br />
@@ -72,10 +76,9 @@ const Register = () => {
               <input
                 type="text"
                 placeholder="Email Id"
-                name="reg_email"
-                value={data.reg_email}
                 style={{ border: "none" }}
-                onChange={handleChange}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
               />
               <br />
@@ -84,41 +87,20 @@ const Register = () => {
                 type={showPassword ? "text" : "password"}
                 placeholder="Password"
                 name="password"
-                value={data.password}
                 style={{ border: "none" }}
-                onChange={handleChange}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 required
               />
               <br />
-              <br />
-              <input
-                type="password"
-                name="cpassword"
-                value={data.cpassword}
-                placeholder="Confirm Password"
-                style={{ border: "none" }}
-                onChange={handleChange}
-                required
-              />
-              {/* <br />
               <br />
               <input
                 type="text"
-                name="role"
-                value={data.role}
-                placeholder="Define rol"
                 style={{ border: "none" }}
-                onChange={handleChange}
-                required
-              /> */}
-              {/* <button
-          type="button"
-          className="show-password"
-          onClick={handleShowPasswordToggle}
-        >
-          {showPassword ? "Hide" : "Show"}
-        </button> */}
-
+                placeholder="Role"
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+              />
               <button type="submit" className="btn btn-success mt-2">
                 Submit
               </button>
