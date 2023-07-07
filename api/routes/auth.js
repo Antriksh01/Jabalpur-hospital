@@ -33,11 +33,19 @@ import {
   getDoctorsStatus,
 } from "../controller/DoctorDetails.js";
 import {
+  SearchTokenHistory,
+  searchPatientQueue,
   sendEmailSms,
   sendSMS,
   sendWhatsapp,
   tokenRecStatus,
 } from "../controller/sendReciepts.js";
+import {
+  doctorReports,
+  receptionistMiniReport,
+  // receptionistReport,
+  tokenReport,
+} from "../controller/Report.js";
 
 const router = express.Router();
 
@@ -70,5 +78,13 @@ router.put("/update-rec-details/:Rec_ID", receptionistDetailsUpdate);
 router.delete("/delete-receptionist/:id", deleteReceptionistData);
 router.put("/admin-approval-update/:id", adminApproval);
 router.post("/sendOtp", sendOtp);
+router.post("/token-report", tokenReport);
+// router.get("/receptionist-report/:recId", receptionistReport);
+router.post("/receptionistMiniReport", receptionistMiniReport);
+router.post("/doctors-report", doctorReports);
+
+// Search query
+router.get("/searchTokenhistory", SearchTokenHistory);
+router.get("/searchPatientQueue", searchPatientQueue);
 
 export default router;

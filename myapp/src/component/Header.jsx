@@ -11,7 +11,7 @@ import { useAuth } from "../context";
 const Header = () => {
   const [auth] = useAuth();
   const navigate = useNavigate();
-  console.log(auth);
+  // console.log(auth);
 
   const userProfile = async () => {
     try {

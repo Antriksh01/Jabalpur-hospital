@@ -81,8 +81,6 @@ export const sendEmailSms = (req, res) => {
       res.status(200).send("Email sent successfully!");
     }
   });
-
-  
 };
 
 // updatetokenreciept
@@ -500,6 +498,52 @@ export const tokenRecStatus = async (req, res) => {
 // getToken monthwise
 export const monthWiseToken = (req, res) => {
   try {
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// search token History
+export const SearchTokenHistory = async (req, res) => {
+  try {
+    const keyword = req.query.keyword;
+    const query = `SELECT *
+    FROM patient_token
+    JOIN patient_details ON  patient_token.uhid= patient_details.uhid
+   
+    WHERE patient_token.Assigned_doctor LIKE '%${keyword}%'
+       OR patient_details.firstname LIKE '%${keyword}%' OR patient_details.lastname LIKE '%${keyword}%' OR patient_token.P_Contact LIKE '%${keyword}%' OR patient_token.P_Email LIKE '%${keyword}%'`;
+
+    db.query(query, (err, results) => {
+      if (err) throw err;
+      res.json(results);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// search patient in queue
+export const searchPatientQueue = (req, res) => {
+  try {
+    const keyword = req.query.keyword;
+    const query = `SELECT *
+FROM patient_token
+JOIN patient_details ON patient_token.uhid = patient_details.uhid
+WHERE patient_token.treatment_status = 'Pending'`;
+
+    if (patient_token.treatment_status === "Pending") {
+      query += ` AND (patient_token.Assigned_doctor LIKE '%${keyword}%'
+              OR patient_details.firstname LIKE '%${keyword}%'
+              OR patient_details.lastname LIKE '%${keyword}%'
+              OR patient_token.P_Contact LIKE '%${keyword}%'
+              OR patient_token.P_Email LIKE '%${keyword}%')`;
+    }
+
+    db.query(query, (err, results) => {
+      if (err) throw err;
+      res.json(results);
+    });
   } catch (error) {
     console.log(error);
   }

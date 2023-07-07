@@ -48,6 +48,8 @@ import MonthWiseToken from "./component/MonthWiseToken";
 import PendingApproval from "./component/PendingApproval";
 import SendOtp from "./component/SendOtp";
 import ResetPassword from "./component/ResetPassword";
+import AdminReportGen from "./Pages/AdminReportGen";
+// import Temp from "./component/Temp.jsx";
 axios.defaults.withCredentials = true;
 
 function App() {
@@ -60,7 +62,6 @@ function App() {
         {/* <Route path="/forgot-password" element={<ForgetPassword />} /> */}
         <Route path="/confirm-password" element={<ConfirmPassword />} />
         <Route path="/doctorLive/:value" element={<DoctorDisplayScr />} />
-
         <Route path="/" element={<Frontpage />} />
         {/* receptionist routes */}
         <Route path="/Login" element={<Login />} />
@@ -80,6 +81,7 @@ function App() {
             <Route path="/display-content" element={<DisplayContent />} />
             <Route path="/patient-opd" element={<Patientopd />} />
             <Route path="/patient-assigned" element={<PatientAssigned />} />
+
             <Route path="/report-admin" element={<ReportAdmin />} />
             <Route
               path="/receptionist-profile"
@@ -89,7 +91,6 @@ function App() {
         ) : (
           <Route path="/Login" element={<Login />} />
         )}
-
         {auth.user.role === "Admin" ? (
           <>
             {/* admin-dashboard */}
@@ -103,11 +104,11 @@ function App() {
             <Route path="/add-doctor" element={<AddDoctor />} />
             <Route path="/month-wise-token" element={<MonthWiseToken />} />
             <Route path="/pending-approval" element={<PendingApproval />} />
+            <Route path="/admin-reports" element={<AdminReportGen />} />
           </>
         ) : (
           <Route path="/Adminlogin" element={<Adminlogin />} />
         )}
-
         {auth.user.role === "Doctor" ? (
           <>
             {/* doctor-dashboard */}
@@ -122,15 +123,14 @@ function App() {
         ) : (
           <Route path="/Doctorlogin" element={<Doctorlogin />} />
         )}
-
         {/* doctor routes */}
-
         <Route path="/register" element={<Register />} />
         <Route path="/Adminlogin" element={<Adminlogin />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Doctorlogin" element={<Doctorlogin />} />
         <Route path="/forgot-password" element={<SendOtp />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+        {/* <Route path="/test" element={<Temp />} /> */}
       </Routes>
     </BrowserRouter>
   );

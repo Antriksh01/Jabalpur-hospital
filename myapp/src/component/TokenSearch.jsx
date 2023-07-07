@@ -33,10 +33,10 @@ const TokenSearch = () => {
 
   const handleSearch = async () => {
     try {
-      const response = await axios.get(
+      const response = await axios.post(
         `http://localhost:8100/api/auth/Search-patient?keyword=${keyword}`
       );
-      console.log(response.data);
+      console.log(response);
       const data = response.data;
       if (data.length > 0) {
         setResults(data);
