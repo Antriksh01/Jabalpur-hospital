@@ -4,6 +4,8 @@ import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
 import mysql from "mysql";
 import session from "express-session";
+import dotenv from "dotenv";
+dotenv.config();
 
 export const register = (req, res) => {
   const { username, mobile, reg_email, password, role } = req.body;
@@ -96,13 +98,13 @@ export const sendOtp = (req, res) => {
     const transporter = nodemailer.createTransport({
       service: "Gmail",
       auth: {
-        user: "abhishekdoaguru@gmail.com",
-        pass: "onmkmsfelvgnfnoa",
+        user: process.env.EMAILSENDER,
+        pass: process.env.EMAILPASSWORD,
       },
     });
 
     const mailOptions = {
-      from: "Abhishek_doaguru@gmail.com",
+      from: process.env.EMAILSENDER,
       to: email,
       subject: "Password Reset Otp",
       text: `Your OTP for password reset is: ${OTP}`,

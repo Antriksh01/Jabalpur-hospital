@@ -5,9 +5,11 @@ import nodemailer from "nodemailer";
 import mysql from "mysql";
 import session from "express-session";
 import twilio from "twilio";
+import dotenv from "dotenv";
+dotenv.config();
 
-const ACCOUNT_SID = "AC497b7b2e364b9aa2b2260b30951b4986";
-const AUTH_TOKEN = "24059079c86f6942d7ddc2f799e5aa97";
+const ACCOUNT_SID = process.env.ACCOUNT_SID;
+const AUTH_TOKEN = process.env.AUTH_TOKEN;
 const client = twilio(ACCOUNT_SID, AUTH_TOKEN);
 
 // send-text-sms
@@ -16,7 +18,7 @@ export const sendSMS = (req, res) => {
 
   client.messages
     .create({
-      from: "+14846737876",
+      from: process.env.TWILIONUMBER,
       to: phoneNumber,
       body: message,
     })

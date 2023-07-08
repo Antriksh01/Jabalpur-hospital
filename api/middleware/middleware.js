@@ -1,6 +1,8 @@
 // token verification
 
 import { db } from "../connect.js";
+import dotenv from "dotenv";
+dotenv.config();
 
 export const verifyUser = (req, res, next) => {
   const token = req.cookies.token;
@@ -8,7 +10,7 @@ export const verifyUser = (req, res, next) => {
   if (!token) {
     return console.log("you are not authenticate");
   } else {
-    jwt.verify(token, "secretkey", (err, decoded) => {
+    jwt.verify(token, process.env.SECRETKEY, (err, decoded) => {
       if (err) {
         return console.log("invalid token ");
       } else {
