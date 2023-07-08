@@ -15,6 +15,8 @@ const ForgetPassword = () => {
     cpassword: "",
   });
 
+  const domain = "http://localhost:8100";
+
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
     console.log(data);
@@ -25,10 +27,7 @@ const ForgetPassword = () => {
     console.log("clicked");
 
     try {
-      const input = await axios.post(
-        "http://localhost:8100/api/auth/password-reset",
-        data
-      );
+      const input = await axios.post(`${domain}/api/auth/password-reset`, data);
       console.log(input);
       cogoToast.success("password updated");
       navigate("/");

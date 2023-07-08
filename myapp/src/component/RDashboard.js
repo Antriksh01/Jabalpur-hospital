@@ -8,10 +8,11 @@ import axios from "axios";
 const RDashboard = () => {
   const [users, setUsers] = useState([]);
   const [patient, setPatient] = useState([]);
+  const domain = "http://localhost:8100";
 
   const getAllUsers = async () => {
     try {
-      const response = await axios.get("http://localhost:8100/api/auth/users");
+      const response = await axios.get(`${domain}/api/auth/users`);
       console.log(response.data.role);
       setUsers(response.data);
     } catch (error) {
@@ -21,9 +22,7 @@ const RDashboard = () => {
 
   const getAllPatients = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:8100/api/auth/getAllPatient"
-      );
+      const response = await axios.get(`${domain}/api/auth/getAllPatient`);
       // console.log(response.data);
       setPatient(response.data);
     } catch (error) {

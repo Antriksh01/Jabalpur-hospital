@@ -10,11 +10,12 @@ const SendOtp = () => {
   const [message, setMessage] = useState("");
 
   const navigate = useNavigate();
+  const domain = "http://localhost:8100";
 
   const handleSendOtp = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:8100/api/auth/sendOtp", {
+      const res = await axios.post(`${domain}/api/auth/sendOtp`, {
         email,
       });
       setMessage(res.data.message);

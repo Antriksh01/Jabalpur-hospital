@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./Tokengenerated.css";
 import Header from "./Header";
 import jbplogo from "../photos/jbplogo.png";
 import styled from "styled-components";
@@ -8,11 +7,10 @@ import axios from "axios";
 
 const Tokengenerated = () => {
   const [patient, setPatient] = useState([]);
+  const domain = "http://localhost:8100";
   const getAllPatients = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:8100/api/auth/tokenReciept"
-      );
+      const response = await axios.get(`${domain}/api/auth/tokenReciept`);
       const data = response.data;
       const lastToken = data[data.length - 1];
       setPatient(lastToken);

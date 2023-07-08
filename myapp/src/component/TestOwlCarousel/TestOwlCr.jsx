@@ -42,6 +42,8 @@ const StoryPart = () => {
   const [timeSetup, setTimeSetup] = useState([]);
   const carouselRef = useRef(null);
 
+  const domain = "http://localhost:8100";
+
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
   };
@@ -55,9 +57,7 @@ const StoryPart = () => {
   };
   const handleSearch = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:8100/api/auth/tokenReciept`
-      );
+      const response = await axios.get(`${domain}/api/auth/tokenReciept`);
       const dt = response.data;
       setResults(dt);
     } catch (error) {
@@ -87,7 +87,7 @@ const StoryPart = () => {
   const handleUpdate = async (value) => {
     try {
       const updateData = await axios.put(
-        `http://localhost:8100/api/auth/tokenRecStatus/${value}/${auth.user.reg_email}`,
+        `${domain}/api/auth/tokenRecStatus/${value}/${auth.user.reg_email}`,
         {
           status: selectedOption,
         }
@@ -148,7 +148,7 @@ const StoryPart = () => {
     // if()
     try {
       const updateData = await axios.put(
-        `http://localhost:8100/api/auth/doctor-availability-update/${auth.user.reg_email}`,
+        `${domain}/api/auth/doctor-availability-update/${auth.user.reg_email}`,
         {
           status: value,
         }

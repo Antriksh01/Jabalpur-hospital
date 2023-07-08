@@ -14,6 +14,7 @@ const PatientQueue = () => {
   const [searchData, setSearchData] = useState([]);
   const [searchError, setSearchError] = useState(false);
   //   console.log(auth);
+  const domain = "http://localhost:8100";
 
   const handlePatient = async () => {
     const today = new Date();
@@ -29,9 +30,7 @@ const PatientQueue = () => {
       .join("-");
     console.log(formattedDate);
     try {
-      const { data } = await axios.get(
-        "http://localhost:8100/api/auth/tokenReciept"
-      );
+      const { data } = await axios.get(`${domain}/api/auth/tokenReciept`);
       console.log(data);
       const filteredData = data.filter(
         (item) =>
@@ -58,7 +57,7 @@ const PatientQueue = () => {
     console.log(formattedDate);
     try {
       const response = await axios.get(
-        `http://localhost:8100/api/auth/searchPatientQueue?keyword=${keyword}`
+        `${domain}/api/auth/searchPatientQueue?keyword=${keyword}`
       );
       console.log(response.data);
       const data = response.data;

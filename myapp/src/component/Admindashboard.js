@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./Doctordashboard.css";
+
 import Header from "./Header";
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
@@ -8,12 +8,11 @@ import axios from "axios";
 const Admindashboard = () => {
   const [docCount, setDocCount] = useState([]);
   const [pendingUserCount, setPendingUserCount] = useState([]);
+  const domain = "http://localhost:8100";
 
   const countDoctors = async () => {
     try {
-      const dt = await axios.get(
-        "http://localhost:8100/api/auth/getDoctorsStatus"
-      );
+      const dt = await axios.get(`${domain}/api/auth/getDoctorsStatus`);
       const res = dt.data;
       setDocCount(res);
     } catch (error) {
@@ -30,7 +29,7 @@ const Admindashboard = () => {
   // pending admin approval length
   const pendingApprovalList = async () => {
     try {
-      const res = await axios.get("http://localhost:8100/api/auth/users");
+      const res = await axios.get(`${domain}/api/auth/users`);
       console.log(res.data);
       setPendingUserCount(res.data);
     } catch (error) {

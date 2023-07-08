@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./Doctor.css";
 import Header from "./Header";
 import styled from "styled-components";
 import axios from "axios";
@@ -14,11 +13,11 @@ const Doctor = () => {
   const [results, setResults] = useState([]);
   const [searchError, setSearchError] = useState(false);
 
+  const domain = "http://localhost:8100";
+
   const handleData = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:8100/api/auth/getAssignedDoc`
-      );
+      const response = await axios.get(`${domain}/api/auth/getAssignedDoc`);
       const dt = response.data;
       console.log(dt);
       setDocData(dt);
@@ -31,7 +30,7 @@ const Doctor = () => {
   const handleSearch = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8100/api/auth/searchAvailableDoctor?keyword=${keyword}`
+        `${domain}/api/auth/searchAvailableDoctor?keyword=${keyword}`
       );
 
       const data = response.data;

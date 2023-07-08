@@ -19,6 +19,8 @@ const AddReceptionist = () => {
     Additionalnotes: "",
   });
 
+  const domain = "http://localhost:8100";
+
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
     console.log(data);
@@ -29,7 +31,7 @@ const AddReceptionist = () => {
 
     try {
       const input = await axios.post(
-        "http://localhost:8100/api/auth/add-receptionist",
+        `${domain}/api/auth/add-receptionist`,
         data
       );
 

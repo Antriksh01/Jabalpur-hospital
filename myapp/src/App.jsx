@@ -1,31 +1,25 @@
 import "./App.css";
-// import Header from "./component/Header";
+
 import Frontpage from "./component/Frontpage";
 import Login from "./component/Login";
 import Doctorlogin from "./component/Doctorlogin";
 import Adminlogin from "./component/Adminlogin";
-// import { useSelector } from "react-redux";
 import RDashboard from "./component/RDashboard";
 import Doctor from "./component/Doctor";
 
 import Doctordashboard from "./component/Doctordashboard";
 import Admindashboard from "./component/Admindashboard";
-// import Token from "./component/TokenGeneration";
-// import Addadocter from "./component/Addadoctor";
-import ConfirmPassword from "./component/ConfirmPassword";
-import Patientregistration from "./component/Patientregistration";
+// import Patientregistration from "./component/Patientregistration";
 import Tokengenerated from "./component/Tokengenerated";
 import DoctorTreatment from "./component/DoctorTreatment";
 import TokenGeneration from "./component/TokenGeneration";
 
-// import Doctortreatment from "./component/Doctortreatment";
-
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Register from "./component/Registration/Register";
-import DisplayContent from "./component/DisplayConten";
+// import DisplayContent from "./component/DisplayConten";
 import ForgetPassword from "./component/FOrgatePassword";
 import axios from "axios";
-import Patientopd from "./component/patientopd";
+// import Patientopd from "./component/patientopd";
 import PatientAssigned from "./component/PatientAssigned";
 import ReportAdmin from "./component/ReportAdmin";
 import ReceptionistProfile from "./component/ReceptionistProfile";
@@ -60,7 +54,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         {/* <Route path="/forgot-password" element={<ForgetPassword />} /> */}
-        <Route path="/confirm-password" element={<ConfirmPassword />} />
+        {/* <Route path="/confirm-password" element={<ConfirmPassword />} /> */}
         <Route path="/doctorLive/:value" element={<DoctorDisplayScr />} />
         <Route path="/" element={<Frontpage />} />
         {/* receptionist routes */}
@@ -71,15 +65,15 @@ function App() {
             <Route path="/receptionist-dashboard" element={<RDashboard />} />
             <Route path="/token-generation" element={<TokenGeneration />} />
             <Route path="/token-gen-form" element={<TokenGenForm />} />
-            <Route
+            {/* <Route
               path="/Patientregistration"
               element={<Patientregistration />}
-            />
+            /> */}
             <Route path="/token-generated" element={<Tokengenerated />} />
             <Route path="/token-search" element={<TokenSearch />} />
             <Route path="/doctor-availablity" element={<Doctor />} />
-            <Route path="/display-content" element={<DisplayContent />} />
-            <Route path="/patient-opd" element={<Patientopd />} />
+            {/* <Route path="/display-content" element={<DisplayContent />} /> */}
+            {/* <Route path="/patient-opd" element={<Patientopd />} /> */}
             <Route path="/patient-assigned" element={<PatientAssigned />} />
 
             <Route path="/report-admin" element={<ReportAdmin />} />
@@ -95,7 +89,7 @@ function App() {
           <>
             {/* admin-dashboard */}
             <Route path="/admin-dashboard" element={<Admindashboard />} />
-            <Route path="/display-content" element={<DisplayContent />} />
+            {/* <Route path="/display-content" element={<DisplayContent />} /> */}
             <Route path="/manage-doctors" element={<Managedoctor />} />
             <Route path="/manage-receptionist" element={<ManageRec />} />
             <Route path="/admin-report" element={<Report />} />

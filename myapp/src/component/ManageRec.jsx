@@ -14,11 +14,11 @@ const ManageRec = () => {
   const [modalValues, setModalValues] = useState({});
   const [selectedItem, setSelectedItem] = useState(null);
 
+  const domain = "http://localhost:8100";
+
   const countDoctors = async () => {
     try {
-      const dt = await axios.get(
-        "http://localhost:8100/api/auth/get-patient-details"
-      );
+      const dt = await axios.get(`${domain}/api/auth/get-patient-details`);
       const res = dt.data;
       setData(res);
       console.log(res);
@@ -40,7 +40,7 @@ const ManageRec = () => {
       const updatedItem = updatedData[selectedItem];
       console.log(updatedItem);
       await axios.put(
-        `http://localhost:8100/api/auth/update-rec-details/${updatedItem.Rec_ID}`,
+        `${domain}/api/auth/update-rec-details/${updatedItem.Rec_ID}`,
         updatedItem
       );
 
@@ -61,7 +61,7 @@ const ManageRec = () => {
       const deletedItem = data[selectedItem];
       console.log(deletedItem);
       await axios.delete(
-        `http://localhost:8100/api/auth/delete-receptionist/${deletedItem.Rec_ID}`
+        `${domain}/api/auth/delete-receptionist/${deletedItem.Rec_ID}`
       );
 
       handleCloseModal();

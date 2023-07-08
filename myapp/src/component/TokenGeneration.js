@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./TokenGeneration.css";
 import Header from "./Header";
 import styled from "styled-components";
 import axios from "axios";
@@ -12,6 +11,7 @@ const TokenGeneration = () => {
   const [results, setResults] = useState([]);
   const [searchError, setSearchError] = useState(false);
   const navigate = useNavigate();
+  const domain = "http://localhost:8100";
 
   const handleGoBack = () => {
     // Navigate to the previous page
@@ -20,9 +20,7 @@ const TokenGeneration = () => {
 
   const getAllPatients = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:8100/api/auth/tokenReciept"
-      );
+      const response = await axios.get(`${domain}/api/auth/tokenReciept`);
       // console.log(response.data);
       setPatient(response.data);
     } catch (error) {
@@ -34,7 +32,7 @@ const TokenGeneration = () => {
   const handleSearch = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8100/api/auth/searchTokenhistory?keyword=${keyword}`
+        `${domain}/api/auth/searchTokenhistory?keyword=${keyword}`
       );
       console.log(response.data);
       const data = response.data;

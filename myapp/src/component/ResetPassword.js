@@ -12,13 +12,16 @@ const ResetPassword = () => {
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
+  const domain = "http://localhost:8100";
+
   const handleVerifyOtpPasswordUpdate = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.put(
-        "http://localhost:8100/api/auth/reset-password/verify",
-        { email, otp, password }
-      );
+      const res = await axios.put(`${domain}/api/auth/reset-password/verify`, {
+        email,
+        otp,
+        password,
+      });
       setMessage(res.data.message);
       cogoToast.success("password updated successfully");
       console.log(message);

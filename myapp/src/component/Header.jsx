@@ -11,11 +11,12 @@ import { useAuth } from "../context";
 const Header = () => {
   const [auth, setAuth] = useAuth();
   const navigate = useNavigate();
+  const domain = "http://localhost:8100";
   console.log(auth);
 
   const logoutHandler = (e) => {
     axios
-      .get("http://localhost:8100/api/auth/logout")
+      .get(`${domain}/api/auth/logout`)
       .then((res) => {
         localStorage.removeItem("auth");
         navigate("/");

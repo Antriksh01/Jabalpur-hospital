@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./TokenGeneration.css";
 import Header from "./Header";
 import styled from "styled-components";
 import axios from "axios";
@@ -13,6 +12,8 @@ const MonthWiseToken = () => {
   const [keyword, setKeyword] = useState("");
   const [results, setResults] = useState([]);
   const [searchError, setSearchError] = useState(false);
+
+  const domain = "http://localhost:8100";
 
   const filterDataByCurrentMonth = (data) => {
     const currentDate = new Date();
@@ -31,9 +32,7 @@ const MonthWiseToken = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:8100/api/auth/tokenReciept"
-        );
+        const response = await axios.get(`${domain}/api/auth/tokenReciept`);
         const apiData = response.data; // Assuming the response contains an array of objects
         setData(apiData);
       } catch (error) {
@@ -58,7 +57,7 @@ const MonthWiseToken = () => {
   const handleSearch = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8100/api/auth/searchTokenhistory?keyword=${keyword}`
+        `${domain}/api/auth/searchTokenhistory?keyword=${keyword}`
       );
 
       const data = response.data;

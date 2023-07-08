@@ -16,6 +16,8 @@ const AddDoctor = () => {
     Department_name: "",
   });
 
+  const domain = "http://localhost:8100";
+
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
     console.log(data);
@@ -25,10 +27,7 @@ const AddDoctor = () => {
     e.preventDefault();
 
     try {
-      const input = await axios.post(
-        "http://localhost:8100/api/auth/add-doctor",
-        data
-      );
+      const input = await axios.post(`${domain}/api/auth/add-doctor`, data);
 
       console.log(input);
       cogoToast.success("Doctors Data Added Successfully");

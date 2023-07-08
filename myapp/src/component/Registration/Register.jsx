@@ -16,6 +16,8 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
 
+  const domain = "http://localhost:8100";
+
   const handleClick = async (e) => {
     e.preventDefault();
 
@@ -28,10 +30,7 @@ const Register = () => {
     };
 
     try {
-      const response = await axios.post(
-        "http://localhost:8100/api/auth/register",
-        user
-      );
+      const response = await axios.post(`${domain}/api/auth/register`, user);
       setUsername("");
       setMobile("");
       setEmail("");

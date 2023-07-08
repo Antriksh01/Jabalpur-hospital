@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./Doctordashboard.css";
 import Header from "./Header";
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
@@ -14,12 +13,14 @@ const Doctordashboard = () => {
   const [getDoc, setGetDoc] = useState("");
   const [serve, setServe] = useState([]);
 
+  const domain = "http://localhost:8100";
+
   // update_doctor_status
   const handleUpdate = async (value) => {
     // if()
     try {
       const updateData = await axios.put(
-        `http://localhost:8100/api/auth/doctor-availability-update/${auth.user.reg_email}`,
+        `${domain}/api/auth/doctor-availability-update/${auth.user.reg_email}`,
         {
           status: value,
         }
@@ -34,9 +35,7 @@ const Doctordashboard = () => {
 
   const patientStats = async () => {
     try {
-      const { data } = await axios.get(
-        "http://localhost:8100/api/auth/patientServe"
-      );
+      const { data } = await axios.get(`${domain}/api/auth/patientServe`);
       setServe(data);
       console.log(data);
     } catch (error) {

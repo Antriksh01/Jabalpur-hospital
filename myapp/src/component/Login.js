@@ -18,6 +18,7 @@ const Login = () => {
     password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
+  const domain = "http://localhost:8100";
 
   const navigate = useNavigate();
   const handleShowPasswordToggle = () => {
@@ -27,7 +28,7 @@ const Login = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:8100/api/auth/login", data)
+      .post(`${domain}/api/auth/login`, data)
       .then((res) => {
         console.log(res.data);
         if (Array.isArray(res.data) && res.data.length > 0) {

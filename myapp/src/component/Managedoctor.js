@@ -13,12 +13,11 @@ const Managedoctor = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalValues, setModalValues] = useState({});
   const [selectedItem, setSelectedItem] = useState(null);
+  const domain = "http://localhost:8100";
 
   const countDoctors = async () => {
     try {
-      const dt = await axios.get(
-        "http://localhost:8100/api/auth/getDoctorsStatus"
-      );
+      const dt = await axios.get(`${domain}/api/auth/getDoctorsStatus`);
       const res = dt.data;
       setData(res);
     } catch (error) {

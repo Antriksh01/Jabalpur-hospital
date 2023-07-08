@@ -8,10 +8,11 @@ import { Link } from "react-router-dom";
 const PendingApproval = () => {
   const [userData, setUserData] = useState([]);
   const [approve, setApprove] = useState(false);
+  const domain = "http://localhost:8100";
 
   const getUser = async () => {
     try {
-      const res = await axios.get("http://localhost:8100/api/auth/users");
+      const res = await axios.get(`${domain}/api/auth/users`);
       setUserData(res.data);
     } catch (error) {
       console.log(error);
@@ -25,7 +26,7 @@ const PendingApproval = () => {
 
   const adminApproval = async (value) => {
     const updateData = await axios.put(
-      `http://localhost:8100/api/auth/admin-approval-update/${value}`,
+      `${domain}/api/auth/admin-approval-update/${value}`,
       { Admin_Approval: "Approved" }
     );
     cogoToast.success("Approved");

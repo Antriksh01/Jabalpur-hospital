@@ -11,11 +11,11 @@ const PatientAssigned = () => {
   const [results, setResults] = useState([]);
   const [searchError, setSearchError] = useState(false);
 
+  const domain = "http://localhost:8100";
+
   const assignPatientData = async () => {
     try {
-      const res = await axios.get(
-        "http://localhost:8100/api/auth/tokenReciept"
-      );
+      const res = await axios.get(`${domain}/api/auth/tokenReciept`);
       console.log(res.data);
       setAssignPat(res.data);
     } catch (error) {
@@ -27,7 +27,7 @@ const PatientAssigned = () => {
   const handleSearch = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8100/api/auth/searchPatientAssigned?keyword=${keyword}`
+        `${domain}/api/auth/searchPatientAssigned?keyword=${keyword}`
       );
 
       const data = response.data;

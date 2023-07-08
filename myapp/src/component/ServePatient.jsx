@@ -13,10 +13,11 @@ const ServePatient = () => {
   const [results, setResults] = useState([]);
   const [searchData, setSearchData] = useState([]);
   const [searchError, setSearchError] = useState(false);
+  const domain = "http://localhost:8100";
 
   const handleServedPatient = async () => {
     try {
-      const dt = await axios.get("http://localhost:8100/api/auth/tokenReciept");
+      const dt = await axios.get(`${domain}/api/auth/tokenReciept`);
       const data = dt.data;
       const filteredData = data.filter(
         (item) =>
@@ -45,7 +46,7 @@ const ServePatient = () => {
     console.log(formattedDate);
     try {
       const response = await axios.get(
-        `http://localhost:8100/api/auth/searchPatientServe?keyword=${keyword}`
+        `${domain}/api/auth/searchPatientServe?keyword=${keyword}`
       );
 
       const data = response.data;

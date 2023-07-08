@@ -16,6 +16,7 @@ const AdminReportGen = () => {
   const [modalValues, setModalValues] = useState({});
   const [selectedItem, setSelectedItem] = useState(null);
   const [error, setError] = useState("");
+  const domain = "http://localhost:8100";
   const [docReport, setDocReport] = useState({
     docrepo1: null,
     docrepo2: null,
@@ -59,10 +60,10 @@ const AdminReportGen = () => {
       cogoToast.error("To Date should be greater than or equal to From Date");
       console.log(error);
     } else {
-      const res = await axios.post(
-        "http://localhost:8100/api/auth/doctors-report",
-        { fromDate, toDate }
-      );
+      const res = await axios.post(`${domain}/api/auth/doctors-report`, {
+        fromDate,
+        toDate,
+      });
       const docData = res.data;
       console.log(res.data);
       if (Array.isArray(docData)) {
@@ -94,10 +95,10 @@ const AdminReportGen = () => {
       cogoToast.error("To Date should be greater than or equal to From Date");
       console.log(error);
     } else {
-      const res = await axios.post(
-        "http://localhost:8100/api/auth/receptionist-report",
-        { fromDate, toDate }
-      );
+      const res = await axios.post(`${domain}/api/auth/receptionist-report`, {
+        fromDate,
+        toDate,
+      });
       const tokenData = res.data;
       console.log(tokenData);
       if (Array.isArray(tokenData)) {
@@ -130,7 +131,7 @@ const AdminReportGen = () => {
       console.log(error);
     } else {
       const res = await axios.post(
-        "http://localhost:8100/api/auth/receptionistMiniReport",
+        `${domain}/api/auth/receptionistMiniReport`,
         { fromDate, toDate }
       );
       const tokenData = res.data;
@@ -180,10 +181,10 @@ const AdminReportGen = () => {
       cogoToast.error("To Date should be greater than or equal to From Date");
       console.log(error);
     } else {
-      const res = await axios.post(
-        "http://localhost:8100/api/auth/token-report",
-        { fromDate, toDate }
-      );
+      const res = await axios.post(`${domain}/api/auth/token-report`, {
+        fromDate,
+        toDate,
+      });
       const tokenData = res.data;
       console.log(tokenData);
       if (Array.isArray(tokenData)) {

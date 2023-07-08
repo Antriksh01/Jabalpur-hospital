@@ -32,6 +32,8 @@ const TokenSearch = () => {
     navigate(-1);
   };
 
+  const domain = "http://localhost:8100";
+
   const form = useRef();
   const printContentRef = useRef();
 
@@ -40,7 +42,7 @@ const TokenSearch = () => {
   const handleSearch = async () => {
     try {
       const response = await axios.post(
-        `http://localhost:8100/api/auth/Search-patient?keyword=${keyword}`
+        `${domain}/api/auth/Search-patient?keyword=${keyword}`
       );
       console.log(response);
       const data = response.data;
@@ -85,7 +87,7 @@ const TokenSearch = () => {
     console.log(recptsmsData);
 
     try {
-      await axios.post("http://localhost:8100/api/auth/sendSMS", {
+      await axios.post(`${domain}/api/auth/sendSMS`, {
         phoneNumber,
         message: recptsmsData,
       });
@@ -119,7 +121,7 @@ const TokenSearch = () => {
     console.log(recptsmsData);
 
     try {
-      await axios.post("http://localhost:8100/api/auth/sendSMS", {
+      await axios.post(`${domain}/api/auth/sendSMS`, {
         phoneNumber,
         message: recptsmsData,
       });
@@ -152,14 +154,11 @@ const TokenSearch = () => {
 
     const htmlContent = `Token Reciepts from QMS`;
     try {
-      const emailSmsSend = await axios.post(
-        "http://localhost:8100/api/auth/sendEmailSms",
-        {
-          to: modalValues.P_Email,
-          subject: htmlContent,
-          text: recptsmsData,
-        }
-      );
+      const emailSmsSend = await axios.post(`${domain}/api/auth/sendEmailSms`, {
+        to: modalValues.P_Email,
+        subject: htmlContent,
+        text: recptsmsData,
+      });
       console.log(emailSmsSend);
       cogoToast.success("email sent successfully");
     } catch (error) {
@@ -183,14 +182,11 @@ const TokenSearch = () => {
     // Build the email content with a div element
     const htmlContent = `Token Reciepts from QMS`;
     try {
-      const emailSmsSend = await axios.post(
-        "http://localhost:8100/api/auth/sendEmailSms",
-        {
-          to: results[0].P_Email,
-          subject: htmlContent,
-          text: recptsmsData,
-        }
-      );
+      const emailSmsSend = await axios.post(`${domain}/api/auth/sendEmailSms`, {
+        to: results[0].P_Email,
+        subject: htmlContent,
+        text: recptsmsData,
+      });
       console.log(emailSmsSend);
       cogoToast.success("email sent successfully");
     } catch (error) {
@@ -214,10 +210,10 @@ const TokenSearch = () => {
     const whatNum = `whatsapp:${modalValues.P_Contact}`;
     console.log(whatNum);
     try {
-      const whatsappRes = await axios.post(
-        "http://localhost:8100/api/auth/sendWhatsapp",
-        { phoneNumber: whatNum, message: recptsmsData }
-      );
+      const whatsappRes = await axios.post(`${domain}/api/auth/sendWhatsapp`, {
+        phoneNumber: whatNum,
+        message: recptsmsData,
+      });
       console.log(whatsappRes);
       cogoToast.success("whatsapp msg send");
     } catch (error) {
@@ -244,10 +240,10 @@ const TokenSearch = () => {
     const whatNum = `whatsapp:${phoneNumber}`;
     console.log(whatNum);
     try {
-      const whatsappRes = await axios.post(
-        "http://localhost:8100/api/auth/sendWhatsapp",
-        { phoneNumber: whatNum, message: recptsmsData }
-      );
+      const whatsappRes = await axios.post(`${domain}/api/auth/sendWhatsapp`, {
+        phoneNumber: whatNum,
+        message: recptsmsData,
+      });
       console.log(whatsappRes);
       cogoToast.success("whatsapp msg send");
     } catch (error) {
@@ -258,9 +254,7 @@ const TokenSearch = () => {
 
   const getAllPatients = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:8100/api/auth/tokenReciept"
-      );
+      const response = await axios.get(`${domain}/api/auth/tokenReciept`);
       // console.log(response.data);
       setPatient(response.data);
     } catch (error) {

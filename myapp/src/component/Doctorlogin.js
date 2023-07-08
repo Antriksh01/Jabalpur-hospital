@@ -19,6 +19,7 @@ const Doctorlogin = () => {
     password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
+  const domain = "http://localhost:8100";
 
   const navigate = useNavigate();
   const handleShowPasswordToggle = () => {
@@ -28,7 +29,7 @@ const Doctorlogin = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:8100/api/auth/login", data)
+      .post(`${domain}/api/auth/login`, data)
       .then((res) => {
         // Check if the response contains data and is an array
         if (Array.isArray(res.data) && res.data.length > 0) {
