@@ -116,5 +116,17 @@ const Container = styled.div`
 
   td {
     font-size: 18px;
+    @media screen and (max-width:500px){
+      padding: 15px;
+    }
   }
+  .contMain {
+    @media screen and (max-width: 500px) {
+      margin-top: 8rem;
+    }
+    button{
+      @media screen and (max-width:500px){
+        margin: 0;
+      }
+    }
 `;

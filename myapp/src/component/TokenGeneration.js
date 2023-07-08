@@ -3,7 +3,7 @@ import "./TokenGeneration.css";
 import Header from "./Header";
 import styled from "styled-components";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 
 const TokenGeneration = () => {
@@ -11,6 +11,12 @@ const TokenGeneration = () => {
   const [keyword, setKeyword] = useState("");
   const [results, setResults] = useState([]);
   const [searchError, setSearchError] = useState(false);
+  const navigate = useNavigate();
+
+  const handleGoBack = () => {
+    // Navigate to the previous page
+    navigate(-1);
+  };
 
   const getAllPatients = async () => {
     try {
@@ -62,6 +68,8 @@ const TokenGeneration = () => {
   useEffect(() => {
     getAllPatients();
   }, []);
+
+  console.log(results);
   return (
     <>
       <Container>
@@ -79,11 +87,11 @@ const TokenGeneration = () => {
                 </h1>
               </span>
             </div>
-            <div className="container contBx">
+            {/* <div className="container contBx">
               <button className="btn btn-success btnDash">
-                <Link to="/admin-dashboard">Go to Dashboard</Link>
+                <Link to="/receptionist-dashboard">Go to Dashboard</Link>
               </button>
-            </div>
+            </div> */}
             <div className="container">
               <div class="input-group">
                 <input
@@ -122,7 +130,7 @@ const TokenGeneration = () => {
                             <th>P_Name</th>
                             <th>P_Contact</th>
                             <th>Assigned_doctor</th>
-                            <th>Time</th>
+                            <th>Date & Time</th>
                             <th>Dept</th>
                             <th>Token ID</th>
                           </tr>
@@ -136,8 +144,11 @@ const TokenGeneration = () => {
                                   {item.firstname} {item.lastname}
                                 </td>
                                 <td>{item.P_Contact}</td>
-                                <td>{item.Assigned_doctor}</td>
-                                <td>{item.Time}</td>
+                                <td>{item.Doctor_name}</td>
+                                <td>
+                                  {item.Time.split("T")[0]}{" "}
+                                  {item.Time.split("T")[1]}
+                                </td>
                                 <td>{item.Dept}</td>
                                 <td>{item.Token_ID}</td>
                               </tr>
@@ -157,10 +168,10 @@ const TokenGeneration = () => {
                             <th>P_Name</th>
                             <th>P_Contact</th>
                             <th>Assigned_doctor</th>
-                            <th>Time</th>
+                            <th>Date & Time</th>
                             <th>Dept</th>
                             <th>Token Generated</th>
-                            <th>Token Generate Date & Time</th>
+                            <th>Token Generate Date</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -173,10 +184,13 @@ const TokenGeneration = () => {
                                 </td>
                                 <td>{item.P_Contact}</td>
                                 <td>{item.Doctor_name}</td>
-                                <td>{item.Time}</td>
+                                <td>
+                                  {item.Time.split("T")[0]}{" "}
+                                  {item.Time.split("T")[1]}
+                                </td>
                                 <td>{item.Dept}</td>
                                 <td>{item.Token_Generated}</td>
-                                <td>{item.regdatetime}</td>
+                                <td>{item.Time.split("T")[0]}</td>
                               </tr>
                             </>
                           ))}
@@ -189,8 +203,11 @@ const TokenGeneration = () => {
             )}
 
             <div className="container contBx">
-              <button className="btn btn-success btnDash">
-                <Link to="/receptionist-dashboard">Go to Dashboard</Link>
+              <button
+                className="btn btn-success btnDash"
+                onClick={handleGoBack}
+              >
+                Go to Dashboard
               </button>
             </div>
           </div>
@@ -257,5 +274,9 @@ const Container = styled.div`
         border: 1px solid #47a45b !important;
       }
     }
-   
+   button{
+    @media screen and (max-width: 500px) {
+      margin:0
+    }
+   }
 `;

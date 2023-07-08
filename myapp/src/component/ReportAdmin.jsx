@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "./Header";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const ReportAdmin = () => {
   return (

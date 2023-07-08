@@ -3,14 +3,16 @@ import axios from "axios";
 import { styled } from "styled-components";
 import Header from "./Header";
 import cogoToast from "cogo-toast";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SendOtp = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+
   const navigate = useNavigate();
 
-  const handleSendOtp = async () => {
+  const handleSendOtp = async (e) => {
+    e.preventDefault();
     try {
       const res = await axios.post("http://localhost:8100/api/auth/sendOtp", {
         email,
@@ -47,32 +49,33 @@ const SendOtp = () => {
                   Enter your email address and we'll send you an email with OTP
                   to reset your password.
                 </p>
-                <div class="form-outline">
-                  <input
-                    type="email"
-                    id="typeEmail"
-                    class="form-control my-3"
-                    placeholder="Enter Your Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-                <button class="btn btn-success w-100" onClick={handleSendOtp}>
-                  Reset password
-                </button>
+                <form onSubmit={handleSendOtp}>
+                  <div class="form-outline">
+                    <input
+                      type="email"
+                      class="form-control my-3"
+                      placeholder="Enter Your Email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <button class="btn btn-success w-100">Reset password</button>
+                </form>
+
                 {/* {message && <p>{message}</p>} */}
                 <div class="d-flex justify-content-between mt-4">
                   <button
                     class="btn btn-secondary"
                     style={{ backgroundColor: "#347571" }}
                   >
-                    Login
+                    <Link to="/">Home</Link>
                   </button>
                   <button
                     class="btn btn-secondary"
                     style={{ backgroundColor: "#347571" }}
                   >
-                    Register
+                    <Link to="/register">Register</Link>
                   </button>
                 </div>
               </div>
@@ -92,5 +95,9 @@ const Container = styled.div`
   .contMain {
     @media screen and (max-width: 500px) {
       margin-top: 10rem;
+    }
+    a{
+      text-decoration:none;
+      color:white;
     }
 `;

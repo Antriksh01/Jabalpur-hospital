@@ -65,16 +65,16 @@ const Admindashboard = () => {
                     <button>
                       <Link to="/month-wise-token">This month's token</Link>
                     </button>
-                    <button>
+                    {/* <button>
                       <Link to="/add-doctor">Add a Doctor</Link>
                     </button>
                     <button>
                       {" "}
                       <Link to="/add-receptionist">Add a Receptionist</Link>
+                    </button> */}
+                    <button>
+                      <Link to="/admin-reports">Report</Link>
                     </button>
-                    {/* <button>
-                    <Link to="/admin-report">Report</Link>
-                  </button> */}
                   </div>
                 </div>
                 <div className="col-xl-9 col-lg-9 col-md-10 col-sm-12 col-12">
@@ -104,7 +104,7 @@ const Admindashboard = () => {
                         <div class="card">
                           <div class="card-body">
                             <Link to="/manage-doctors">
-                              <h2>Monitor Doctors</h2>
+                              <h2>Manage Doctors</h2>
                               {/* <h2>20</h2> */}
                             </Link>
                           </div>
@@ -114,7 +114,7 @@ const Admindashboard = () => {
                         <div class="card">
                           <div class="card-body">
                             <Link to="/manage-receptionist">
-                              <h2>Monitors Receptionist</h2>
+                              <h2>Manage Receptionist</h2>
                               {/* <h2>10</h2> */}
                             </Link>
                           </div>

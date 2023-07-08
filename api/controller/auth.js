@@ -31,6 +31,35 @@ export const register = (req, res) => {
         return res.status(500).json(err);
       }
 
+      // Insert user into additional tables based on role
+      if (role === "Doctor") {
+        const insertDoctorQuery =
+          "INSERT INTO doctor_data (Doctor_name, Email) VALUES (?, ?)";
+        const doctorValues = [username, reg_email];
+        db.query(insertDoctorQuery, doctorValues, (err, adminResult) => {
+          if (err) {
+            // Handle database error
+            return res.status(500).json({ message: "Failed to register user" });
+          }
+        });
+      } else if (role === "Receptionist") {
+        const insertReceptionistQuery =
+          "INSERT INTO receptionist (fullname, email) VALUES (?,?)";
+        const receptionistValues = [username, reg_email];
+        db.query(
+          insertReceptionistQuery,
+          receptionistValues,
+          (err, receptionistResult) => {
+            if (err) {
+              // Handle database error
+              return res
+                .status(500)
+                .json({ message: "Failed to register user" });
+            }
+          }
+        );
+      }
+
       // Insert user into otp_details table
       const insertOTPQuery =
         "INSERT INTO otp_details (ID, Email) VALUES (?, ?)";
@@ -40,10 +69,9 @@ export const register = (req, res) => {
           // Handle database error
           return res.status(500).json({ message: "Failed to register user" });
         }
-        if (otpResult) {
-          return res.status(200).json("User has been created.");
-        }
       });
+
+      return res.status(200).json("User has been created.");
     });
   });
 };

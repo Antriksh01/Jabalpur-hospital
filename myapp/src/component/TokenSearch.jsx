@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { BsSearch } from "react-icons/bs";
 import jbplogo from "../photos/jbplogo.png";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ReactToPrint from "react-to-print";
 import { Button, Modal } from "react-bootstrap";
 import Header from "./Header";
@@ -25,6 +25,12 @@ const TokenSearch = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalValues, setModalValues] = useState({});
   const [selectedItem, setSelectedItem] = useState(null);
+  const navigate = useNavigate();
+
+  const handleGoBack = () => {
+    // Navigate to the previous page
+    navigate(-1);
+  };
 
   const form = useRef();
   const printContentRef = useRef();
@@ -601,8 +607,8 @@ const TokenSearch = () => {
             </Modal.Footer>
           </Modal>
           <div className="container contBx">
-            <button className="btn btn-success btnDash">
-              <Link to="/doctor-dashboard">Go to Dashboard</Link>
+            <button className="btn btn-success btnDash" onClick={handleGoBack}>
+              Go to Dashboard
             </button>
           </div>
         </div>
@@ -774,14 +780,15 @@ const Container = styled.div`
     border-radius: 4px;
     background: #f5f5f5;
   }
-`;
+  button {
+    @media screen and (max-width: 500px) {
+      margin: 0;
+    }
+  }
 
-const styles = {
-  emailContainer: `
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background: #f5f5f5;
-  `,
-};
+  td {
+    @media screen and (max-width: 500px) {
+      padding: 15px;
+    }
+  }
+`;

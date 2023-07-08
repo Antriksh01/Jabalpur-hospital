@@ -45,7 +45,9 @@ const Doctordashboard = () => {
   };
 
   const filteredData = serve.filter(
-    (item) => item.treatment_status === "Treated"
+    (item) =>
+      item.treatment_status === "Treated" &&
+      item.Assigned_doctor === auth.user.reg_email
   );
 
   const today = new Date();
@@ -71,10 +73,24 @@ const Doctordashboard = () => {
   );
   console.log(filteredQueue);
 
+  const todayyest = new Date();
+  const yesterdayyest = new Date(today);
+  yesterday.setDate(today.getDate() - 1);
+  const formattedDateyest = yesterday
+    .toLocaleDateString("en-GB", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    })
+    .split("/")
+    .reverse()
+    .join("-");
+
+  console.log(formattedDateyest);
   const filteredYest = serve.filter(
     (item) =>
       item.treatment_status === "Treated" &&
-      item.Token_Generate_Date === formattedDate
+      item.Time.split("T")[0] === formattedDateyest
   );
 
   const filterMissed = serve.filter(
@@ -193,6 +209,7 @@ const Doctordashboard = () => {
 };
 export default Doctordashboard;
 const Container = styled.div`
+overflow-X:hidden;
   .leftbox {
     width: 100%;
     height: 90%;

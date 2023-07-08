@@ -98,6 +98,7 @@ const Container = styled.div`
     }
     button {
       margin-left: 0rem;
+      background-color: #00a94e !important;
       @media screen and (min-width: 501px) and (max-width: 900px) {
         width: 50%;
       }

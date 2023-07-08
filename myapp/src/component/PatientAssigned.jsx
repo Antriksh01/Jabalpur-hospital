@@ -3,9 +3,13 @@ import Header from "./Header";
 import styled from "styled-components";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { BsSearch } from "react-icons/bs";
 
 const PatientAssigned = () => {
   const [assignPat, setAssignPat] = useState([]);
+  const [keyword, setKeyword] = useState("");
+  const [results, setResults] = useState([]);
+  const [searchError, setSearchError] = useState(false);
 
   const assignPatientData = async () => {
     try {
@@ -19,9 +23,39 @@ const PatientAssigned = () => {
     }
   };
 
+  // handlesearch
+  const handleSearch = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8100/api/auth/searchPatientAssigned?keyword=${keyword}`
+      );
+
+      const data = response.data;
+      console.log(data);
+      setResults(data);
+      if (data.length > 0) {
+        setSearchError(false);
+      } else {
+        setSearchError(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     assignPatientData();
   }, []);
+
+  useEffect(() => {
+    if (searchError) {
+      const timeout = setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [searchError]);
   return (
     <>
       <Container>
@@ -36,30 +70,98 @@ const PatientAssigned = () => {
                 Assigned Patient
               </h1>
             </span>
-            <div className="table-responsive mt-5">
-              <table id="table" className="table">
-                <thead>
-                  <tr>
-                    <th>Patient Name</th>
-                    <th>Doctor Name</th>
-                    <th>Department</th>
-                    <th>P_ID</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {assignPat?.map((item, index) => (
-                    <tr key={index}>
-                      <td>
-                        {item.firstname} {item.lastname}
-                      </td>
-                      <td>{item.Doctor_name}</td>
-                      <td>{item.Dept}</td>
-                      <td>{item.uhid}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+
+            <div className="container contBx">
+              <button className="btn btn-success btnDash">
+                <Link to="/receptionist-dashboard">Go to Dashboard</Link>
+              </button>
             </div>
+            <div className="container">
+              <div class="input-group">
+                <input
+                  type="search"
+                  value={keyword}
+                  placeholder="search patient"
+                  onChange={(e) => setKeyword(e.target.value)}
+                  aria-describedby="button-addon1"
+                  class="form-control border-0 bg-light"
+                />
+                <div class="input-group-append">
+                  <button
+                    id="button-addon1"
+                    type="submit"
+                    class="btn btn-primary text-light"
+                    onClick={handleSearch}
+                  >
+                    <BsSearch />
+                  </button>
+                </div>
+              </div>
+            </div>
+            {searchError ? (
+              <>
+                <h1 className="text-center">No Results Found...</h1>
+              </>
+            ) : (
+              <>
+                {results.length === 0 ? (
+                  <>
+                    <div className="table-responsive mt-5">
+                      <table id="table" className="table">
+                        <thead>
+                          <tr>
+                            <th>Patient Name</th>
+                            <th>Doctor Name</th>
+                            <th>Department</th>
+                            <th>P_ID</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {assignPat?.map((item, index) => (
+                            <tr key={index}>
+                              <td>
+                                {item.firstname} {item.lastname}
+                              </td>
+                              <td>{item.Doctor_name}</td>
+                              <td>{item.Dept}</td>
+                              <td>{item.uhid}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="table-responsive mt-5">
+                      <table id="table" className="table">
+                        <thead>
+                          <tr>
+                            <th>Patient Name</th>
+                            <th>Doctor Name</th>
+                            <th>Department</th>
+                            <th>P_ID</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {results?.map((item, index) => (
+                            <tr key={index}>
+                              <td>
+                                {item.firstname} {item.lastname}
+                              </td>
+                              <td>{item.Doctor_name}</td>
+                              <td>{item.Dept}</td>
+                              <td>{item.uhid}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </>
+                )}
+              </>
+            )}
+
             <div className="container contBx">
               <button className="btn btn-success btnDash">
                 <Link to="/receptionist-dashboard">Go to Dashboard</Link>
@@ -103,5 +205,36 @@ const Container = styled.div`
     
     td{
       font-size:18px;
+    }
+
+    .input-group {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      width: 100%;
+      flex-direction: row;
+      align-content: center;
+      justify-content: center;
+      padding: 1rem 20rem;
+      @media screen and (max-width: 500px) {
+        padding: 1rem 3rem;
+      }
+      @media screen and (min-width: 501px) and (max-width: 900px) {
+        padding: 1rem 6rem;
+      }
+  
+      input {
+        border-radius: 1rem;
+        //   padding: 1rem;
+        width: 50%;
+        position: relative;
+        border: 1px solid #47a45b !important;
+      }
+    }
+    button{
+      @media screen and (max-width:500px){
+        margin:0
+      }
     }
 `;

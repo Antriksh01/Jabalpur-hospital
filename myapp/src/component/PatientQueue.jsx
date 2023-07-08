@@ -11,6 +11,7 @@ const PatientQueue = () => {
   const [auth] = useAuth();
   const [keyword, setKeyword] = useState("");
   const [results, setResults] = useState([]);
+  const [searchData, setSearchData] = useState([]);
   const [searchError, setSearchError] = useState(false);
   //   console.log(auth);
 
@@ -36,7 +37,7 @@ const PatientQueue = () => {
         (item) =>
           item.Assigned_doctor === auth.user.reg_email &&
           item.treatment_status === "Pending" &&
-          item.Token_Generate_Date === formattedDate
+          item.Time.split("T")[0] === formattedDate
       );
 
       setpatient(filteredData);
@@ -47,14 +48,31 @@ const PatientQueue = () => {
   console.log(patient);
 
   const handleSearch = async () => {
+    const givenDate = new Date();
+
+    const formattedDate = givenDate
+      .toISOString()
+      .slice(0, 23)
+      .replace("T", " ");
+
+    console.log(formattedDate);
     try {
       const response = await axios.get(
         `http://localhost:8100/api/auth/searchPatientQueue?keyword=${keyword}`
       );
       console.log(response.data);
       const data = response.data;
+
+      const filteredData = data.filter(
+        (item) =>
+          item.Assigned_doctor === auth.user.reg_email &&
+          item.treatment_status === "Pending" &&
+          item.Time.split("T")[0] === formattedDate
+      );
+
+      setSearchData(filteredData);
       if (data.length > 0) {
-        setResults(data);
+        setResults(searchData);
         setSearchError(false);
         console.log(results);
       } else {
@@ -101,7 +119,7 @@ const PatientQueue = () => {
 
             <div className="container contBx">
               <button className="btn btn-success btnDash">
-                <Link to="/admin-dashboard">Go to Dashboard</Link>
+                <Link to="/doctor-dashboard">Go to Dashboard</Link>
               </button>
             </div>
             <div className="container">
@@ -158,10 +176,10 @@ const PatientQueue = () => {
                                 </td>
                                 <td>{item.P_Contact}</td>
                                 <td>{item.Assigned_doctor}</td>
-                                <td>{item.Time}</td>
+                                <td>{item.Time.split("T")[1]}</td>
                                 <td>{item.Dept}</td>
                                 <td>{item.Token_Generated}</td>
-                                <td>{item.Token_Generate_Date}</td>
+                                <td>{item.Time.split("T")[0]}</td>
                               </tr>
                             </>
                           ))}
@@ -195,10 +213,10 @@ const PatientQueue = () => {
                                 </td>
                                 <td>{item.P_Contact}</td>
                                 <td>{item.Assigned_doctor}</td>
-                                <td>{item.Time}</td>
+                                <td>{item.Time.split("T")[1]}</td>
                                 <td>{item.Dept}</td>
                                 <td>{item.Token_Generated}</td>
-                                <td>{item.Token_Generate_Date}</td>
+                                <td>{item.Time.split("T")[0]}</td>
                               </tr>
                             </>
                           ))}
@@ -262,7 +280,16 @@ const Container = styled.div`
       border: 1px solid #47a45b !important;
     }
   }
+
+  button{
+    @media screen and (max-width: 500px) {
+      margin:0
+    }
+   }
   
   td{
     font-size:18px;
+    @media screen and (max-width:500px){
+      padding:15px;
+    }
   }`;

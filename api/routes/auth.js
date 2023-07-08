@@ -34,7 +34,11 @@ import {
 } from "../controller/DoctorDetails.js";
 import {
   SearchTokenHistory,
+  searchAvailableDoctor,
+  searchPatientAssigned,
+  searchPatientMIssed,
   searchPatientQueue,
+  searchPatientServe,
   sendEmailSms,
   sendSMS,
   sendWhatsapp,
@@ -86,5 +90,9 @@ router.post("/doctors-report", doctorReports);
 // Search query
 router.get("/searchTokenhistory", SearchTokenHistory);
 router.get("/searchPatientQueue", searchPatientQueue);
+router.get("/searchPatientServe", searchPatientServe);
+router.get("/missed-partient", searchPatientMIssed);
+router.get("/searchAvailableDoctor", searchAvailableDoctor);
+router.get("/searchPatientAssigned", searchPatientAssigned);
 
 export default router;

@@ -12,7 +12,8 @@ const ResetPassword = () => {
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
-  const handleVerifyOtpPasswordUpdate = async () => {
+  const handleVerifyOtpPasswordUpdate = async (e) => {
+    e.preventDefault();
     try {
       const res = await axios.put(
         "http://localhost:8100/api/auth/reset-password/verify",
@@ -46,66 +47,69 @@ const ResetPassword = () => {
           </div>
           <div className="container d-flex justify-content-center">
             <div class="card text-center">
-              <div class="card-header h5 text-white bg-success">
+              <div
+                class="card-header h5 text-white"
+                style={{ backgroundColor: "#00a94e" }}
+              >
                 Change Password
               </div>
               <div class="card-body px-5">
                 <p class="card-text py-2">Verify OTP and Update Password</p>
-                <div class="form-outline">
-                  <input
-                    type="text"
-                    placeholder="Email"
-                    class="form-control my-3"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                  <input
-                    type="text"
-                    placeholder="OTP"
-                    value={otp}
-                    required
-                    class="form-control my-3"
-                    onChange={(e) => setOtp(e.target.value)}
-                  />
-                  <input
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    required
-                    class="form-control my-3"
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </div>
-                <button
-                  onClick={handleVerifyOtpPasswordUpdate}
-                  class="btn btn-success w-100"
-                >
-                  Verify OTP and Update Password
-                </button>
+                <form onSubmit={handleVerifyOtpPasswordUpdate}>
+                  <div class="form-outline">
+                    <input
+                      type="email"
+                      placeholder="Email"
+                      class="form-control my-3"
+                      required
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <input
+                      type="text"
+                      placeholder="OTP"
+                      value={otp}
+                      required
+                      class="form-control my-3"
+                      onChange={(e) => setOtp(e.target.value)}
+                    />
+                    <input
+                      type="password"
+                      placeholder="Password"
+                      value={password}
+                      required
+                      class="form-control my-3"
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </div>
+                  <button type="submit" class="btn btn-success w-100">
+                    Verify OTP and Update Password
+                  </button>
+                </form>
+
                 {/* {message && <p>{message}</p>} */}
                 <div class="d-flex justify-content-between mt-4">
                   <button
                     class="btn btn-secondary"
                     style={{ backgroundColor: "#347571" }}
                   >
-                    Login
+                    <Link to="/">Home</Link>
                   </button>
                   <button
                     class="btn btn-secondary"
                     style={{ backgroundColor: "#347571" }}
                   >
-                    Register
+                    <Link to="/register">Register</Link>
                   </button>
                 </div>
               </div>
             </div>
           </div>
-          <div className="container contBx">
+          {/* <div className="container contBx">
             <button className="btn btn-success btnDash">
               <Link to="/">Back to Home</Link>
             </button>
-          </div>
+          </div> */}
         </div>
       </Container>
     </>

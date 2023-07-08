@@ -8,6 +8,7 @@ import cogoToast from "cogo-toast";
 import axios from "axios";
 import { utils, writeFile } from "xlsx";
 import { Modal } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const AdminReportGen = () => {
   const [data, setData] = useState([]);
@@ -216,7 +217,12 @@ const AdminReportGen = () => {
               Reports
             </h1>
           </div>
-          <div className="container-fluid  mt-5" style={{ height: "100vh" }}>
+          <div className="container contBx">
+            <button className="btn btn-success btnDash">
+              <Link to="/admin-dashboard">Go to Dashboard</Link>
+            </button>
+          </div>
+          <div className="container-fluid  mt-5" style={{ height: "auto" }}>
             <div className="row g-3">
               <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
                 <div className="contrepbox">
@@ -472,7 +478,7 @@ const Container = styled.div`
       align-items: center;
       box-shadow: inset 1px 1px 7px #e0e0e0;
       padding: 1rem;
-      height: 15rem;
+      height: auto;
       border-radius: 0.5rem;
       button {
         margin-top: 1rem;
@@ -481,5 +487,9 @@ const Container = styled.div`
     .xlable {
       width: 5rem;
     }
+  }
+  a {
+    text-decoration: none;
+    color: white;
   }
 `;

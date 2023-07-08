@@ -504,15 +504,25 @@ export const monthWiseToken = (req, res) => {
 };
 
 // search token History
-export const SearchTokenHistory = async (req, res) => {
+export const SearchTokenHistory = (req, res) => {
   try {
     const keyword = req.query.keyword;
-    const query = `SELECT *
-    FROM patient_token
-    JOIN patient_details ON  patient_token.uhid= patient_details.uhid
-   
-    WHERE patient_token.Assigned_doctor LIKE '%${keyword}%'
-       OR patient_details.firstname LIKE '%${keyword}%' OR patient_details.lastname LIKE '%${keyword}%' OR patient_token.P_Contact LIKE '%${keyword}%' OR patient_token.P_Email LIKE '%${keyword}%'`;
+    let query = `SELECT *
+      FROM doctor_data
+      JOIN patient_token ON doctor_data.Email = patient_token.Assigned_doctor
+      JOIN patient_details ON patient_token.uhid = patient_details.uhid
+      WHERE 1 = 1`;
+
+    if (keyword) {
+      query += ` AND (doctor_data.Doctor_name LIKE '%${keyword}%'
+              OR doctor_data.Email LIKE '%${keyword}%'
+              OR doctor_data.Mobile LIKE '%${keyword}%'
+              OR doctor_data.Department_name LIKE '%${keyword}%'
+              OR patient_details.firstname LIKE '%${keyword}%'
+              OR patient_details.lastname LIKE '%${keyword}%'
+              OR patient_token.P_Contact LIKE '%${keyword}%'
+              OR patient_token.P_Email LIKE '%${keyword}%')`;
+    }
 
     db.query(query, (err, results) => {
       if (err) throw err;
@@ -520,6 +530,7 @@ export const SearchTokenHistory = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -527,12 +538,12 @@ export const SearchTokenHistory = async (req, res) => {
 export const searchPatientQueue = (req, res) => {
   try {
     const keyword = req.query.keyword;
-    const query = `SELECT *
-FROM patient_token
-JOIN patient_details ON patient_token.uhid = patient_details.uhid
-WHERE patient_token.treatment_status = 'Pending'`;
+    let query = `SELECT *
+      FROM patient_token
+      JOIN patient_details ON patient_token.uhid = patient_details.uhid
+      WHERE patient_token.treatment_status = 'Pending'`;
 
-    if (patient_token.treatment_status === "Pending") {
+    if (keyword) {
       query += ` AND (patient_token.Assigned_doctor LIKE '%${keyword}%'
               OR patient_details.firstname LIKE '%${keyword}%'
               OR patient_details.lastname LIKE '%${keyword}%'
@@ -546,5 +557,117 @@ WHERE patient_token.treatment_status = 'Pending'`;
     });
   } catch (error) {
     console.log(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+// search patient in queue
+export const searchPatientServe = (req, res) => {
+  try {
+    const keyword = req.query.keyword;
+    let query = `SELECT *
+      FROM patient_token
+      JOIN patient_details ON patient_token.uhid = patient_details.uhid
+      WHERE patient_token.treatment_status = 'Treated'`;
+
+    if (keyword) {
+      query += ` AND (patient_token.Assigned_doctor LIKE '%${keyword}%'
+              OR patient_details.firstname LIKE '%${keyword}%'
+              OR patient_details.lastname LIKE '%${keyword}%'
+              OR patient_token.P_Contact LIKE '%${keyword}%'
+              OR patient_token.P_Email LIKE '%${keyword}%')`;
+    }
+
+    db.query(query, (err, results) => {
+      if (err) throw err;
+      res.json(results);
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+// missed patient
+export const searchPatientMIssed = (req, res) => {
+  try {
+    const keyword = req.query.keyword;
+    let query = `SELECT *
+      FROM patient_token
+      JOIN patient_details ON patient_token.uhid = patient_details.uhid
+      WHERE patient_token.treatment_status = 'Patient_Absent'`;
+
+    if (keyword) {
+      query += ` AND (patient_token.Assigned_doctor LIKE '%${keyword}%'
+              OR patient_details.firstname LIKE '%${keyword}%'
+              OR patient_details.lastname LIKE '%${keyword}%'
+              OR patient_token.P_Contact LIKE '%${keyword}%'
+              OR patient_token.P_Email LIKE '%${keyword}%')`;
+    }
+
+    db.query(query, (err, results) => {
+      if (err) throw err;
+      res.json(results);
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+// available doctor search
+export const searchAvailableDoctor = (req, res) => {
+  try {
+    const keyword = req.query.keyword;
+    let query = `SELECT *
+      FROM doctor_data
+      WHERE 1 = 1`;
+
+    if (keyword) {
+      query += ` AND (doctor_data.Doctor_name LIKE '%${keyword}%'
+              OR doctor_data.Email LIKE '%${keyword}%'
+              OR doctor_data.Mobile LIKE '%${keyword}%')
+              OR doctor_data.Department_name Like '%${keyword}%'`;
+    }
+
+    db.query(query, (err, results) => {
+      if (err) throw err;
+      res.json(results);
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+// searchP patient assigned to specific doctor
+
+export const searchPatientAssigned = (req, res) => {
+  try {
+    const keyword = req.query.keyword;
+    let query = `SELECT *
+      FROM doctor_data
+      JOIN patient_token ON doctor_data.Email = patient_token.Assigned_doctor
+      JOIN patient_details ON patient_token.uhid = patient_details.uhid
+      WHERE 1 = 1`;
+
+    if (keyword) {
+      query += ` AND (doctor_data.Doctor_name LIKE '%${keyword}%'
+              OR doctor_data.Email LIKE '%${keyword}%'
+              OR doctor_data.Mobile LIKE '%${keyword}%'
+              OR doctor_data.Department_name LIKE '%${keyword}%'
+              OR patient_details.firstname LIKE '%${keyword}%'
+              OR patient_details.lastname LIKE '%${keyword}%'
+              OR patient_token.P_Contact LIKE '%${keyword}%'
+              OR patient_token.P_Email LIKE '%${keyword}%')`;
+    }
+
+    db.query(query, (err, results) => {
+      if (err) throw err;
+      res.json(results);
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };

@@ -54,21 +54,31 @@ const MonthWiseToken = () => {
     }
   }, [searchError]);
 
+  // searchHandler
   const handleSearch = async () => {
     try {
       const response = await axios.get(
         `http://localhost:8100/api/auth/searchTokenhistory?keyword=${keyword}`
       );
-      console.log(response.data);
+
       const data = response.data;
-      if (data.length > 0) {
-        setResults(data);
+      const currentDate = new Date();
+      const currentMonth = currentDate.getMonth() + 1; // Adding 1 because getMonth() returns zero-based month index
+
+      const filteredData = data.filter((item) => {
+        const itemDate = new Date(item.Time);
+        const itemMonth = itemDate.getMonth() + 1; // Adding 1 because getMonth() returns zero-based month index
+        return itemMonth === currentMonth;
+      });
+
+      if (filteredData.length > 0) {
+        setResults(filteredData);
         setSearchError(false);
-        console.log(results);
       } else {
         setResults([]);
         setSearchError(true);
       }
+
       setKeyword("");
     } catch (error) {
       console.log(error);
@@ -239,6 +249,12 @@ const Container = styled.div`
     
     td{
       font-size:18px;
+      td {
+        font-size: 18px;
+        @media screen and (max-width:500px){
+          padding: 15px;
+        }
+      }
     }
     .input-group {
       position: relative;
@@ -263,6 +279,11 @@ const Container = styled.div`
         width: 50%;
         position: relative;
         border: 1px solid #47a45b !important;
+      }
+    }
+    button{
+      @media screen and (max-width:500px){
+        margin: 0;
       }
     }
 `;

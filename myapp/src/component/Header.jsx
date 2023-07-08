@@ -9,18 +9,9 @@ import axios from "axios";
 import { useAuth } from "../context";
 
 const Header = () => {
-  const [auth] = useAuth();
+  const [auth, setAuth] = useAuth();
   const navigate = useNavigate();
-  // console.log(auth);
-
-  const userProfile = async () => {
-    try {
-      const { data } = await axios.get("http://localhost:8100/api/auth/users");
-      // console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  console.log(auth);
 
   const logoutHandler = (e) => {
     axios
@@ -28,16 +19,10 @@ const Header = () => {
       .then((res) => {
         localStorage.removeItem("auth");
         navigate("/");
+        window.location.reload();
       })
       .catch((err) => console.log(err));
   };
-
-  useEffect(() => {
-    userProfile();
-    // logoutHandler();
-  }, []);
-
-  // console.log(userLogged[0].username);
 
   return (
     <>

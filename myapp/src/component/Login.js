@@ -29,7 +29,7 @@ const Login = () => {
     axios
       .post("http://localhost:8100/api/auth/login", data)
       .then((res) => {
-        // console.log(res.data);
+        console.log(res.data);
         if (Array.isArray(res.data) && res.data.length > 0) {
           setAuth({
             ...auth,
@@ -37,7 +37,7 @@ const Login = () => {
             token: res.data.token,
           });
 
-          console.log(res.data[0].role);
+          console.log(res.data);
           if (
             res.data[0].role === "Receptionist" &&
             res.data[0].Admin_Approval === "Approved"

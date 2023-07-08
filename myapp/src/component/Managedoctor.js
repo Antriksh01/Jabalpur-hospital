@@ -278,9 +278,9 @@ const Managedoctor = () => {
               <div className="row g-5">
                 <div className="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12"></div>
                 <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12  d-flex justify-content-center">
-                  <button>
+                  {/* <button>
                     <Link to="/add-doctor">Add a Doctor</Link>{" "}
-                  </button>
+                  </button> */}
                 </div>
                 <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 d-flex justify-content-center">
                   <button>
@@ -318,10 +318,17 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;
   }
+  td {
+    font-size: 18px;
+    @media screen and (max-width:500px){
+      padding: 15px;
+    }
+  }
 
   input {
     padding: 1rem;
     border-radius: 0.5rem;
+    
   }
 
   a {

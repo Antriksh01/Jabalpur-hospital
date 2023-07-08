@@ -14,6 +14,7 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [selectedOption, setSelectedOption] = useState("");
 
   const handleClick = async (e) => {
     e.preventDefault();
@@ -23,7 +24,7 @@ const Register = () => {
       mobile,
       reg_email: email,
       password,
-      role,
+      role: selectedOption,
     };
 
     try {
@@ -43,6 +44,10 @@ const Register = () => {
       console.log(err);
       cogoToast.error("Failed to register user. Please try again.");
     }
+  };
+
+  const handleChange = (event) => {
+    setSelectedOption(event.target.value);
   };
 
   return (
@@ -94,13 +99,26 @@ const Register = () => {
               />
               <br />
               <br />
-              <input
+              <select
+                id="mySelect"
+                value={selectedOption}
+                onChange={handleChange}
+                style={{ width: "100%" }}
+              >
+                <option value="">-- Select --</option>
+                <option value="Admin">Admin</option>
+                <option value="Receptionist">Receptionist</option>
+                <option value="Doctor">Doctor</option>
+              </select>
+              <br />
+              <br />
+              {/* <input
                 type="text"
                 style={{ border: "none" }}
                 placeholder="Role"
                 value={role}
                 onChange={(e) => setRole(e.target.value)}
-              />
+              /> */}
               <button type="submit" className="btn btn-success mt-2">
                 Submit
               </button>
