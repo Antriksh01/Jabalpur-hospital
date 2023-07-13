@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import "./Login.css"; // Import the CSS file for styling
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import MainLogin from "./MainLogin";
+// import MainLogin from "./MainLogin";
 import { useAuth } from "../context";
 import cogoToast from "cogo-toast";
 import styled from "styled-components";
@@ -14,7 +14,7 @@ import styled from "styled-components";
 const Login = () => {
   const [auth, setAuth] = useAuth();
   const [data, setData] = useState({
-    username: "",
+    loginCredential: "",
     password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
@@ -102,12 +102,12 @@ const Login = () => {
                     >
                       <h2>Login</h2>
                       <div className="form-group">
-                        <label htmlFor="username">Username</label>
+                        <label htmlFor="loginCredential">Username</label>
                         <input
                           type="text"
-                          id="username"
-                          name="username"
-                          value={data.username}
+                          id="loginCredential"
+                          name="loginCredential"
+                          value={data.loginCredential}
                           onChange={handleChange}
                           required
                         />

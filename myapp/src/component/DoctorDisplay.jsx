@@ -7,13 +7,15 @@ import { useAuth } from "../context";
 const DoctorDisplay = () => {
   const [content, setContent] = useState([]);
   const [auth] = useAuth();
-  const domain = "http://localhost:8100";
+  // const domain = "http://localhost:8100";
 
   const DocDisplayCont = async () => {
     try {
-      const res = await axios.get(`${domain}/api/auth/display-doctor-screen`);
+      const res = await axios.get(
+        `http://localhost:8100/api/auth/display-doctor-screen`
+      );
       const data = res.data;
-
+      console.log(data);
       const today = new Date();
       const yesterday = new Date(today);
       const formattedDate = yesterday
@@ -31,7 +33,7 @@ const DoctorDisplay = () => {
         (item) =>
           item.Assigned_doctor === auth.user.reg_email &&
           item.treatment_status === "Pending" &&
-          item.Token_Generate_Date === formattedDate
+          item.Time.split("T")[0] === formattedDate
       );
 
       filteredData.forEach((item) => {

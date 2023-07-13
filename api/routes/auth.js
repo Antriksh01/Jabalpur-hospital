@@ -18,9 +18,8 @@ import {
   getPatientDetails,
   joinPatientTable,
   receptionistDetailsUpdate,
-  updateReceptionist,
 } from "../controller/ReceptionistDetails.js";
-import { isAdmin, verifyUser } from "../middleware/middleware.js";
+// import { isAdmin, isDoctor, isReception } from "../middleware/middleware.js";
 import {
   DisplayDoctorScreen,
   PatientServe,
@@ -56,7 +55,7 @@ const router = express.Router();
 router.post("/login", login);
 router.post("/register", register);
 router.put("/reset-password/verify", verifyOtpPasswordUpdate);
-router.get("/", verifyUser, isAdmin, dataLogin);
+router.get("/", dataLogin);
 router.get("/logout", logout);
 router.get("/users", getAllUsers);
 router.post("/add-receptionist", addReceptionist);

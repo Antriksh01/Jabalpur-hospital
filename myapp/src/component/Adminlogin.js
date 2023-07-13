@@ -4,7 +4,7 @@ import jbplogo from "../photos/jbplogo.png";
 import Admin from "../photos/Admin.jpg";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import MainLogin from "./MainLogin";
+// import MainLogin from "./MainLogin";
 import styled from "styled-components";
 import { useAuth } from "../context";
 import axios from "axios";
@@ -14,7 +14,7 @@ import cogoToast from "cogo-toast";
 const Adminlogin = () => {
   const [auth, setAuth] = useAuth();
   const [data, setData] = useState({
-    username: "",
+    loginCredential: "",
     password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
@@ -37,7 +37,7 @@ const Adminlogin = () => {
             token: res.data.token,
           });
 
-          console.log(res.data[0].role);
+          console.log(res.data[0].username);
           if (
             res.data[0].role === "Admin" &&
             res.data[0].Admin_Approval === "Approved"
@@ -102,12 +102,12 @@ const Adminlogin = () => {
                     >
                       <h2>Login</h2>
                       <div className="form-group">
-                        <label htmlFor="username">Username</label>
+                        <label htmlFor="loginCredential">Username</label>
                         <input
                           type="text"
-                          id="username"
-                          name="username"
-                          value={data.username}
+                          id="loginCredential"
+                          name="loginCredential"
+                          value={data.loginCredential}
                           onChange={handleChange}
                           required
                         />

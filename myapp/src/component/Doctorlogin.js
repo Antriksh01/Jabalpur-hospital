@@ -3,7 +3,7 @@ import "./Doctorlogin";
 import jbplogo from "../photos/jbplogo.png";
 import Doctor from "../photos/Doctor.jpg";
 import React, { useState } from "react";
-import MainLogin from "./MainLogin";
+// import MainLogin from "./MainLogin";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context";
@@ -15,7 +15,7 @@ import cogoToast from "cogo-toast";
 const Doctorlogin = () => {
   const [auth, setAuth] = useAuth();
   const [data, setData] = useState({
-    username: "",
+    loginCredential: "",
     password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
@@ -25,6 +25,8 @@ const Doctorlogin = () => {
   const handleShowPasswordToggle = () => {
     setShowPassword(!showPassword);
   };
+
+  console.log(data);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -106,12 +108,12 @@ const Doctorlogin = () => {
                     >
                       <h2>Login</h2>
                       <div className="form-group">
-                        <label htmlFor="username">Username</label>
+                        <label htmlFor="loginCredential">Username</label>
                         <input
                           type="text"
-                          id="username"
-                          name="username"
-                          value={data.username}
+                          id="loginCredential"
+                          name="loginCredential"
+                          value={data.loginCredential}
                           onChange={handleChange}
                           required
                         />

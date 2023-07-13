@@ -120,7 +120,7 @@ const StoryPart = () => {
     (item) =>
       item.Assigned_doctor === auth.user.reg_email &&
       item.treatment_status === "Pending" &&
-      item.Token_Generate_Date === formattedDate
+      item.Time.split("T")[0] === formattedDate
   );
 
   // time setup 15 minute

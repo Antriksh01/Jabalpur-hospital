@@ -41,10 +41,11 @@ const TokenSearch = () => {
 
   const handleSearch = async () => {
     try {
+      console.log("clicked");
       const response = await axios.post(
         `${domain}/api/auth/Search-patient?keyword=${keyword}`
       );
-      console.log(response);
+      console.log(keyword);
       const data = response.data;
       if (data.length > 0) {
         setResults(data);

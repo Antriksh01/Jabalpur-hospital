@@ -194,11 +194,12 @@ export const dataLogin = async (req, res) => {
 
 // login
 export const login = async (req, res) => {
-  const username = req.body.username;
+  const loginCredential = req.body.loginCredential;
   const password = req.body.password;
+
   db.query(
-    "SELECT * FROM admin_register WHERE username = ?",
-    username,
+    "SELECT * FROM admin_register WHERE username = ? OR reg_email = ? OR mobile = ?",
+    [loginCredential, loginCredential, loginCredential],
     (err, result) => {
       if (err) {
         console.error("Login error in server:", err);
@@ -208,15 +209,22 @@ export const login = async (req, res) => {
       }
 
       if (result.length > 0) {
-        bcrypt.compare(password, result[0].password, (err, response) => {
+        bcrypt.compare(password, result[0].password, (bcryptErr, response) => {
+          if (bcryptErr) {
+            console.error("Bcrypt error:", bcryptErr);
+            return res
+              .status(500)
+              .send({ status: "error", message: "Internal server error" });
+          }
+
           if (response) {
             res.send(result);
           } else {
-            res.send({ message: "wrong username/password" });
+            res.send({ message: "Wrong username/password" });
           }
         });
       } else {
-        res.send({ msg: "user doesn't exist" });
+        res.send({ message: "User doesn't exist" });
       }
     }
   );

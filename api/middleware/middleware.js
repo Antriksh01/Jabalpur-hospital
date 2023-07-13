@@ -2,40 +2,68 @@
 
 import { db } from "../connect.js";
 import dotenv from "dotenv";
+import jwt from "jsonwebtoken";
 dotenv.config();
 
-export const verifyUser = (req, res, next) => {
-  const token = req.cookies.token;
-  console.log(token);
-  if (!token) {
-    return console.log("you are not authenticate");
-  } else {
-    jwt.verify(token, process.env.SECRETKEY, (err, decoded) => {
-      if (err) {
-        return console.log("invalid token ");
-      } else {
-        req.name = decoded.name;
-        next();
-      }
-    });
+export const verifyUser = async (req, res, next) => {
+  try {
+    const decode = jwt.verify(req.headers.authorization, process.env.SECRETKEY);
+    next();
+  } catch (error) {
+    console.log(error);
   }
 };
 
-export const isAdmin = async (req, res) => {
-  const { username, role } = req.body;
+// export const isAdmin = async (req, res) => {
+//   const loginCredential = req.body.loginCredential;
 
-  const q = "SELECT * FROM admin_register WHERE username = ?";
+//   const q = "SELECT * FROM admin_register WHERE username = ?";
 
-  db.query(q, [username], (error, results) => {
-    var string = res.send(JSON.stringify(results));
+//   db.query(q, [loginCredential], (error, results) => {
+//     var string = res.send(JSON.stringify(results));
+//     console.log(string);
+//     if (string[0].role !== "Admin") {
+//       return res
+//         .status(401)
+//         .send({ success: false, msg: "unauthorize access" });
+//     } else {
+//       next();
+//     }
+//   });
+// };
 
-    // console.log(string[0].username);
-    if (error) {
-      console.error("Error fetching user roles:", error);
-      res.status(500).json({ error: "Error fetching user roles" });
-    } else {
-      const roles = results.map((row) => row.name);
-      // console.log({ roles });
-    }
-  });
-};
+// export const isDoctor = async (req, res) => {
+//   const loginCredential = req.body.loginCredential;
+
+//   const q = "SELECT * FROM admin_register WHERE username = ?";
+
+//   db.query(q, [loginCredential], (error, results) => {
+//     var string = res.send(JSON.stringify(results));
+//     console.log(string);
+//     if (string[0].role !== "Doctor") {
+//       return res
+//         .status(401)
+//         .send({ success: false, msg: "unauthorize access" });
+//     } else {
+//       next();
+//     }
+//   });
+// };
+
+// export const isReception = async (req, res) => {
+//   const loginCredential = req.body.loginCredential;
+
+//   const q = "SELECT * FROM admin_register WHERE username = ?";
+
+//   db.query(q, [loginCredential], (error, results) => {
+//     var string = res.send(JSON.stringify(results));
+//     console.log(string);
+//     if (string[0].role !== "Receptionist") {
+//       return res
+//         .status(401)
+//         .send({ success: false, msg: "unauthorize access" });
+//     } else {
+//       next();
+//     }
+//   });
+// };
