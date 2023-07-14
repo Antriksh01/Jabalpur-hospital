@@ -219,10 +219,12 @@ overflow-x: hidden;
       width: auto;
       border-radius: 1.5rem;
       border: none;
+      box-shadow: 0px 6px 19px #e0e0e0;
       .card-body {
         display: flex;
         align-items: center;
         justify-content: center;
+        text-shadow: 0px 9px 20px #4a4545;
         a {
           text-decoration: none;
           color: black;

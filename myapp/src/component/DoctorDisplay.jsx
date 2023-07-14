@@ -138,6 +138,7 @@ const Container = styled.div`
     background-color: #b8e28a;
     color: #347571;
     font-size: 2rem;
+    text-shadow: 0px 5px 35px #4a4545;
     @media screen and (max-width:500px){
       padding: 1rem;
       font-size:1rem;

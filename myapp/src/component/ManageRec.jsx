@@ -332,4 +332,8 @@ const Container = styled.div`
     @media screen and (max-width: 500px) {
       margin-top: 10rem;
     }
+    th{
+      text-shadow: 0px 5px 15px #4a4545;
+      font-size:20px;
+    }
 `;

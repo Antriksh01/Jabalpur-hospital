@@ -151,6 +151,7 @@ const Container = styled.div`
       background-color: #b8e28a;
       width: auto;
       border-radius: 1.5rem;
+      box-shadow: 1px 3px 9px #e0e0e0;
       border: none;
       .card-body {
         display: flex;
@@ -161,6 +162,7 @@ const Container = styled.div`
           color: black;
         }
         h2 {
+          text-shadow: 0px 9px 20px #4a4545;
           @media screen and (min-width: 501px) and (max-width: 900px) {
             font-size: 18px;
           }

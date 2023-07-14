@@ -218,7 +218,16 @@ export const login = async (req, res) => {
           }
 
           if (response) {
-            res.send(result);
+            const user = result[0];
+            const token = jwt.sign(
+              { userId: loginCredential },
+              "your-secret-key",
+              {
+                expiresIn: "1h", // Token expiration time
+              }
+            );
+
+            res.send({ token, user });
           } else {
             res.send({ message: "Wrong username/password" });
           }

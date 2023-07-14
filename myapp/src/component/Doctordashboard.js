@@ -214,6 +214,7 @@ overflow-X:hidden;
     height: 90%;
     margin-top: 1.5rem;
     background-color: #dcf4ce;
+    box-shadow: 1px 3px 9px #e0e0e0;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -223,6 +224,7 @@ overflow-X:hidden;
       padding: 0.5rem;
       border: none;
       background-color: #5ec57e;
+      box-shadow: 1px 3px 9px #1a1818;
       border-radius: 1.5rem;
       @media screen and (min-width: 501px) and (max-width: 900px){
         width:12rem;
@@ -267,10 +269,12 @@ overflow-X:hidden;
       background-color: #b8e28a;
       width: auto;
       border-radius: 1.5rem;
+      box-shadow: 0px 6px 19px #e0e0e0;
       border: none;
       .card-body {
         display: flex;
         align-items: center;
+        text-shadow: 0px 9px 20px #4a4545;
         justify-content: center;
         h2 {
           @media screen and (min-width: 501px) and (max-width: 900px) {

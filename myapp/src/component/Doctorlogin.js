@@ -33,23 +33,26 @@ const Doctorlogin = () => {
     axios
       .post(`${domain}/api/auth/login`, data)
       .then((res) => {
+        const dt = res.data;
+        console.log(dt.user);
         // Check if the response contains data and is an array
-        if (Array.isArray(res.data) && res.data.length > 0) {
+        if (dt.user !== "") {
           setAuth({
             ...auth,
-            user: res.data[0],
+            user: res.data.user,
             token: res.data.token,
           });
 
           // Check if the role is Doctor and Admin_Approval is Approved
           if (
-            res.data[0].role === "Doctor" &&
-            res.data[0].Admin_Approval === "Approved"
+            dt.user.role === "Doctor" &&
+            dt.user.Admin_Approval === "Approved"
           ) {
             cogoToast.success("Doctor login successful");
             navigate("/doctor-dashboard");
-            localStorage.setItem("auth", JSON.stringify(res.data));
-          } else if (res.data[0].Admin_Approval !== "Approved") {
+            localStorage.setItem("auth", JSON.stringify(res.data.user));
+            localStorage.setItem("Token", res.data.token);
+          } else if (dt.user.Admin_Approval !== "Approved") {
             cogoToast.error("Admin Approval Pending");
           } else {
             cogoToast.error("Wrong password or username");

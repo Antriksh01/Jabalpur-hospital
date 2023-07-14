@@ -178,6 +178,7 @@ export default PatientAssigned;
 const Container = styled.div`
   th {
     background-color: #ff9999;
+      text-shadow: 0px 9px 20px #4a4545;
     text-align: center;
     @media screen and (max-width: 500px) {
       padding:0.5rem

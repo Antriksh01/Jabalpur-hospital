@@ -29,23 +29,24 @@ const Adminlogin = () => {
     axios
       .post(`${domain}/api/auth/login`, data)
       .then((res) => {
-        // console.log(res.data);
-        if (Array.isArray(res.data) && res.data.length > 0) {
+        const dt = res.data;
+        console.log(dt.user);
+        if (dt.user !== "") {
           setAuth({
             ...auth,
-            user: res.data[0],
+            user: res.data.user,
             token: res.data.token,
           });
 
-          console.log(res.data[0].username);
           if (
-            res.data[0].role === "Admin" &&
-            res.data[0].Admin_Approval === "Approved"
+            dt.user.role === "Admin" &&
+            dt.user.Admin_Approval === "Approved"
           ) {
             cogoToast.success("Admin login successful");
             navigate("/admin-dashboard");
-            localStorage.setItem("auth", JSON.stringify(res.data));
-          } else if (res.data[0].Admin_Approval !== "Approved") {
+            localStorage.setItem("auth", JSON.stringify(res.data.user));
+            localStorage.setItem("Token", res.data.token);
+          } else if (dt.user.Admin_Approval !== "Approved") {
             cogoToast.error("Approval Pending");
           } else {
             cogoToast.error("wrong password or username");
@@ -57,6 +58,7 @@ const Adminlogin = () => {
       .catch((err) => console.log(err, "login failed"));
   };
 
+  console.log(auth);
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
     console.log(data);

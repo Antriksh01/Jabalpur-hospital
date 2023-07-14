@@ -262,5 +262,8 @@ const Container = styled.div`
       margin:0
     }
   }
+  th{
+    text-shadow: 0px 9px 20px #4a4545;
+  }
   
   `;

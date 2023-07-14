@@ -229,6 +229,7 @@ const Container = styled.div`
   th {
     background-color: #ff9999;
     text-align: center;
+    text-shadow: 0px 5px 20px #4a4545;
   }
   td {
     text-align: center;

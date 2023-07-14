@@ -284,4 +284,7 @@ const Container = styled.div`
       padding: 1rem;
     }
   }
+  th{
+    text-shadow: 0px 9px 20px #4a4545;
+  }
   `;

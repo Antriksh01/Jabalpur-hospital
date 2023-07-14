@@ -291,4 +291,9 @@ const Container = styled.div`
     @media screen and (max-width:500px){
       padding:15px;
     }
-  }`;
+    
+  }
+  th{
+    text-shadow: 0px 9px 20px #4a4545;
+  }
+  `;

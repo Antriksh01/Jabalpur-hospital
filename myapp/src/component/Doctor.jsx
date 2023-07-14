@@ -190,6 +190,7 @@ const Container = styled.div`
 
     th {
       text-align: center;
+      text-shadow: 0px 9px 20px #4a4545;
       background-color: #b8e28a;
       @media screen and (max-width: 500px) {
         padding: 0.5rem;
