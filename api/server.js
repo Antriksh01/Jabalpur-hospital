@@ -1,11 +1,11 @@
-import express from "express";
+const express = require("express");
 const app = express();
-import cors from "cors";
-import cookieParser from "cookie-parser";
-import authRoutes from "./routes/auth.js";
-import session from "express-session";
-import twilio from "twilio";
-import dotenv from "dotenv";
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
+const authRoutes = require("./routes/auth.js");
+const session = require("express-session");
+const twilio = require("twilio");
+const dotenv = require("dotenv");
 dotenv.config();
 
 app.use(express.json());

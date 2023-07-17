@@ -14,7 +14,7 @@ const ManageRec = () => {
   const [modalValues, setModalValues] = useState({});
   const [selectedItem, setSelectedItem] = useState(null);
 
-  const domain = "http://localhost:8100";
+  const domain = process.env.REACT_APP_DOMAIN;
 
   const countDoctors = async () => {
     try {

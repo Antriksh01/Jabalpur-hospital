@@ -23,7 +23,7 @@ const TokenGenForm = () => {
     Counter_No: "",
   });
 
-  const domain = "http://localhost:8100";
+  const domain = process.env.REACT_APP_DOMAIN;
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
     console.log(data);

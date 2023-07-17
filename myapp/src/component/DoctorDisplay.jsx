@@ -7,13 +7,11 @@ import { useAuth } from "../context";
 const DoctorDisplay = () => {
   const [content, setContent] = useState([]);
   const [auth] = useAuth();
-  // const domain = "http://localhost:8100";
+  const domain = process.env.REACT_APP_DOMAIN;
 
   const DocDisplayCont = async () => {
     try {
-      const res = await axios.get(
-        `http://localhost:8100/api/auth/display-doctor-screen`
-      );
+      const res = await axios.get(`${domain}/api/auth/display-doctor-screen`);
       const data = res.data;
       console.log(data);
       const today = new Date();

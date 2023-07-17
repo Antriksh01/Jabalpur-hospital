@@ -16,7 +16,7 @@ const AdminReportGen = () => {
   const [modalValues, setModalValues] = useState({});
   const [selectedItem, setSelectedItem] = useState(null);
   const [error, setError] = useState("");
-  const domain = "http://localhost:8100";
+  const domain = process.env.REACT_APP_DOMAIN;
   const [docReport, setDocReport] = useState({
     docrepo1: null,
     docrepo2: null,

@@ -1,12 +1,12 @@
-import { db } from "../connect.js";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import nodemailer from "nodemailer";
-import mysql from "mysql";
-import session from "express-session";
+const db = require("../connect");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
+const mysql = require("mysql");
+const session = require("express-session");
 
 // add receptionist
-export const addReceptionist = (req, res) => {
+const addReceptionist = (req, res) => {
   //CHECK USER IF EXISTS
 
   const q = "SELECT * FROM receptionist WHERE email = ?";
@@ -38,7 +38,7 @@ export const addReceptionist = (req, res) => {
 };
 
 // update receptionist data
-export const updateReceptionist = (req, res) => {
+const updateReceptionist = (req, res) => {
   //CHECK USER IF EXISTS
 
   const q = "SELECT * FROM receptionist WHERE email = ?";
@@ -70,7 +70,7 @@ export const updateReceptionist = (req, res) => {
 };
 
 // token-generate
-export const PatientTokenGeneration = (req, res) => {
+const PatientTokenGeneration = (req, res) => {
   //CHECK USER IF EXISTS
 
   const q = "SELECT * FROM patient_token WHERE Token_ID = ?";
@@ -107,7 +107,7 @@ export const PatientTokenGeneration = (req, res) => {
 
 // get-patient
 
-export const getAllPatient = async (req, res) => {
+const getAllPatient = async (req, res) => {
   db.query("SELECT * FROM patient_token", (error, results) => {
     if (error) {
       console.error(error);
@@ -118,7 +118,7 @@ export const getAllPatient = async (req, res) => {
 };
 
 // join-tables
-export const joinPatientTable = async (req, res) => {
+const joinPatientTable = async (req, res) => {
   const query = `
     SELECT *
     FROM patient_token
@@ -139,7 +139,7 @@ export const joinPatientTable = async (req, res) => {
 };
 
 //Patient search controller
-export const SearchPatientController = async (req, res) => {
+const SearchPatientController = async (req, res) => {
   try {
     const keyword = req.query.keyword;
     // const query = `SELECT * FROM patient_token WHERE P_Email LIKE '%${keyword}%'`;
@@ -161,7 +161,7 @@ export const SearchPatientController = async (req, res) => {
 };
 
 // get patient details
-export const getPatientDetails = (req, res) => {
+const getPatientDetails = (req, res) => {
   try {
     db.query("SELECT * FROM receptionist", (error, results) => {
       if (error) {
@@ -176,7 +176,7 @@ export const getPatientDetails = (req, res) => {
 };
 
 // receptionistDetailsUpdate
-export const receptionistDetailsUpdate = (req, res) => {
+const receptionistDetailsUpdate = (req, res) => {
   try {
     const {
       fullname,
@@ -226,7 +226,7 @@ export const receptionistDetailsUpdate = (req, res) => {
 };
 
 //delete receptionist data
-export const deleteReceptionistData = (req, res) => {
+const deleteReceptionistData = (req, res) => {
   try {
     const rec_ID = req.params.id;
     const q = "DELETE FROM receptionist WHERE Rec_ID = ?";
@@ -241,4 +241,16 @@ export const deleteReceptionistData = (req, res) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+module.exports = {
+  addReceptionist,
+  updateReceptionist,
+  PatientTokenGeneration,
+  getAllPatient,
+  joinPatientTable,
+  SearchPatientController,
+  getPatientDetails,
+  receptionistDetailsUpdate,
+  deleteReceptionistData,
 };

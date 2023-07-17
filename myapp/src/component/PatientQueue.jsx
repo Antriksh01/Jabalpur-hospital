@@ -14,7 +14,7 @@ const PatientQueue = () => {
   const [searchData, setSearchData] = useState([]);
   const [searchError, setSearchError] = useState(false);
   //   console.log(auth);
-  const domain = "http://localhost:8100";
+  const domain = process.env.REACT_APP_DOMAIN;
 
   const handlePatient = async () => {
     const today = new Date();

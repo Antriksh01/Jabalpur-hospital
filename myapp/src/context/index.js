@@ -15,18 +15,19 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const data = localStorage.getItem("auth");
+
     if (data) {
       const parseData = JSON.parse(data);
-      const userData = parseData[0];
 
+      console.log(parseData);
       setAuth({
         ...auth,
-        user: userData,
+        user: parseData,
         token: data.token,
       });
     }
   }, []);
-  // console.log(auth.user);
+  console.log(auth.user);
   return (
     <AuthContext.Provider value={[auth, setAuth]}>
       {children}

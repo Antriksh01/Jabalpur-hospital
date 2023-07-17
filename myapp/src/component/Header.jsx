@@ -11,8 +11,9 @@ import { useAuth } from "../context";
 const Header = () => {
   const [auth, setAuth] = useAuth();
   const navigate = useNavigate();
-  const domain = "http://localhost:8100";
-  console.log(auth);
+  const domain = process.env.REACT_APP_DOMAIN;
+  const det = auth.user;
+  console.log(det.username);
 
   const logoutHandler = (e) => {
     axios
@@ -37,8 +38,8 @@ const Header = () => {
             <div id="links" className="links">
               {auth.user ? (
                 <>
-                  <h3>Hi {auth.user.username}</h3>
-                  <h3>Employee Id :{auth.user.a_id} </h3>
+                  <h3>Hi {det.username}</h3>
+                  <h3>Employee Id :{det.a_id} </h3>
                   <span Id="btu">
                     <button onClick={logoutHandler}>Logout</button>
                   </span>

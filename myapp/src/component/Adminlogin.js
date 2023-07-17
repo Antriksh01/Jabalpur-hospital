@@ -23,7 +23,7 @@ const Adminlogin = () => {
   const handleShowPasswordToggle = () => {
     setShowPassword(!showPassword);
   };
-  const domain = "http://localhost:8100";
+  const domain = process.env.REACT_APP_DOMAIN;
   const handleLogin = (e) => {
     e.preventDefault();
     axios
@@ -49,13 +49,16 @@ const Adminlogin = () => {
           } else if (dt.user.Admin_Approval !== "Approved") {
             cogoToast.error("Approval Pending");
           } else {
-            cogoToast.error("wrong password or username");
+            cogoToast.error("Wrong password or username");
           }
         } else {
-          cogoToast.error("invalid credientials");
+          cogoToast.error("Invalid credentials");
         }
       })
-      .catch((err) => console.log(err, "login failed"));
+      .catch((err) => {
+        console.log(err);
+        cogoToast.error("Login failed");
+      });
   };
 
   console.log(auth);

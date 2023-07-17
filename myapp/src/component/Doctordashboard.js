@@ -13,7 +13,7 @@ const Doctordashboard = () => {
   const [getDoc, setGetDoc] = useState("");
   const [serve, setServe] = useState([]);
 
-  const domain = "http://localhost:8100";
+  const domain = process.env.REACT_APP_DOMAIN;
 
   // update_doctor_status
   const handleUpdate = async (value) => {

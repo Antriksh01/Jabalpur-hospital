@@ -19,7 +19,7 @@ const Doctorlogin = () => {
     password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
-  const domain = "http://localhost:8100";
+  const domain = process.env.REACT_APP_DOMAIN;
 
   const navigate = useNavigate();
   const handleShowPasswordToggle = () => {

@@ -9,13 +9,11 @@ const DoctorDisplayScr = () => {
   const [content, setContent] = useState([]);
   //   const [auth] = useAuth();
   const { value } = useParams();
-  // const domain = "http://localhost:8100";
+  const domain = process.env.REACT_APP_DOMAIN;
 
   const DocDisplayCont = async (value) => {
     try {
-      const res = await axios.get(
-        `http://localhost:8100/api/auth/doctorLive/${value}`
-      );
+      const res = await axios.get(`${domain}/api/auth/doctorLive/${value}`);
       console.log(value);
       const data = res.data;
       console.log(res);

@@ -12,7 +12,7 @@ const ResetPassword = () => {
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
-  const domain = "http://localhost:8100";
+  const domain = process.env.REACT_APP_DOMAIN;
 
   const handleVerifyOtpPasswordUpdate = async (e) => {
     e.preventDefault();

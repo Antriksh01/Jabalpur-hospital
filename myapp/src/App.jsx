@@ -48,6 +48,7 @@ axios.defaults.withCredentials = true;
 
 function App() {
   const [auth] = useAuth();
+  console.log(process.env.REACT_APP_DOMAIN);
 
   console.log(auth);
   return (

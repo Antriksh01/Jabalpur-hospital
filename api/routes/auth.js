@@ -1,5 +1,5 @@
-import express from "express";
-import {
+const express = require("express");
+const {
   login,
   register,
   dataLogin,
@@ -8,8 +8,8 @@ import {
   adminApproval,
   sendOtp,
   verifyOtpPasswordUpdate,
-} from "../controller/auth.js";
-import {
+} = require("../controller/auth.js");
+const {
   PatientTokenGeneration,
   SearchPatientController,
   addReceptionist,
@@ -18,9 +18,9 @@ import {
   getPatientDetails,
   joinPatientTable,
   receptionistDetailsUpdate,
-} from "../controller/ReceptionistDetails.js";
-// import { isAdmin, isDoctor, isReception } from "../middleware/middleware.js";
-import {
+} = require("../controller/ReceptionistDetails.js");
+// const { isAdmin, isDoctor, isReception } = "../middleware/middleware.js";
+const {
   DisplayDoctorScreen,
   PatientServe,
   addDoctor,
@@ -30,8 +30,8 @@ import {
   doctorDataUpdate,
   doctorLiveDisplay,
   getDoctorsStatus,
-} from "../controller/DoctorDetails.js";
-import {
+} = require("../controller/DoctorDetails.js");
+const {
   SearchTokenHistory,
   searchAvailableDoctor,
   searchPatientAssigned,
@@ -42,13 +42,13 @@ import {
   sendSMS,
   sendWhatsapp,
   tokenRecStatus,
-} from "../controller/sendReciepts.js";
-import {
+} = require("../controller/sendReciepts.js");
+const {
   doctorReports,
   receptionistMiniReport,
   // receptionistReport,
   tokenReport,
-} from "../controller/Report.js";
+} = require("../controller/Report.js");
 
 const router = express.Router();
 
@@ -94,4 +94,4 @@ router.get("/missed-partient", searchPatientMIssed);
 router.get("/searchAvailableDoctor", searchAvailableDoctor);
 router.get("/searchPatientAssigned", searchPatientAssigned);
 
-export default router;
+module.exports = router;

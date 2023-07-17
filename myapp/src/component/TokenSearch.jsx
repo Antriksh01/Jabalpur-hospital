@@ -32,7 +32,7 @@ const TokenSearch = () => {
     navigate(-1);
   };
 
-  const domain = "http://localhost:8100";
+  const domain = process.env.REACT_APP_DOMAIN;
 
   const form = useRef();
   const printContentRef = useRef();

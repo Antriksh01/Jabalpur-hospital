@@ -16,7 +16,7 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
 
-  const domain = "http://localhost:8100";
+  const domain = process.env.REACT_APP_DOMAIN;
 
   const handleClick = async (e) => {
     e.preventDefault();

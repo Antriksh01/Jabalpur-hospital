@@ -42,7 +42,7 @@ const StoryPart = () => {
   const [timeSetup, setTimeSetup] = useState([]);
   const carouselRef = useRef(null);
 
-  const domain = "http://localhost:8100";
+  const domain = process.env.REACT_APP_DOMAIN;
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);

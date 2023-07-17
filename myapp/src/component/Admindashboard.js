@@ -8,7 +8,7 @@ import axios from "axios";
 const Admindashboard = () => {
   const [docCount, setDocCount] = useState([]);
   const [pendingUserCount, setPendingUserCount] = useState([]);
-  const domain = "http://localhost:8100";
+  const domain = process.env.REACT_APP_DOMAIN;
 
   const countDoctors = async () => {
     try {
@@ -30,7 +30,7 @@ const Admindashboard = () => {
   const pendingApprovalList = async () => {
     try {
       const res = await axios.get(`${domain}/api/auth/users`);
-      console.log(res.data);
+      // console.log(res.data);
       setPendingUserCount(res.data);
     } catch (error) {
       console.log(error);

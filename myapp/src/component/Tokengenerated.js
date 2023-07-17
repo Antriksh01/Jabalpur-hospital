@@ -7,7 +7,7 @@ import axios from "axios";
 
 const Tokengenerated = () => {
   const [patient, setPatient] = useState([]);
-  const domain = "http://localhost:8100";
+  const domain = process.env.REACT_APP_DOMAIN;
   const getAllPatients = async () => {
     try {
       const response = await axios.get(`${domain}/api/auth/tokenReciept`);

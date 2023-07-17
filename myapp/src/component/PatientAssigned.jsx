@@ -11,7 +11,7 @@ const PatientAssigned = () => {
   const [results, setResults] = useState([]);
   const [searchError, setSearchError] = useState(false);
 
-  const domain = "http://localhost:8100";
+  const domain = process.env.REACT_APP_DOMAIN;
 
   const assignPatientData = async () => {
     try {

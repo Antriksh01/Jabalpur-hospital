@@ -11,7 +11,7 @@ const TokenGeneration = () => {
   const [results, setResults] = useState([]);
   const [searchError, setSearchError] = useState(false);
   const navigate = useNavigate();
-  const domain = "http://localhost:8100";
+  const domain = process.env.REACT_APP_DOMAIN;
 
   const handleGoBack = () => {
     // Navigate to the previous page

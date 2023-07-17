@@ -1,13 +1,13 @@
-import { db } from "../connect.js";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import nodemailer from "nodemailer";
-import mysql from "mysql";
-import session from "express-session";
-import dotenv from "dotenv";
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
+const mysql = require("mysql");
+const session = require("express-session");
+const dotenv = require("dotenv");
+const db = require("../connect");
 dotenv.config();
 
-export const register = (req, res) => {
+const register = (req, res) => {
   const { username, mobile, reg_email, password, role } = req.body;
 
   // Check if the user already exists in admin_register table
@@ -79,7 +79,7 @@ export const register = (req, res) => {
 };
 
 // send-otp
-export const sendOtp = (req, res) => {
+const sendOtp = (req, res) => {
   const { email } = req.body;
   // random otp
   function generateOTP(length) {
@@ -137,7 +137,7 @@ export const sendOtp = (req, res) => {
 };
 
 //forgot password
-export const verifyOtpPasswordUpdate = (req, res) => {
+const verifyOtpPasswordUpdate = (req, res) => {
   const { email, otp, password } = req.body;
 
   // Verify OTP logic
@@ -187,20 +187,22 @@ export const verifyOtpPasswordUpdate = (req, res) => {
   );
 };
 
-export const dataLogin = async (req, res) => {
+const dataLogin = async (req, res) => {
   return res.json({ Status: "success", name: req.name });
   // console.log(res);
 };
 
 // login
-export const login = async (req, res) => {
-  const loginCredential = req.body.loginCredential;
-  const password = req.body.password;
+const login = async (req, res) => {
+  try {
+    const loginCredential = req.body.loginCredential;
+    const password = req.body.password;
 
-  db.query(
-    "SELECT * FROM admin_register WHERE username = ? OR reg_email = ? OR mobile = ?",
-    [loginCredential, loginCredential, loginCredential],
-    (err, result) => {
+    const query =
+      "SELECT * FROM admin_register WHERE username = ? OR reg_email = ? OR mobile = ?";
+    const values = [loginCredential, loginCredential, loginCredential];
+
+    db.query(query, values, (err, result) => {
       if (err) {
         console.error("Login error in server:", err);
         return res
@@ -235,18 +237,21 @@ export const login = async (req, res) => {
       } else {
         res.send({ message: "User doesn't exist" });
       }
-    }
-  );
+    });
+  } catch (error) {
+    console.error("Login error in server:", error);
+    res.status(500).send({ status: "error", message: "Internal server error" });
+  }
 };
 
 // logout handler
-export const logout = async (req, res) => {
+const logout = async (req, res) => {
   res.clearCookie("token");
   return res.json({ msg: "success" });
 };
 
 // getAll Users
-export const getAllUsers = async (req, res) => {
+const getAllUsers = async (req, res) => {
   db.query("SELECT * FROM admin_register", (error, results) => {
     if (error) {
       console.error(error);
@@ -257,7 +262,7 @@ export const getAllUsers = async (req, res) => {
 };
 
 // admin approval
-export const adminApproval = (req, res) => {
+const adminApproval = (req, res) => {
   try {
     const userID = req.params.id;
     const Admin_Approval = req.body.Admin_Approval;
@@ -280,4 +285,15 @@ export const adminApproval = (req, res) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+module.exports = {
+  register,
+  sendOtp,
+  verifyOtpPasswordUpdate,
+  dataLogin,
+  login,
+  logout,
+  getAllUsers,
+  adminApproval,
 };

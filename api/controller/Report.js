@@ -1,11 +1,11 @@
-import { db } from "../connect.js";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import nodemailer from "nodemailer";
-import mysql from "mysql";
-import session from "express-session";
-import xlsx from "xlsx";
-import fs from "fs";
+const db = require("../connect");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
+const mysql = require("mysql");
+const session = require("express-session");
+const xlsx = require("xlsx");
+const fs = require("fs");
 
 function formatDate(date, format) {
   const d = new Date(date);
@@ -24,7 +24,7 @@ function formatDate(date, format) {
   return formattedDate;
 }
 
-export const tokenReport = (req, res) => {
+const tokenReport = (req, res) => {
   const { fromDate, toDate } = req.body;
 
   try {
@@ -64,73 +64,8 @@ export const tokenReport = (req, res) => {
     console.log(error);
   }
 };
-// detailed
-// export const receptionistReport = (req, res) => {
-//   const { fromDate, toDate } = req.body;
-//   const { recId } = req.params;
 
-//   try {
-//     if (!fromDate || !toDate) {
-//       return res.status(400).json({ error: "Invalid input" });
-//     }
-
-//     let query = `SELECT
-//         receptionist.Rec_ID,
-//         receptionist.fullname AS Token_generated_by,
-//         COUNT(patient_token.Token_Generated_by) AS total_Token_Generates,
-//         patient_token.uhid,
-//         patient_token.Token_ID,
-//         patient_token.Time,
-//         patient_token.P_Email,
-//         patient_token.P_Contact,
-//         doctor_data.Doctor_name,
-//         patient_token.Dept,
-//         patient_token.treatment_status
-//       FROM patient_token
-//       JOIN doctor_data ON patient_token.Assigned_doctor = doctor_data.Email
-//       JOIN patient_details ON patient_token.uhid = patient_details.uhid
-//       JOIN receptionist ON patient_token.Token_Generated_by = receptionist.email
-//       WHERE Time >= ? AND Time <= ?`;
-
-//     const queryParams = [fromDate, toDate];
-
-//     if (recId) {
-//       query += " AND receptionist.Rec_ID = ?";
-//       queryParams.push(recId);
-//     }
-
-//     query +=
-//       " GROUP BY receptionist.Rec_ID, Token_generated_by, patient_token.uhid, patient_token.Token_ID";
-
-//     db.query(query, queryParams, (err, results) => {
-//       if (err) {
-//         console.error("Error retrieving token data: ", err);
-//         return res.status(500).json({ error: "An unexpected error occurred" });
-//       }
-//       console.log(results);
-//       const reportData = results.map((row) => ({
-//         Rec_ID: row.Rec_ID,
-//         Token_generated_by: row.Token_generated_by,
-//         total_Token_Generates: row.total_Token_Generates,
-//         uhid: row.uhid,
-//         Token_ID: row.Token_ID,
-//         Time: row.Time,
-//         P_Email: row.P_Email,
-//         P_Contact: row.P_Contact,
-//         Doctor_name: row.Doctor_name,
-//         Dept: row.Dept,
-//         treatment_status: row.treatment_status,
-//       }));
-
-//       // Return the generated report data
-//       res.json(reportData);
-//     });
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-
-export const receptionistMiniReport = (req, res) => {
+const receptionistMiniReport = (req, res) => {
   const { fromDate, toDate } = req.body;
 
   try {
@@ -171,7 +106,7 @@ export const receptionistMiniReport = (req, res) => {
 };
 
 // doctor-report
-export const doctorReports = (req, res) => {
+const doctorReports = (req, res) => {
   const { fromDate, toDate } = req.body;
   try {
     if (!fromDate || !toDate) {
@@ -226,3 +161,5 @@ export const doctorReports = (req, res) => {
     console.log(error);
   }
 };
+
+module.exports = { tokenReport, receptionistMiniReport, doctorReports };

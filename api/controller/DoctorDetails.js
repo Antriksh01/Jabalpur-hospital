@@ -1,12 +1,12 @@
-import { db } from "../connect.js";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import nodemailer from "nodemailer";
-import mysql from "mysql";
-import session from "express-session";
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
+const mysql = require("mysql");
+const session = require("express-session");
+const db = require("../connect");
 
 // add receptionist
-export const addDoctor = (req, res) => {
+const addDoctor = (req, res) => {
   //CHECK USER IF EXISTS
 
   const q = "SELECT * FROM doctor_data WHERE email = ?";
@@ -34,7 +34,7 @@ export const addDoctor = (req, res) => {
 };
 
 // update doctor availability
-export const doctorAvailabilityStatus = (req, res) => {
+const doctorAvailabilityStatus = (req, res) => {
   try {
     const userID = req.params.id;
     const { status } = req.body;
@@ -56,7 +56,7 @@ export const doctorAvailabilityStatus = (req, res) => {
 };
 
 // getDoctorsStatus
-export const getDoctorsStatus = (req, res) => {
+const getDoctorsStatus = (req, res) => {
   try {
     db.query("SELECT * FROM doctor_data", (error, results) => {
       if (error) {
@@ -71,7 +71,7 @@ export const getDoctorsStatus = (req, res) => {
 };
 
 // getdoctors_assigned patient
-export const assignedPatientDoc = (req, res) => {
+const assignedPatientDoc = (req, res) => {
   try {
     db.query(
       `SELECT *, COUNT(patient_token.Assigned_doctor) AS assigned_patient
@@ -92,7 +92,7 @@ export const assignedPatientDoc = (req, res) => {
 };
 
 // patient-serve
-export const PatientServe = (req, res) => {
+const PatientServe = (req, res) => {
   try {
     db.query("SELECT * FROM patient_token", (error, results) => {
       if (error) {
@@ -107,7 +107,7 @@ export const PatientServe = (req, res) => {
 };
 
 // DisplayDoctorScreen
-export const DisplayDoctorScreen = (req, res) => {
+const DisplayDoctorScreen = (req, res) => {
   try {
     const query = `
     SELECT *
@@ -130,7 +130,7 @@ export const DisplayDoctorScreen = (req, res) => {
 
 // doctor-data-update
 
-export const doctorDataUpdate = (req, res) => {
+const doctorDataUpdate = (req, res) => {
   try {
     const {
       Doctor_name,
@@ -178,7 +178,7 @@ export const doctorDataUpdate = (req, res) => {
 
 // display doctor via url parameter
 
-export const doctorLiveDisplay = (req, res) => {
+const doctorLiveDisplay = (req, res) => {
   const docId = req.params.id;
   try {
     const query = `
@@ -206,7 +206,7 @@ export const doctorLiveDisplay = (req, res) => {
 };
 
 // delete Doctor
-export const deleteDoctorHandler = (req, res) => {
+const deleteDoctorHandler = (req, res) => {
   try {
     const docID = req.params.Doc_ID;
 
@@ -223,4 +223,16 @@ export const deleteDoctorHandler = (req, res) => {
     console.log(error);
     return res.status(500).send("error");
   }
+};
+
+module.exports = {
+  addDoctor,
+  doctorAvailabilityStatus,
+  getDoctorsStatus,
+  assignedPatientDoc,
+  PatientServe,
+  DisplayDoctorScreen,
+  doctorDataUpdate,
+  doctorLiveDisplay,
+  deleteDoctorHandler,
 };

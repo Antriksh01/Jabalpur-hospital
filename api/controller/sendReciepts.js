@@ -1,11 +1,11 @@
-import { db } from "../connect.js";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import nodemailer from "nodemailer";
-import mysql from "mysql";
-import session from "express-session";
-import twilio from "twilio";
-import dotenv from "dotenv";
+const db = require("../connect");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
+const mysql = require("mysql");
+const session = require("express-session");
+const twilio = require("twilio");
+const dotenv = require("dotenv");
 dotenv.config();
 
 const ACCOUNT_SID = process.env.ACCOUNT_SID;
@@ -13,7 +13,7 @@ const AUTH_TOKEN = process.env.AUTH_TOKEN;
 const client = twilio(ACCOUNT_SID, AUTH_TOKEN);
 
 // send-text-sms
-export const sendSMS = (req, res) => {
+const sendSMS = (req, res) => {
   const { phoneNumber, message } = req.body;
 
   client.messages
@@ -33,7 +33,7 @@ export const sendSMS = (req, res) => {
 };
 
 // send-whatsapp
-export const sendWhatsapp = (req, res) => {
+const sendWhatsapp = (req, res) => {
   const { phoneNumber, message } = req.body;
 
   client.messages
@@ -53,7 +53,7 @@ export const sendWhatsapp = (req, res) => {
 };
 
 // send_email
-export const sendEmailSms = (req, res) => {
+const sendEmailSms = (req, res) => {
   const { to, subject, text } = req.body;
   // Configure Nodemailer
 
@@ -87,331 +87,8 @@ export const sendEmailSms = (req, res) => {
 
 // updatetokenreciept
 
-// export const tokenRecStatus = async (req, res) => {
-//   try {
-//     const userID = req.params.id;
-//     const { status, timestamp } = req.body;
-
-//     const q = `UPDATE patient_token SET treatment_status = ?, Time = CURRENT_TIMESTAMP WHERE Token_ID = ?`;
-//     const updateQuery =
-//       "UPDATE patient_token SET treatment_status = ?, Time = ?";
-
-//     db.query(q, [status, userID], (err, results) => {
-//       if (err) {
-//         console.error("Error executing update query:", err);
-//         res.status(500).send("Error updating user");
-//         return;
-//       }
-
-//       results.forEach((row) => {
-//         const { Time } = row;
-//         const updatedTime = new Date(Time.getTime() + 15 * 60000);
-
-//         db.query(updateQuery, [updatedTime], (err) => {
-//           if (err) {
-//             console.error(
-//               "Error updating timestamp for Token_ID:",
-//               Token_ID,
-//               err
-//             );
-//           }
-//         });
-
-//         console.log("treatment status updated successfully");
-//         res.send("treatment status updated successfully");
-//       });
-//     });
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-// test-2
-// export const tokenRecStatus = async (req, res) => {
-//   try {
-//     const { status } = req.body;
-//     const tokenIDToUpdate = req.params.tokenID;
-//     const loggedInUserID = req.params.userID; // Assuming the logged-in user ID is available in req.user.id
-
-//     const selectQuery =
-//       "SELECT Token_ID, Time FROM patient_token ORDER BY Token_ID";
-//     const updateQuery =
-//       "UPDATE patient_token SET treatment_status = ?, Time = ? WHERE Token_ID = ? AND Assigned_doctor = ?";
-
-//     db.query(selectQuery, (err, results) => {
-//       if (err) {
-//         console.error("Error executing select query:", err);
-//         res.status(500).send("Error updating timestamps");
-//         return;
-//       }
-
-//       let previousTime = new Date();
-
-//       const updatePromises = [];
-
-//       for (let i = 0; i < results.length; i++) {
-//         const { Assigned_doctor, Token_ID, Time } = results[i];
-//         const currentTime = new Date();
-
-//         let updatedTime;
-
-//         if (
-//           Assigned_doctor === loggedInUserID &&
-//           Token_ID === tokenIDToUpdate
-//         ) {
-//           // If it's the token ID being updated, use the current time
-//           updatedTime = currentTime;
-//         } else {
-//           // Update the time based on the previous patient's time
-//           updatedTime = new Date(previousTime.getTime() + 15 * 60000);
-//         }
-
-//         previousTime = updatedTime;
-
-//         // Check if the user ID is available and update only for the specific Token_ID
-//         if (
-//           Assigned_doctor === loggedInUserID &&
-//           Token_ID === tokenIDToUpdate
-//         ) {
-//           updatePromises.push(
-//             new Promise((resolve, reject) => {
-//               db.query(
-//                 updateQuery,
-//                 [status, updatedTime, Token_ID, Assigned_doctor],
-//                 (err) => {
-//                   if (err) {
-//                     console.error(
-//                       "Error updating timestamp for Token_ID:",
-//                       Token_ID,
-//                       err
-//                     );
-//                     reject(err);
-//                   } else {
-//                     resolve();
-//                   }
-//                 }
-//               );
-//             })
-//           );
-//         } else {
-//           // Update the time for other patients without changing the status
-//           updatePromises.push(
-//             new Promise((resolve, reject) => {
-//               db.query(
-//                 "UPDATE patient_token SET Time = ? WHERE Token_ID = ?",
-//                 [updatedTime, Token_ID, Assigned_doctor],
-//                 (err) => {
-//                   if (err) {
-//                     console.error(
-//                       "Error updating timestamp for Token_ID:",
-//                       Token_ID,
-//                       err
-//                     );
-//                     reject(err);
-//                   } else {
-//                     resolve();
-//                   }
-//                 }
-//               );
-//             })
-//           );
-//         }
-//       }
-
-//       Promise.all(updatePromises)
-//         .then(() => {
-//           console.log("Timestamps updated successfully");
-//           res.send("Timestamps updated successfully");
-//         })
-//         .catch((err) => {
-//           console.error("Error updating timestamps:", err);
-//           res.status(500).send("Error updating timestamps");
-//         });
-//     });
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-
-// test-3
-// export const tokenRecStatus = async (req, res) => {
-//   try {
-//     const { status } = req.body;
-//     const tokenIDToUpdate = req.params.tokenID;
-//     const loggedInDoctorID = req.params.userID; // Assuming the logged-in doctor ID is available in req.params.doctorID
-
-//     const selectQuery =
-//       "SELECT Token_ID,treatment_status, Assigned_doctor, Time FROM patient_token WHERE Assigned_doctor = ?";
-//     const updateQuery =
-//       "UPDATE patient_token SET treatment_status = ?, Time = ? WHERE Token_ID = ?";
-
-//     db.query(
-//       selectQuery,
-//       [loggedInDoctorID, tokenIDToUpdate],
-//       (err, results) => {
-//         if (err) {
-//           console.error("Error executing select query:", err);
-//           res.status(500).send("Error updating timestamps");
-//           return;
-//         }
-
-//         let previousTime = new Date();
-
-//         const updatePromises = [];
-
-//         for (let i = 0; i < results.length; i++) {
-//           const { Token_ID, Assigned_doctor, Time } = results[i];
-//           const currentTime = new Date();
-
-//           let updatedTime;
-
-//           if (Token_ID === tokenIDToUpdate) {
-//             // If it's the token ID being updated, use the current time
-//             updatedTime = currentTime;
-//           } else {
-//             // Update the time based on the previous patient's time
-//             updatedTime = new Date(previousTime.getTime() + 15 * 60000);
-//           }
-
-//           previousTime = updatedTime;
-
-//           if (Assigned_doctor === loggedInDoctorID) {
-//             updatePromises.push(
-//               new Promise((resolve, reject) => {
-//                 db.query(
-//                   updateQuery,
-//                   [status, updatedTime, Token_ID],
-//                   (err) => {
-//                     if (err) {
-//                       console.error(
-//                         "Error updating timestamp for Token_ID:",
-//                         Token_ID,
-//                         err
-//                       );
-//                       reject(err);
-//                     } else {
-//                       resolve();
-//                     }
-//                   }
-//                 );
-//               })
-//             );
-//           }
-//         }
-
-//         Promise.all(updatePromises)
-//           .then(() => {
-//             console.log("Timestamps updated successfully");
-//             res.send("Timestamps updated successfully");
-//           })
-//           .catch((err) => {
-//             console.error("Error updating timestamps:", err);
-//             res.status(500).send("Error updating timestamps");
-//           });
-//       }
-//     );
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-// test-4
-// export const tokenRecStatus = async (req, res) => {
-//   try {
-//     const { status } = req.body;
-//     const tokenIDToUpdate = req.params.tokenID;
-//     const loggedInDoctorID = req.params.userID; // Assuming the logged-in doctor ID is available in req.params.doctorID
-
-//     const selectQuery =
-//       "SELECT Token_ID, Assigned_doctor, Time FROM patient_token WHERE Assigned_doctor = ? ORDER BY Token_ID";
-//     const updateQuery =
-//       "UPDATE patient_token SET treatment_status = ?, Time = ? WHERE Token_ID = ?";
-
-//     db.query(selectQuery, [loggedInDoctorID], (err, results) => {
-//       if (err) {
-//         console.error("Error executing select query:", err);
-//         res.status(500).send("Error updating timestamps");
-//         return;
-//       }
-
-//       let previousTime = new Date();
-
-//       const updatePromises = [];
-
-//       for (let i = 1; i < results.length; i++) {
-//         const { Token_ID, Assigned_doctor, Time } = results[i];
-//         const currentTime = new Date();
-
-//         let updatedTime;
-
-//         if (Token_ID === tokenIDToUpdate) {
-//           // If it's the token ID being updated, use the current time
-//           updatedTime = currentTime;
-//         } else {
-//           // Update the time based on the previous patient's time
-//           updatedTime = new Date(previousTime.getTime() + 15 * 60000);
-//         }
-
-//         previousTime = updatedTime;
-
-//         if (Token_ID === tokenIDToUpdate) {
-//           // Update both status and time for the specific Token_ID associated with the logged-in doctor
-//           updatePromises.push(
-//             new Promise((resolve, reject) => {
-//               db.query(updateQuery, [status, updatedTime, Token_ID], (err) => {
-//                 if (err) {
-//                   console.error(
-//                     "Error updating timestamp for Token_ID:",
-//                     Token_ID,
-//                     err
-//                   );
-//                   reject(err);
-//                 } else {
-//                   resolve();
-//                 }
-//               });
-//             })
-//           );
-//         } else {
-//           // Only update the time for other Token_IDs associated with the logged-in doctor
-//           updatePromises.push(
-//             new Promise((resolve, reject) => {
-//               db.query(
-//                 "UPDATE patient_token SET Time = ? WHERE Token_ID = ?",
-//                 [updatedTime, Token_ID],
-//                 (err) => {
-//                   if (err) {
-//                     console.error(
-//                       "Error updating time for Token_ID:",
-//                       Token_ID,
-//                       err
-//                     );
-//                     reject(err);
-//                   } else {
-//                     resolve();
-//                   }
-//                 }
-//               );
-//             })
-//           );
-//         }
-//       }
-
-//       Promise.all(updatePromises)
-//         .then(() => {
-//           console.log("Timestamps updated successfully");
-//           res.send("Timestamps updated successfully");
-//         })
-//         .catch((err) => {
-//           console.error("Error updating timestamps:", err);
-//           res.status(500).send("Error updating timestamps");
-//         });
-//     });
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-
 // test-5
-export const tokenRecStatus = async (req, res) => {
+const tokenRecStatus = async (req, res) => {
   try {
     const { status } = req.body;
     const tokenIDToUpdate = req.params.tokenID;
@@ -498,7 +175,7 @@ export const tokenRecStatus = async (req, res) => {
 };
 
 // getToken monthwise
-export const monthWiseToken = (req, res) => {
+const monthWiseToken = (req, res) => {
   try {
   } catch (error) {
     console.log(error);
@@ -506,7 +183,7 @@ export const monthWiseToken = (req, res) => {
 };
 
 // search token History
-export const SearchTokenHistory = (req, res) => {
+const SearchTokenHistory = (req, res) => {
   try {
     const keyword = req.query.keyword;
     let query = `SELECT *
@@ -537,7 +214,7 @@ export const SearchTokenHistory = (req, res) => {
 };
 
 // search patient in queue
-export const searchPatientQueue = (req, res) => {
+const searchPatientQueue = (req, res) => {
   try {
     const keyword = req.query.keyword;
     let query = `SELECT *
@@ -564,7 +241,7 @@ export const searchPatientQueue = (req, res) => {
 };
 
 // search patient in queue
-export const searchPatientServe = (req, res) => {
+const searchPatientServe = (req, res) => {
   try {
     const keyword = req.query.keyword;
     let query = `SELECT *
@@ -591,7 +268,7 @@ export const searchPatientServe = (req, res) => {
 };
 
 // missed patient
-export const searchPatientMIssed = (req, res) => {
+const searchPatientMIssed = (req, res) => {
   try {
     const keyword = req.query.keyword;
     let query = `SELECT *
@@ -618,7 +295,7 @@ export const searchPatientMIssed = (req, res) => {
 };
 
 // available doctor search
-export const searchAvailableDoctor = (req, res) => {
+const searchAvailableDoctor = (req, res) => {
   try {
     const keyword = req.query.keyword;
     let query = `SELECT *
@@ -644,7 +321,7 @@ export const searchAvailableDoctor = (req, res) => {
 
 // searchP patient assigned to specific doctor
 
-export const searchPatientAssigned = (req, res) => {
+const searchPatientAssigned = (req, res) => {
   try {
     const keyword = req.query.keyword;
     let query = `SELECT *
@@ -672,4 +349,18 @@ export const searchPatientAssigned = (req, res) => {
     console.log(error);
     res.status(500).json({ message: "Internal server error" });
   }
+};
+
+module.exports = {
+  sendSMS,
+  sendWhatsapp,
+  sendEmailSms,
+  tokenRecStatus,
+  monthWiseToken,
+  SearchTokenHistory,
+  searchPatientQueue,
+  searchPatientServe,
+  searchPatientMIssed,
+  searchAvailableDoctor,
+  searchPatientAssigned,
 };

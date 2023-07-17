@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 const PendingApproval = () => {
   const [userData, setUserData] = useState([]);
   const [approve, setApprove] = useState(false);
-  const domain = "http://localhost:8100";
+  const domain = process.env.REACT_APP_DOMAIN;
 
   const getUser = async () => {
     try {

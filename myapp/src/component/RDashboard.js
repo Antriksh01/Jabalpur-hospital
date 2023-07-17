@@ -8,7 +8,7 @@ import axios from "axios";
 const RDashboard = () => {
   const [users, setUsers] = useState([]);
   const [patient, setPatient] = useState([]);
-  const domain = "http://localhost:8100";
+  const domain = process.env.REACT_APP_DOMAIN;
 
   const getAllUsers = async () => {
     try {

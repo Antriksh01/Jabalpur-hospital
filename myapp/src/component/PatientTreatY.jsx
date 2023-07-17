@@ -14,7 +14,7 @@ const PatientTreatY = () => {
   const [searchData, setSearchData] = useState([]);
   const [searchError, setSearchError] = useState(false);
 
-  const domain = "http://localhost:8100";
+  const domain = process.env.REACT_APP_DOMAIN;
 
   const handleServedPatient = async () => {
     try {
