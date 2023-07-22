@@ -18,7 +18,7 @@ const PatientTreatY = () => {
 
   const handleServedPatient = async () => {
     try {
-      const dt = await axios.get(`${domain}/api/auth/tokenReciept`);
+      const dt = await axios.get(`https://api.dvjei.org/api/auth/tokenReciept`);
       const data = dt.data;
 
       setPatTreated(data);
@@ -67,7 +67,7 @@ const PatientTreatY = () => {
     console.log(formattedDate);
     try {
       const response = await axios.get(
-        `${domain}/api/auth/searchPatientServe?keyword=${keyword}`
+        `https://api.dvjei.org/api/auth/searchPatientServe?keyword=${keyword}`
       );
 
       const data = response.data;

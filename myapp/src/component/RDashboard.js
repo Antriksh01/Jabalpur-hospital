@@ -12,7 +12,7 @@ const RDashboard = () => {
 
   const getAllUsers = async () => {
     try {
-      const response = await axios.get(`${domain}/api/auth/users`);
+      const response = await axios.get(`https://api.dvjei.org/api/auth/users`);
       console.log(response.data.role);
       setUsers(response.data);
     } catch (error) {
@@ -22,7 +22,9 @@ const RDashboard = () => {
 
   const getAllPatients = async () => {
     try {
-      const response = await axios.get(`${domain}/api/auth/getAllPatient`);
+      const response = await axios.get(
+        `https://api.dvjei.org/api/auth/getAllPatient`
+      );
       // console.log(response.data);
       setPatient(response.data);
     } catch (error) {

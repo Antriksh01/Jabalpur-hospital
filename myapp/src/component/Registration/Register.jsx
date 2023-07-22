@@ -30,7 +30,10 @@ const Register = () => {
     };
 
     try {
-      const response = await axios.post(`${domain}/api/auth/register`, user);
+      const response = await axios.post(
+        `https://api.dvjei.org/api/auth/register`,
+        user
+      );
       setUsername("");
       setMobile("");
       setEmail("");

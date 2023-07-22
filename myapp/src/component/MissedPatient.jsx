@@ -18,7 +18,7 @@ const MissedPatient = () => {
 
   const handleServedPatient = async () => {
     try {
-      const dt = await axios.get(`${domain}/api/auth/tokenReciept`);
+      const dt = await axios.get(`https://api.dvjei.org/api/auth/tokenReciept`);
       const data = dt.data;
       const filteredData = data.filter(
         (item) => item.treatment_status === "Patient_Absent"
@@ -33,7 +33,7 @@ const MissedPatient = () => {
   const handleSearch = async () => {
     try {
       const response = await axios.get(
-        `${domain}/api/auth/missed-partient?keyword=${keyword}`
+        `https://api.dvjei.org/api/auth/missed-partient?keyword=${keyword}`
       );
 
       const data = response.data;

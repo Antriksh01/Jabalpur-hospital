@@ -43,7 +43,7 @@ const TokenSearch = () => {
     try {
       console.log("clicked");
       const response = await axios.post(
-        `${domain}/api/auth/Search-patient?keyword=${keyword}`
+        `https://api.dvjei.org/api/auth/Search-patient?keyword=${keyword}`
       );
       console.log(keyword);
       const data = response.data;
@@ -88,7 +88,7 @@ const TokenSearch = () => {
     console.log(recptsmsData);
 
     try {
-      await axios.post(`${domain}/api/auth/sendSMS`, {
+      await axios.post(`https://api.dvjei.org/api/auth/sendSMS`, {
         phoneNumber,
         message: recptsmsData,
       });
@@ -122,7 +122,7 @@ const TokenSearch = () => {
     console.log(recptsmsData);
 
     try {
-      await axios.post(`${domain}/api/auth/sendSMS`, {
+      await axios.post(`https://api.dvjei.org/api/auth/sendSMS`, {
         phoneNumber,
         message: recptsmsData,
       });
@@ -155,11 +155,14 @@ const TokenSearch = () => {
 
     const htmlContent = `Token Reciepts from QMS`;
     try {
-      const emailSmsSend = await axios.post(`${domain}/api/auth/sendEmailSms`, {
-        to: modalValues.P_Email,
-        subject: htmlContent,
-        text: recptsmsData,
-      });
+      const emailSmsSend = await axios.post(
+        `https://api.dvjei.org/api/auth/sendEmailSms`,
+        {
+          to: modalValues.P_Email,
+          subject: htmlContent,
+          text: recptsmsData,
+        }
+      );
       console.log(emailSmsSend);
       cogoToast.success("email sent successfully");
     } catch (error) {
@@ -183,11 +186,14 @@ const TokenSearch = () => {
     // Build the email content with a div element
     const htmlContent = `Token Reciepts from QMS`;
     try {
-      const emailSmsSend = await axios.post(`${domain}/api/auth/sendEmailSms`, {
-        to: results[0].P_Email,
-        subject: htmlContent,
-        text: recptsmsData,
-      });
+      const emailSmsSend = await axios.post(
+        `https://api.dvjei.org/api/auth/sendEmailSms`,
+        {
+          to: results[0].P_Email,
+          subject: htmlContent,
+          text: recptsmsData,
+        }
+      );
       console.log(emailSmsSend);
       cogoToast.success("email sent successfully");
     } catch (error) {
@@ -211,10 +217,13 @@ const TokenSearch = () => {
     const whatNum = `whatsapp:${modalValues.P_Contact}`;
     console.log(whatNum);
     try {
-      const whatsappRes = await axios.post(`${domain}/api/auth/sendWhatsapp`, {
-        phoneNumber: whatNum,
-        message: recptsmsData,
-      });
+      const whatsappRes = await axios.post(
+        `https://api.dvjei.org/api/auth/sendWhatsapp`,
+        {
+          phoneNumber: whatNum,
+          message: recptsmsData,
+        }
+      );
       console.log(whatsappRes);
       cogoToast.success("whatsapp msg send");
     } catch (error) {
@@ -241,10 +250,13 @@ const TokenSearch = () => {
     const whatNum = `whatsapp:${phoneNumber}`;
     console.log(whatNum);
     try {
-      const whatsappRes = await axios.post(`${domain}/api/auth/sendWhatsapp`, {
-        phoneNumber: whatNum,
-        message: recptsmsData,
-      });
+      const whatsappRes = await axios.post(
+        `https://api.dvjei.org/api/auth/sendWhatsapp`,
+        {
+          phoneNumber: whatNum,
+          message: recptsmsData,
+        }
+      );
       console.log(whatsappRes);
       cogoToast.success("whatsapp msg send");
     } catch (error) {
@@ -255,7 +267,9 @@ const TokenSearch = () => {
 
   const getAllPatients = async () => {
     try {
-      const response = await axios.get(`${domain}/api/auth/tokenReciept`);
+      const response = await axios.get(
+        `https://api.dvjei.org/api/auth/tokenReciept`
+      );
       // console.log(response.data);
       setPatient(response.data);
     } catch (error) {

@@ -9,4 +9,28 @@ const db = mysql.createConnection({
   database: process.env.DATABASE,
 });
 
-module.exports = db;
+const client_db = mysql.createConnection({
+  host: process.env.SERVERHOST,
+  user: process.env.SERVERUSER,
+  password: process.env.SERVERPASSWORD,
+  database: process.env.SERVERDATABASE,
+});
+
+// Connect to the databases
+db.connect((err) => {
+  if (err) {
+    console.error("Error connecting to db1:", err);
+  } else {
+    console.log("Connected to db1!");
+  }
+});
+
+client_db.connect((err) => {
+  if (err) {
+    console.error("Error connecting to db2:", err);
+  } else {
+    console.log("Connected to db2!");
+  }
+});
+
+module.exports = { db, client_db };

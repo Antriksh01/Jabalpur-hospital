@@ -32,7 +32,9 @@ const MonthWiseToken = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${domain}/api/auth/tokenReciept`);
+        const response = await axios.get(
+          `https://api.dvjei.org/api/auth/tokenReciept`
+        );
         const apiData = response.data; // Assuming the response contains an array of objects
         setData(apiData);
       } catch (error) {
@@ -57,7 +59,7 @@ const MonthWiseToken = () => {
   const handleSearch = async () => {
     try {
       const response = await axios.get(
-        `${domain}/api/auth/searchTokenhistory?keyword=${keyword}`
+        `https://api.dvjei.org/api/auth/searchTokenhistory?keyword=${keyword}`
       );
 
       const data = response.data;

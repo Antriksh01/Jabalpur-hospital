@@ -31,7 +31,7 @@ const Doctorlogin = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     axios
-      .post(`${domain}/api/auth/login`, data)
+      .post(`https://api.dvjei.org/api/auth/login`, data)
       .then((res) => {
         const dt = res.data;
         console.log(dt.user);

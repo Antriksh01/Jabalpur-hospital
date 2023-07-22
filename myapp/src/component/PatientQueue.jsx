@@ -30,7 +30,9 @@ const PatientQueue = () => {
       .join("-");
     console.log(formattedDate);
     try {
-      const { data } = await axios.get(`${domain}/api/auth/tokenReciept`);
+      const { data } = await axios.get(
+        `https://api.dvjei.org/api/auth/tokenReciept`
+      );
       console.log(data);
       const filteredData = data.filter(
         (item) =>
@@ -57,7 +59,7 @@ const PatientQueue = () => {
     console.log(formattedDate);
     try {
       const response = await axios.get(
-        `${domain}/api/auth/searchPatientQueue?keyword=${keyword}`
+        `https://api.dvjei.org/api/auth/searchPatientQueue?keyword=${keyword}`
       );
       console.log(response.data);
       const data = response.data;

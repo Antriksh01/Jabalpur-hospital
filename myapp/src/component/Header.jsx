@@ -17,7 +17,7 @@ const Header = () => {
 
   const logoutHandler = (e) => {
     axios
-      .get(`${domain}/api/auth/logout`)
+      .get(`https://api.dvjei.org/api/auth/logout`)
       .then((res) => {
         localStorage.removeItem("auth");
         navigate("/");

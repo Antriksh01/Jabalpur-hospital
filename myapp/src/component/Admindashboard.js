@@ -12,7 +12,9 @@ const Admindashboard = () => {
 
   const countDoctors = async () => {
     try {
-      const dt = await axios.get(`${domain}/api/auth/getDoctorsStatus`);
+      const dt = await axios.get(
+        `https://api.dvjei.org/api/auth/getDoctorsStatus`
+      );
       const res = dt.data;
       setDocCount(res);
     } catch (error) {
@@ -29,7 +31,7 @@ const Admindashboard = () => {
   // pending admin approval length
   const pendingApprovalList = async () => {
     try {
-      const res = await axios.get(`${domain}/api/auth/users`);
+      const res = await axios.get(`https://api.dvjei.org/api/auth/users`);
       // console.log(res.data);
       setPendingUserCount(res.data);
     } catch (error) {
@@ -37,6 +39,7 @@ const Admindashboard = () => {
     }
   };
 
+  console.log(pendingUserCount);
   const filterData = pendingUserCount.filter(
     (item) => item.Admin_Approval === null
   );

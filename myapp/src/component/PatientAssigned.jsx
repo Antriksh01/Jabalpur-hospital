@@ -15,7 +15,9 @@ const PatientAssigned = () => {
 
   const assignPatientData = async () => {
     try {
-      const res = await axios.get(`${domain}/api/auth/tokenReciept`);
+      const res = await axios.get(
+        `https://api.dvjei.org/api/auth/tokenReciept`
+      );
       console.log(res.data);
       setAssignPat(res.data);
     } catch (error) {
@@ -27,7 +29,7 @@ const PatientAssigned = () => {
   const handleSearch = async () => {
     try {
       const response = await axios.get(
-        `${domain}/api/auth/searchPatientAssigned?keyword=${keyword}`
+        `https://api.dvjei.org/api/auth/searchPatientAssigned?keyword=${keyword}`
       );
 
       const data = response.data;

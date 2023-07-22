@@ -15,7 +15,7 @@ const SendOtp = () => {
   const handleSendOtp = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${domain}/api/auth/sendOtp`, {
+      const res = await axios.post(`https://api.dvjei.org/api/auth/sendOtp`, {
         email,
       });
       setMessage(res.data.message);

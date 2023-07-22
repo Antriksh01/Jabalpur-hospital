@@ -57,7 +57,9 @@ const StoryPart = () => {
   };
   const handleSearch = async () => {
     try {
-      const response = await axios.get(`${domain}/api/auth/tokenReciept`);
+      const response = await axios.get(
+        `https://api.dvjei.org/api/auth/tokenReciept`
+      );
       const dt = response.data;
       setResults(dt);
     } catch (error) {
@@ -87,7 +89,7 @@ const StoryPart = () => {
   const handleUpdate = async (value) => {
     try {
       const updateData = await axios.put(
-        `${domain}/api/auth/tokenRecStatus/${value}/${auth.user.reg_email}`,
+        `https://api.dvjei.org/api/auth/tokenRecStatus/${value}/${auth.user.reg_email}`,
         {
           status: selectedOption,
         }
@@ -148,7 +150,7 @@ const StoryPart = () => {
     // if()
     try {
       const updateData = await axios.put(
-        `${domain}/api/auth/doctor-availability-update/${auth.user.reg_email}`,
+        `https://api.dvjei.org/api/auth/doctor-availability-update/${auth.user.reg_email}`,
         {
           status: value,
         }

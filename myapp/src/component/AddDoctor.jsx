@@ -27,7 +27,10 @@ const AddDoctor = () => {
     e.preventDefault();
 
     try {
-      const input = await axios.post(`${domain}/api/auth/add-doctor`, data);
+      const input = await axios.post(
+        `https://api.dvjei.org/api/auth/add-doctor`,
+        data
+      );
 
       console.log(input);
       cogoToast.success("Doctors Data Added Successfully");

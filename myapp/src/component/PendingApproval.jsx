@@ -12,7 +12,7 @@ const PendingApproval = () => {
 
   const getUser = async () => {
     try {
-      const res = await axios.get(`${domain}/api/auth/users`);
+      const res = await axios.get(`https://api.dvjei.org/api/auth/users`);
       setUserData(res.data);
     } catch (error) {
       console.log(error);
@@ -26,7 +26,7 @@ const PendingApproval = () => {
 
   const adminApproval = async (value) => {
     const updateData = await axios.put(
-      `${domain}/api/auth/admin-approval-update/${value}`,
+      `https://api.dvjei.org/api/auth/admin-approval-update/${value}`,
       { Admin_Approval: "Approved" }
     );
     cogoToast.success("Approved");

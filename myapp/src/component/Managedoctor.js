@@ -17,7 +17,9 @@ const Managedoctor = () => {
 
   const countDoctors = async () => {
     try {
-      const dt = await axios.get(`${domain}/api/auth/getDoctorsStatus`);
+      const dt = await axios.get(
+        `https://api.dvjei.org/api/auth/getDoctorsStatus`
+      );
       const res = dt.data;
       setData(res);
     } catch (error) {
@@ -38,7 +40,7 @@ const Managedoctor = () => {
       const updatedItem = updatedData[selectedItem];
       console.log(updatedItem);
       await axios.put(
-        `http://localhost:8100/api/auth/doctorDataUpdate/${updatedItem.Doc_ID}`,
+        `https://api.dvjei.org/api/auth/doctorDataUpdate/${updatedItem.Doc_ID}`,
         updatedItem
       );
 
@@ -59,7 +61,7 @@ const Managedoctor = () => {
       const deletedItem = data[selectedItem];
       console.log(deletedItem);
       await axios.delete(
-        `http://localhost:8100/api/auth/doctor-data-delete/${deletedItem.Doc_ID}`
+        `https://api.dvjei.org/api/auth/doctor-data-delete/${deletedItem.Doc_ID}`
       );
 
       handleCloseModal();

@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const mysql = require("mysql");
 const session = require("express-session");
-const db = require("../connect");
+const { db } = require("../connect");
 
 // add receptionist
 const addDoctor = (req, res) => {

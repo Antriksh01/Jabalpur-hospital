@@ -27,7 +27,10 @@ const ForgetPassword = () => {
     console.log("clicked");
 
     try {
-      const input = await axios.post(`${domain}/api/auth/password-reset`, data);
+      const input = await axios.post(
+        `https://api.dvjei.org/api/auth/password-reset`,
+        data
+      );
       console.log(input);
       cogoToast.success("password updated");
       navigate("/");

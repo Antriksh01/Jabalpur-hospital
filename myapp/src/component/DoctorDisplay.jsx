@@ -11,7 +11,9 @@ const DoctorDisplay = () => {
 
   const DocDisplayCont = async () => {
     try {
-      const res = await axios.get(`${domain}/api/auth/display-doctor-screen`);
+      const res = await axios.get(
+        `https://api.dvjei.org/api/auth/display-doctor-screen`
+      );
       const data = res.data;
       console.log(data);
       const today = new Date();

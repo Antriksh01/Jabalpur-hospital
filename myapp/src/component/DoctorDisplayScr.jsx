@@ -13,7 +13,9 @@ const DoctorDisplayScr = () => {
 
   const DocDisplayCont = async (value) => {
     try {
-      const res = await axios.get(`${domain}/api/auth/doctorLive/${value}`);
+      const res = await axios.get(
+        `https://api.dvjei.org/api/auth/doctorLive/${value}`
+      );
       console.log(value);
       const data = res.data;
       console.log(res);

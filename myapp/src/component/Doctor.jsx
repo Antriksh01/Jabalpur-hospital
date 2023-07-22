@@ -17,7 +17,9 @@ const Doctor = () => {
 
   const handleData = async () => {
     try {
-      const response = await axios.get(`${domain}/api/auth/getAssignedDoc`);
+      const response = await axios.get(
+        `https://api.dvjei.org/api/auth/getAssignedDoc`
+      );
       const dt = response.data;
       console.log(dt);
       setDocData(dt);
@@ -30,7 +32,7 @@ const Doctor = () => {
   const handleSearch = async () => {
     try {
       const response = await axios.get(
-        `${domain}/api/auth/searchAvailableDoctor?keyword=${keyword}`
+        `https://api.dvjei.org/api/auth/searchAvailableDoctor?keyword=${keyword}`
       );
 
       const data = response.data;

@@ -20,7 +20,7 @@ const Doctordashboard = () => {
     // if()
     try {
       const updateData = await axios.put(
-        `${domain}/api/auth/doctor-availability-update/${auth.user.reg_email}`,
+        `https://api.dvjei.org/api/auth/doctor-availability-update/${auth.user.reg_email}`,
         {
           status: value,
         }
@@ -35,7 +35,9 @@ const Doctordashboard = () => {
 
   const patientStats = async () => {
     try {
-      const { data } = await axios.get(`${domain}/api/auth/patientServe`);
+      const { data } = await axios.get(
+        `https://api.dvjei.org/api/auth/patientServe`
+      );
       setServe(data);
       console.log(data);
     } catch (error) {

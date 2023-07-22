@@ -31,7 +31,7 @@ const AddReceptionist = () => {
 
     try {
       const input = await axios.post(
-        `${domain}/api/auth/add-receptionist`,
+        `https://api.dvjei.org/api/auth/add-receptionist`,
         data
       );
 

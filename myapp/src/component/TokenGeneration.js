@@ -20,7 +20,9 @@ const TokenGeneration = () => {
 
   const getAllPatients = async () => {
     try {
-      const response = await axios.get(`${domain}/api/auth/tokenReciept`);
+      const response = await axios.get(
+        `https://api.dvjei.org/api/auth/tokenReciept`
+      );
       // console.log(response.data);
       setPatient(response.data);
     } catch (error) {
@@ -32,7 +34,7 @@ const TokenGeneration = () => {
   const handleSearch = async () => {
     try {
       const response = await axios.get(
-        `${domain}/api/auth/searchTokenhistory?keyword=${keyword}`
+        `https://api.dvjei.org/api/auth/searchTokenhistory?keyword=${keyword}`
       );
       console.log(response.data);
       const data = response.data;

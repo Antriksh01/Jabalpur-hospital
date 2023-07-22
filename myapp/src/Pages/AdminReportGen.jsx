@@ -60,10 +60,13 @@ const AdminReportGen = () => {
       cogoToast.error("To Date should be greater than or equal to From Date");
       console.log(error);
     } else {
-      const res = await axios.post(`${domain}/api/auth/doctors-report`, {
-        fromDate,
-        toDate,
-      });
+      const res = await axios.post(
+        `https://api.dvjei.org/api/auth/doctors-report`,
+        {
+          fromDate,
+          toDate,
+        }
+      );
       const docData = res.data;
       console.log(res.data);
       if (Array.isArray(docData)) {
@@ -95,10 +98,13 @@ const AdminReportGen = () => {
       cogoToast.error("To Date should be greater than or equal to From Date");
       console.log(error);
     } else {
-      const res = await axios.post(`${domain}/api/auth/receptionist-report`, {
-        fromDate,
-        toDate,
-      });
+      const res = await axios.post(
+        `https://api.dvjei.org/api/auth/receptionist-report`,
+        {
+          fromDate,
+          toDate,
+        }
+      );
       const tokenData = res.data;
       console.log(tokenData);
       if (Array.isArray(tokenData)) {
@@ -131,7 +137,7 @@ const AdminReportGen = () => {
       console.log(error);
     } else {
       const res = await axios.post(
-        `${domain}/api/auth/receptionistMiniReport`,
+        `https://api.dvjei.org/api/auth/receptionistMiniReport`,
         { fromDate, toDate }
       );
       const tokenData = res.data;
@@ -181,10 +187,13 @@ const AdminReportGen = () => {
       cogoToast.error("To Date should be greater than or equal to From Date");
       console.log(error);
     } else {
-      const res = await axios.post(`${domain}/api/auth/token-report`, {
-        fromDate,
-        toDate,
-      });
+      const res = await axios.post(
+        `https://api.dvjei.org/api/auth/token-report`,
+        {
+          fromDate,
+          toDate,
+        }
+      );
       const tokenData = res.data;
       console.log(tokenData);
       if (Array.isArray(tokenData)) {

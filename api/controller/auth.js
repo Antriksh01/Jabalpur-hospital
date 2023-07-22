@@ -4,7 +4,7 @@ const nodemailer = require("nodemailer");
 const mysql = require("mysql");
 const session = require("express-session");
 const dotenv = require("dotenv");
-const db = require("../connect");
+const { db } = require("../connect");
 dotenv.config();
 
 const register = (req, res) => {
