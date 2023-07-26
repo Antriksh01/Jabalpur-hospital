@@ -27,7 +27,7 @@ const Adminlogin = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     axios
-      .post(`https://api.dvjei.org/api/auth/login`, data)
+      .post(`http://localhost:8100/api/auth/login`, data)
       .then((res) => {
         const dt = res.data;
         console.log(dt.user);
@@ -58,6 +58,7 @@ const Adminlogin = () => {
       .catch((err) => {
         console.log(err);
         cogoToast.error("Login failed");
+        window.location.reload();
       });
   };
 

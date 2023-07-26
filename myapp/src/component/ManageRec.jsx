@@ -18,7 +18,8 @@ const ManageRec = () => {
 
   const countDoctors = async () => {
     try {
-      const dt = await axios.get(
+      // get-request
+      const dt = await axios.post(
         `https://api.dvjei.org/api/auth/get-patient-details`
       );
       const res = dt.data;

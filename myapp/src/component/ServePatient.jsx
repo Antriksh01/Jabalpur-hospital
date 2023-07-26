@@ -17,7 +17,10 @@ const ServePatient = () => {
 
   const handleServedPatient = async () => {
     try {
-      const dt = await axios.get(`https://api.dvjei.org/api/auth/tokenReciept`);
+      // get-request
+      const dt = await axios.post(
+        `https://api.dvjei.org/api/auth/tokenReciept`
+      );
       const data = dt.data;
       const filteredData = data.filter(
         (item) =>
@@ -45,7 +48,8 @@ const ServePatient = () => {
       .join("-");
     console.log(formattedDate);
     try {
-      const response = await axios.get(
+      // get-request
+      const response = await axios.post(
         `https://api.dvjei.org/api/auth/searchPatientServe?keyword=${keyword}`
       );
 

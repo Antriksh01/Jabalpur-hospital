@@ -15,15 +15,23 @@ const Header = () => {
   const det = auth.user;
   console.log(det.username);
 
+  // const logoutHandler = (e) => {
+  //   // get-request
+  //   axios
+  //     .post(`https://api.dvjei.org/api/auth/logout`)
+  //     .then((res) => {
+  //       localStorage.removeItem("auth");
+  //       navigate("/");
+  //       window.location.reload();
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
+
   const logoutHandler = (e) => {
-    axios
-      .get(`https://api.dvjei.org/api/auth/logout`)
-      .then((res) => {
-        localStorage.removeItem("auth");
-        navigate("/");
-        window.location.reload();
-      })
-      .catch((err) => console.log(err));
+    // get-request
+    localStorage.removeItem("auth");
+    navigate("/");
+    window.location.reload();
   };
 
   return (
@@ -32,6 +40,7 @@ const Header = () => {
         <div>
           <nav className="navbar">
             <div id="logo" className="logo">
+              {" "}
               <img src={jbplogo} alt="Logo" />
             </div>
             {/* <div className='title'> <span> </span></div> */}

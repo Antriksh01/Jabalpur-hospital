@@ -47,7 +47,7 @@ const tokenReport = (req, res) => {
         uhid: row.uhid,
         tokenNumber: row.Token_ID,
         date: formatDate(row.Time, "dd-MM-yyyy"),
-        patient_email: row.P_Email,
+        patient_email: row.emailid,
         patient_name: row.firstname + " " + row.lastname,
         patient_contact: row.P_Contact,
         assigned_doctor: row.Doctor_name,

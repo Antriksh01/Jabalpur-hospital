@@ -10,7 +10,8 @@ const Tokengenerated = () => {
   const domain = process.env.REACT_APP_DOMAIN;
   const getAllPatients = async () => {
     try {
-      const response = await axios.get(
+      // get-request
+      const response = await axios.post(
         `https://api.dvjei.org/api/auth/tokenReciept`
       );
       const data = response.data;

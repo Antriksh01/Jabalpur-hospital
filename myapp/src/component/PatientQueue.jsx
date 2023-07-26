@@ -30,7 +30,8 @@ const PatientQueue = () => {
       .join("-");
     console.log(formattedDate);
     try {
-      const { data } = await axios.get(
+      // get-request
+      const { data } = await axios.post(
         `https://api.dvjei.org/api/auth/tokenReciept`
       );
       console.log(data);
@@ -58,7 +59,8 @@ const PatientQueue = () => {
 
     console.log(formattedDate);
     try {
-      const response = await axios.get(
+      // get-request
+      const response = await axios.post(
         `https://api.dvjei.org/api/auth/searchPatientQueue?keyword=${keyword}`
       );
       console.log(response.data);
@@ -200,7 +202,7 @@ const PatientQueue = () => {
                             <th>Assigned_doctor</th>
                             <th>Time</th>
                             <th>Dept</th>
-                            <th>Token Generated</th>
+
                             <th>Token Generate Date</th>
                           </tr>
                         </thead>
@@ -216,7 +218,7 @@ const PatientQueue = () => {
                                 <td>{item.Assigned_doctor}</td>
                                 <td>{item.Time.split("T")[1]}</td>
                                 <td>{item.Dept}</td>
-                                <td>{item.Token_Generated}</td>
+
                                 <td>{item.Time.split("T")[0]}</td>
                               </tr>
                             </>

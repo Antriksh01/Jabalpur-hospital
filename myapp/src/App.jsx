@@ -56,8 +56,9 @@ function App() {
       <Routes>
         {/* <Route path="/forgot-password" element={<ForgetPassword />} /> */}
         {/* <Route path="/confirm-password" element={<ConfirmPassword />} /> */}
-        <Route path="/doctorLive/:value" element={<DoctorDisplayScr />} />
+
         <Route path="/" element={<Frontpage />} />
+        <Route path="/doctorLive/:value" element={<DoctorDisplayScr />} />
         {/* receptionist routes */}
         <Route path="/Login" element={<Login />} />
         <Route path="/admin-login" element={<Adminlogin />} />

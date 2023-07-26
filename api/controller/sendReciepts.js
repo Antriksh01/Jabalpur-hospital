@@ -59,15 +59,22 @@ const sendEmailSms = (req, res) => {
 
   const transporter = nodemailer.createTransport({
     // Set up your email service provider here
-    service: "Gmail",
+    // service: "Gmail",
+    // auth: {
+    //   user: "abhishekdoaguru@gmail.com",
+    //   pass: "onmkmsfelvgnfnoa",
+    // },
+    host: "mail.api.dvjei.org",
+    port: 587,
+    secure: false,
     auth: {
-      user: "abhishekdoaguru@gmail.com",
-      pass: "onmkmsfelvgnfnoa",
+      user: "your-email@example.com", // Replace with your email address
+      pass: "your-email-password", // Replace with your email password
     },
   });
 
   const mailOptions = {
-    from: "Abhishek_doaguru@gmail.com",
+    from: "abhishekdoaguru@gmail.com",
     to,
     subject,
     text,
@@ -338,7 +345,7 @@ const searchPatientAssigned = (req, res) => {
               OR patient_details.firstname LIKE '%${keyword}%'
               OR patient_details.lastname LIKE '%${keyword}%'
               OR patient_token.P_Contact LIKE '%${keyword}%'
-              OR patient_token.P_Email LIKE '%${keyword}%')`;
+              OR patient_details.emailid LIKE '%${keyword}%')`;
     }
 
     db.query(query, (err, results) => {

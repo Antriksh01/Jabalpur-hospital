@@ -13,12 +13,13 @@ const DoctorDisplayScr = () => {
 
   const DocDisplayCont = async (value) => {
     try {
-      const res = await axios.get(
+      // get-request
+      const res = await axios.post(
         `https://api.dvjei.org/api/auth/doctorLive/${value}`
       );
       console.log(value);
       const data = res.data;
-      console.log(res);
+      console.log(data);
       const today = new Date();
       const yesterday = new Date(today);
       const formattedDate = yesterday
@@ -33,11 +34,11 @@ const DoctorDisplayScr = () => {
       console.log(formattedDate);
       const filteredData = data.filter(
         (item) =>
-          item.Doc_ID === value &&
           item.treatment_status === "Pending" &&
           item.Time.split("T")[0] === formattedDate
       );
 
+      console.log(filteredData);
       filteredData.forEach((item) => {
         const time = new Date(item.Time);
         const formattedTime = time.toLocaleTimeString();
@@ -53,6 +54,7 @@ const DoctorDisplayScr = () => {
   console.log(content);
   useEffect(() => {
     DocDisplayCont(value);
+    console.log(value);
   }, [value]);
   return (
     <>

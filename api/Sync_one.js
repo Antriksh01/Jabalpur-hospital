@@ -24,15 +24,16 @@ async function createProcedureInQMSProject() {
         IN mobileno_value VARCHAR(255),
         IN emailid_value VARCHAR(255),
         IN adharno_value VARCHAR(255),
-        IN isvip_value VARCHAR(255)
+        IN isvip_value VARCHAR(255),
+        IN gssuhid_value VARCHAR(255)
       )
       BEGIN
         IF action = 'INSERT' THEN
-          INSERT INTO ${process.env.DATABASE}.patient_details (uhid, firstname, midname, lastname, fathername, husbandname, mothername, dob, genderid, maritalstatusid, bloodgroupid, address, pincode, mobileno, emailid, adharno, isvip)
-          VALUES (uhid_value, firstname_value, midname_value, lastname_value, fathername_value, husbandname_value, mothername_value, dob_value, genderid_value, maritalstatusid_value, bloodgroupid_value, address_value, pincode_value, mobileno_value, emailid_value, adharno_value, isvip_value);
+          INSERT INTO ${process.env.DATABASE}.patient_details (gssuhid,uhid, firstname, midname, lastname, fathername, husbandname, mothername, dob, genderid, maritalstatusid, bloodgroupid, address, pincode, mobileno, emailid, adharno, isvip)
+          VALUES (gssuhid_value, uhid_value, firstname_value, midname_value, lastname_value, fathername_value, husbandname_value, mothername_value, dob_value, genderid_value, maritalstatusid_value, bloodgroupid_value, address_value, pincode_value, mobileno_value, emailid_value, adharno_value, isvip_value);
         ELSEIF action = 'UPDATE' THEN
           UPDATE ${process.env.DATABASE}.patient_details
-          SET firstname = firstname_value, midname = midname_value, lastname = lastname_value, fathername = fathername_value, husbandname = husbandname_value, mothername = mothername_value, dob = dob_value, genderid = genderid_value, maritalstatusid = maritalstatusid_value, bloodgroupid = bloodgroupid_value, address = address_value, pincode = pincode_value, mobileno = mobileno_value, emailid = emailid_value, adharno = adharno_value, isvip = isvip_value
+          SET firstname = firstname_value, midname = midname_value, lastname = lastname_value, fathername = fathername_value, husbandname = husbandname_value, mothername = mothername_value, dob = dob_value, genderid = genderid_value, maritalstatusid = maritalstatusid_value, bloodgroupid = bloodgroupid_value, address = address_value, pincode = pincode_value, mobileno = mobileno_value, emailid = emailid_value, adharno = adharno_value, isvip = isvip_value, gssuhid = gssuhid_value
           WHERE uhid = uhid_value;
         ELSEIF action = 'DELETE' THEN
           DELETE FROM ${process.env.DATABASE}.patient_details WHERE uhid = uhid_value;
@@ -56,7 +57,7 @@ async function createTriggersInQMSTest() {
       BEGIN
         CALL ${process.env.DATABASE}.sync_patient_details(
           'INSERT',
-          NEW.uhid, NEW.firstname, NEW.midname, NEW.lastname, NEW.fathername, NEW.husbandname, NEW.mothername, NEW.dob, NEW.genderid, NEW.maritalstatusid, NEW.bloodgroupid, NEW.address, NEW.pincode, NEW.mobileno, NEW.emailid, NEW.adharno, NEW.isvip
+          NEW.gssuhid, NEW.uhid, NEW.firstname, NEW.midname, NEW.lastname, NEW.fathername, NEW.husbandname, NEW.mothername, NEW.dob, NEW.genderid, NEW.maritalstatusid, NEW.bloodgroupid, NEW.address, NEW.pincode, NEW.mobileno, NEW.emailid, NEW.adharno, NEW.isvip
         );
       END;
     `);
@@ -69,7 +70,7 @@ async function createTriggersInQMSTest() {
       BEGIN
         CALL ${process.env.DATABASE}.sync_patient_details(
           'UPDATE',
-          NEW.uhid, NEW.firstname, NEW.midname, NEW.lastname, NEW.fathername, NEW.husbandname, NEW.mothername, NEW.dob, NEW.genderid, NEW.maritalstatusid, NEW.bloodgroupid, NEW.address, NEW.pincode, NEW.mobileno, NEW.emailid, NEW.adharno, NEW.isvip
+          NEW.gssuhid, NEW.uhid, NEW.firstname, NEW.midname, NEW.lastname, NEW.fathername, NEW.husbandname, NEW.mothername, NEW.dob, NEW.genderid, NEW.maritalstatusid, NEW.bloodgroupid, NEW.address, NEW.pincode, NEW.mobileno, NEW.emailid, NEW.adharno, NEW.isvip
         );
       END;
     `);
@@ -82,7 +83,7 @@ async function createTriggersInQMSTest() {
       BEGIN
         CALL ${process.env.DATABASE}.sync_patient_details(
           'DELETE',
-          OLD.uhid, OLD.firstname, OLD.midname, OLD.lastname, OLD.fathername, OLD.husbandname, OLD.mothername, OLD.dob, OLD.genderid, OLD.maritalstatusid, OLD.bloodgroupid, OLD.address, OLD.pincode, OLD.mobileno, OLD.emailid, OLD.adharno, OLD.isvip
+          OLD.gssuhid, OLD.uhid, OLD.firstname, OLD.midname, OLD.lastname, OLD.fathername, OLD.husbandname, OLD.mothername, OLD.dob, OLD.genderid, OLD.maritalstatusid, OLD.bloodgroupid, OLD.address, OLD.pincode, OLD.mobileno, OLD.emailid, OLD.adharno, OLD.isvip
         );
       END;
     `);

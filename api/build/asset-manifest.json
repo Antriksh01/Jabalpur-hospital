@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "./static/css/main.e8f23d96.css",
-    "main.js": "./static/js/main.27b2ddd0.js",
-    "static/js/787.d3befce1.chunk.js": "./static/js/787.d3befce1.chunk.js",
-    "static/media/jbpHospital.jpg": "./static/media/jbpHospital.5628e000958f96cf1934.jpg",
-    "static/media/Receptionist.png": "./static/media/Receptionist.874be4aa2cc4d1eae59d.png",
-    "static/media/Admin.jpg": "./static/media/Admin.8e1bb018a78ee675882c.jpg",
-    "static/media/Doctor.jpg": "./static/media/Doctor.7e034127ca694b40a9ad.jpg",
-    "static/media/revicons.eot": "./static/media/revicons.a77de540a38981833f9e.eot",
-    "static/media/revicons.ttf": "./static/media/revicons.57fd05d4ae650374c8de.ttf",
-    "static/media/revicons.woff": "./static/media/revicons.e8746a624ed098489406.woff",
-    "index.html": "./index.html",
-    "main.e8f23d96.css.map": "./static/css/main.e8f23d96.css.map",
-    "main.27b2ddd0.js.map": "./static/js/main.27b2ddd0.js.map",
-    "787.d3befce1.chunk.js.map": "./static/js/787.d3befce1.chunk.js.map"
+    "main.css": "/static/css/main.d230f017.css",
+    "main.js": "/static/js/main.29bdc85a.js",
+    "static/js/787.d3befce1.chunk.js": "/static/js/787.d3befce1.chunk.js",
+    "static/media/jbpHospital.jpg": "/static/media/jbpHospital.5628e000958f96cf1934.jpg",
+    "static/media/Receptionist.png": "/static/media/Receptionist.874be4aa2cc4d1eae59d.png",
+    "static/media/Admin.jpg": "/static/media/Admin.8e1bb018a78ee675882c.jpg",
+    "static/media/Doctor.jpg": "/static/media/Doctor.7e034127ca694b40a9ad.jpg",
+    "static/media/revicons.eot": "/static/media/revicons.a77de540a38981833f9e.eot",
+    "static/media/revicons.ttf": "/static/media/revicons.57fd05d4ae650374c8de.ttf",
+    "static/media/revicons.woff": "/static/media/revicons.e8746a624ed098489406.woff",
+    "index.html": "/index.html",
+    "main.d230f017.css.map": "/static/css/main.d230f017.css.map",
+    "main.29bdc85a.js.map": "/static/js/main.29bdc85a.js.map",
+    "787.d3befce1.chunk.js.map": "/static/js/787.d3befce1.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e8f23d96.css",
-    "static/js/main.27b2ddd0.js"
+    "static/css/main.d230f017.css",
+    "static/js/main.29bdc85a.js"
   ]
 }

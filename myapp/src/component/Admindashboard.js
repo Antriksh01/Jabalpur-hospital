@@ -12,8 +12,9 @@ const Admindashboard = () => {
 
   const countDoctors = async () => {
     try {
-      const dt = await axios.get(
-        `https://api.dvjei.org/api/auth/getDoctorsStatus`
+      // get-request
+      const dt = await axios.post(
+        `http://localhost:8100/api/auth/getDoctorsStatus`
       );
       const res = dt.data;
       setDocCount(res);
@@ -31,8 +32,9 @@ const Admindashboard = () => {
   // pending admin approval length
   const pendingApprovalList = async () => {
     try {
-      const res = await axios.get(`https://api.dvjei.org/api/auth/users`);
-      // console.log(res.data);
+      // get-request
+      const res = await axios.post("http://localhost:8100/api/auth/users");
+      console.log(res.data);
       setPendingUserCount(res.data);
     } catch (error) {
       console.log(error);

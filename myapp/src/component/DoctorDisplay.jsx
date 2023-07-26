@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Header from "./Header";
 import axios from "axios";
 import { useAuth } from "../context";
+import { Link } from "react-router-dom";
 
 const DoctorDisplay = () => {
   const [content, setContent] = useState([]);
@@ -11,7 +12,8 @@ const DoctorDisplay = () => {
 
   const DocDisplayCont = async () => {
     try {
-      const res = await axios.get(
+      // get-request
+      const res = await axios.post(
         `https://api.dvjei.org/api/auth/display-doctor-screen`
       );
       const data = res.data;
@@ -102,6 +104,11 @@ const DoctorDisplay = () => {
               </div>
             </div>
           </div>
+          <div className="container contBx">
+            <button className="btn btn-success btnDash">
+              <Link to="/doctor-dashboard">Go to Dashboard</Link>
+            </button>
+          </div>
         </div>
       </Container>
     </>
@@ -173,6 +180,11 @@ const Container = styled.div`
       @media screen and (max-width:500px){
         margin-left:-1rem;
       }
+    }
+
+    a{
+      text-decoration:none;
+      color:white;
     }
 `;
 // Approximate time

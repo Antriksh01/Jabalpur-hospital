@@ -37,8 +37,8 @@ const TokenSearch = () => {
   const form = useRef();
   const printContentRef = useRef();
 
+  patient.sort((a, b) => parseInt(a.Token_ID) - parseInt(b.Token_ID));
   console.log(patient);
-
   const handleSearch = async () => {
     try {
       console.log("clicked");
@@ -158,7 +158,7 @@ const TokenSearch = () => {
       const emailSmsSend = await axios.post(
         `https://api.dvjei.org/api/auth/sendEmailSms`,
         {
-          to: modalValues.P_Email,
+          to: modalValues.emailid,
           subject: htmlContent,
           text: recptsmsData,
         }
@@ -189,7 +189,7 @@ const TokenSearch = () => {
       const emailSmsSend = await axios.post(
         `https://api.dvjei.org/api/auth/sendEmailSms`,
         {
-          to: results[0].P_Email,
+          to: results[0].emailid,
           subject: htmlContent,
           text: recptsmsData,
         }
@@ -267,7 +267,8 @@ const TokenSearch = () => {
 
   const getAllPatients = async () => {
     try {
-      const response = await axios.get(
+      // get-request
+      const response = await axios.post(
         `https://api.dvjei.org/api/auth/tokenReciept`
       );
       // console.log(response.data);

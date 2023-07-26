@@ -10,6 +10,7 @@ import axios from "axios";
 import { useAuth } from "../context";
 import cogoToast from "cogo-toast";
 import styled from "styled-components";
+import Header from "./Header";
 
 const Login = () => {
   const [auth, setAuth] = useAuth();
@@ -27,6 +28,7 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
+
     axios
       .post(`https://api.dvjei.org/api/auth/login`, data)
       .then((res) => {
@@ -56,7 +58,12 @@ const Login = () => {
           cogoToast.error("invalid credientials");
         }
       })
-      .catch((err) => console.log(err, "login failed"));
+      .catch(
+        (err) => cogoToast.error("wrong password or username"),
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000)
+      );
   };
 
   const handleChange = (e) => {
@@ -69,16 +76,7 @@ const Login = () => {
     <>
       <Container>
         <div>
-          <nav className="navbar">
-            <div id="logo" className="logo ms-3">
-              <img src={jbplogo} alt="Logo" />
-            </div>
-            {/* <div className='title'> <span> </span></div> */}
-            <div className="links">
-              <h3> </h3>
-              <h3> </h3>
-            </div>
-          </nav>
+          <Header />
           <div className="title text-center">
             <span className="text-center fs-1" style={{ fontWeight: "700" }}>
               Receptionist login

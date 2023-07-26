@@ -15,7 +15,8 @@ const PatientAssigned = () => {
 
   const assignPatientData = async () => {
     try {
-      const res = await axios.get(
+      // get-request
+      const res = await axios.post(
         `https://api.dvjei.org/api/auth/tokenReciept`
       );
       console.log(res.data);
@@ -28,7 +29,8 @@ const PatientAssigned = () => {
   // handlesearch
   const handleSearch = async () => {
     try {
-      const response = await axios.get(
+      // get-request
+      const response = await axios.post(
         `https://api.dvjei.org/api/auth/searchPatientAssigned?keyword=${keyword}`
       );
 

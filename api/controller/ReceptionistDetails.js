@@ -147,7 +147,7 @@ const SearchPatientController = async (req, res) => {
     FROM patient_token
     JOIN patient_details ON  patient_token.uhid= patient_details.uhid
    
-    WHERE patient_token.P_Email LIKE '%${keyword}%'
+    WHERE patient_details.emailid LIKE '%${keyword}%'
        OR patient_details.firstname LIKE '%${keyword}%'`;
     //  OR doctor_data.Doctor_name LIKE '%${keyword}%'`;
 

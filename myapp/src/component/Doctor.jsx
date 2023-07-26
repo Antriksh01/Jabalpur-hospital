@@ -17,7 +17,8 @@ const Doctor = () => {
 
   const handleData = async () => {
     try {
-      const response = await axios.get(
+      // get-request
+      const response = await axios.post(
         `https://api.dvjei.org/api/auth/getAssignedDoc`
       );
       const dt = response.data;
@@ -31,7 +32,7 @@ const Doctor = () => {
   // search handler
   const handleSearch = async () => {
     try {
-      const response = await axios.get(
+      const response = await axios.post(
         `https://api.dvjei.org/api/auth/searchAvailableDoctor?keyword=${keyword}`
       );
 

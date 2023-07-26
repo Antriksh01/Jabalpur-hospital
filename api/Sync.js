@@ -14,12 +14,13 @@ async function createProcedureInQMSProject() {
         IN recieptdatetime_value VARCHAR(255),
         IN Assigned_doctor_value VARCHAR(255),
         IN Token_Generated_by_value VARCHAR(255),
-        IN P_Contact_value VARCHAR(255)
+        IN P_Contact_value VARCHAR(255),
+        IN P_Email_value Varchar(255)
       )
       BEGIN
         IF action = 'INSERT' THEN
-          INSERT INTO ${process.env.DATABASE}.patient_token (Token_ID, treatment_status, uhid, Time, Assigned_doctor, Token_Generated_by, P_Contact)
-          VALUES (tokenno_value, patientstatus_value, uhid_value, recieptdatetime_value, Assigned_doctor_value, Token_Generated_by_value, P_Contact_value);
+          INSERT INTO ${process.env.DATABASE}.patient_token (Token_ID, treatment_status, uhid, Time, Assigned_doctor, Token_Generated_by, P_Contact, P_Email)
+          VALUES (tokenno_value, patientstatus_value, uhid_value, recieptdatetime_value, Assigned_doctor_value, Token_Generated_by_value, P_Contact_value, P_Email_value);
         ELSEIF action = 'UPDATE' THEN
           UPDATE ${process.env.DATABASE}.patient_token
           SET treatment_status = patientstatus_value,
@@ -27,7 +28,8 @@ async function createProcedureInQMSProject() {
               Time = recieptdatetime_value,
               Assigned_doctor = Assigned_doctor_value,
               Token_Generated_by = Token_Generated_by_value,
-              P_Contact = P_Contact_value
+              P_Contact = P_Contact_value,
+              P_Email = P_Email_value
           WHERE Token_ID = tokenno_value;
         ELSEIF action = 'DELETE' THEN
           DELETE FROM ${process.env.DATABASE}.patient_token WHERE Token_ID = tokenno_value;
@@ -57,7 +59,8 @@ async function createTriggersInQMSTest() {
           NEW.recieptdatetime,
           NEW.Assigned_doctor,
           NEW.Token_Generated_by,
-          NEW.P_Contact
+          NEW.P_Contact,
+          NEW.P_Email
         );
       END;
     `);
@@ -76,7 +79,8 @@ async function createTriggersInQMSTest() {
           NEW.recieptdatetime,
           NEW.Assigned_doctor,
           NEW.Token_Generated_by,
-          NEW.P_Contact
+          NEW.P_Contact,
+          NEW.P_Email
         );
       END;
     `);
@@ -95,7 +99,8 @@ async function createTriggersInQMSTest() {
           OLD.recieptdatetime,
           OLD.Assigned_doctor,
           OLD.Token_Generated_by,
-          OLD.P_Contact
+          OLD.P_Contact,
+          OLD.P_Email
         );
       END;
     `);

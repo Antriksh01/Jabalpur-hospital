@@ -41,7 +41,7 @@ const Register = () => {
       setRole("");
       console.log(response);
       cogoToast.success("User registered successfully!");
-      navigate("/Login");
+      navigate("/");
     } catch (err) {
       console.log(err);
       cogoToast.error("Failed to register user. Please try again.");

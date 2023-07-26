@@ -57,7 +57,8 @@ const StoryPart = () => {
   };
   const handleSearch = async () => {
     try {
-      const response = await axios.get(
+      // get-request
+      const response = await axios.post(
         `https://api.dvjei.org/api/auth/tokenReciept`
       );
       const dt = response.data;
@@ -124,6 +125,8 @@ const StoryPart = () => {
       item.treatment_status === "Pending" &&
       item.Time.split("T")[0] === formattedDate
   );
+
+  filteredData.sort((a, b) => parseInt(a.Token_ID) - parseInt(b.Token_ID));
 
   // time setup 15 minute
   useEffect(() => {

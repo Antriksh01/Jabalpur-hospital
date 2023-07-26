@@ -12,7 +12,8 @@ const PendingApproval = () => {
 
   const getUser = async () => {
     try {
-      const res = await axios.get(`https://api.dvjei.org/api/auth/users`);
+      // get-request
+      const res = await axios.post(`https://api.dvjei.org/api/auth/users`);
       setUserData(res.data);
     } catch (error) {
       console.log(error);
@@ -30,12 +31,14 @@ const PendingApproval = () => {
       { Admin_Approval: "Approved" }
     );
     cogoToast.success("Approved");
+    alert("Approved");
+    window.location.reload();
     setApprove(true);
   };
 
   useEffect(() => {
     getUser();
-  });
+  }, []);
   return (
     <>
       <Container>

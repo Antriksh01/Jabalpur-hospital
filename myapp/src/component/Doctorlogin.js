@@ -9,6 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context";
 import axios from "axios";
 import cogoToast from "cogo-toast";
+import Header from "./Header";
 
 // Import the CSS file for styling
 
@@ -65,6 +66,7 @@ const Doctorlogin = () => {
       .catch((err) => {
         console.log(err);
         alert("Login failed. Please try again later.");
+        window.location.reload();
       });
   };
 
@@ -77,16 +79,7 @@ const Doctorlogin = () => {
     <>
       <Container>
         <div>
-          <nav className="navbar">
-            <div id="logo" className="logo ms-3">
-              <img src={jbplogo} alt="Logo" />
-            </div>
-            {/* <div className='title'> <span>Doctor Login</span></div> */}
-            <div className="links">
-              <h3> </h3>
-              <h3> </h3>
-            </div>
-          </nav>
+          <Header />
           <div className="title text-center fs-1">
             <span className="text-center fs-1">Doctor Login</span>
           </div>

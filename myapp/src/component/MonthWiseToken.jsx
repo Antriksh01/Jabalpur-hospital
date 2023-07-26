@@ -21,7 +21,7 @@ const MonthWiseToken = () => {
     const currentMonth = currentDate.getMonth() + 1; // Adding 1 because month index starts from 0
 
     return data.filter((item) => {
-      const itemDate = new Date(item.Token_Generate_Date);
+      const itemDate = new Date(item.Time.split("T")[0]);
       const itemYear = itemDate.getFullYear();
       const itemMonth = itemDate.getMonth() + 1;
 
@@ -32,7 +32,8 @@ const MonthWiseToken = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
+        // get-request
+        const response = await axios.post(
           `https://api.dvjei.org/api/auth/tokenReciept`
         );
         const apiData = response.data; // Assuming the response contains an array of objects
@@ -58,7 +59,8 @@ const MonthWiseToken = () => {
   // searchHandler
   const handleSearch = async () => {
     try {
-      const response = await axios.get(
+      // get-request
+      const response = await axios.post(
         `https://api.dvjei.org/api/auth/searchTokenhistory?keyword=${keyword}`
       );
 
@@ -154,8 +156,8 @@ const MonthWiseToken = () => {
                             <th>P_Contact</th>
                             <th>Assigned_doctor</th>
                             <th>Dept</th>
-                            <th>Token Generated</th>
-                            <th>Token Generate Date & Time</th>
+                            <th>Token Generated Date</th>
+                            <th>Token Generated Time</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -168,8 +170,8 @@ const MonthWiseToken = () => {
                               <td>{item.P_Contact}</td>
                               <td>{item.Doctor_name}</td>
                               <td>{item.Dept}</td>
-                              <td>{item.Token_Generated}</td>
-                              <td>{item.Token_Generate_Date}</td>
+                              <td>{item.Time.split("T")[0]}</td>
+                              <td>{item.Time.split("T")[1]}</td>
                             </tr>
                           ))}
                         </tbody>

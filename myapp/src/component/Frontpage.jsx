@@ -11,7 +11,10 @@ const Frontpage = () => {
       <Container>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
           <div id="logo" className="logo ps-3">
-            <img src={jbplogo} alt="Logo" />
+            <Link to="/">
+              {" "}
+              <img src={jbplogo} alt="Logo" />
+            </Link>
           </div>
 
           <div

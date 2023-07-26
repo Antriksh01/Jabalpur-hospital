@@ -17,7 +17,8 @@ const Managedoctor = () => {
 
   const countDoctors = async () => {
     try {
-      const dt = await axios.get(
+      // get-request
+      const dt = await axios.post(
         `https://api.dvjei.org/api/auth/getDoctorsStatus`
       );
       const res = dt.data;

@@ -35,7 +35,8 @@ const Doctordashboard = () => {
 
   const patientStats = async () => {
     try {
-      const { data } = await axios.get(
+      // get-request
+      const { data } = await axios.post(
         `https://api.dvjei.org/api/auth/patientServe`
       );
       setServe(data);
@@ -69,7 +70,7 @@ const Doctordashboard = () => {
   const filteredQueue = serve.filter(
     (item) =>
       item.treatment_status === "Pending" &&
-      item.Token_Generate_Date === formattedDate &&
+      item.Time.split("T")[0] === formattedDate &&
       item.Assigned_doctor === auth.user.reg_email
   );
   console.log(filteredQueue);
