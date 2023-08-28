@@ -14,7 +14,7 @@ const DoctorDisplay = () => {
     try {
       // get-request
       const res = await axios.post(
-        `https://api.dvjei.org/api/auth/display-doctor-screen`
+        `https://api.ananthospital.org/api/auth/display-doctor-screen`
       );
       const data = res.data;
       console.log(data);
@@ -50,6 +50,7 @@ const DoctorDisplay = () => {
     }
   };
 
+  content.sort((a, b) => parseInt(a.Token_ID) - parseInt(b.Token_ID));
   console.log(content);
   useEffect(() => {
     DocDisplayCont();
@@ -119,7 +120,8 @@ export default DoctorDisplay;
 const Container = styled.div`
   .leftbox {
     height: 100%;
-    background-color: #dcf4ce;
+    background-color: #1abc9c;
+    color:white;
     margin-top: 14px;
     padding: 7rem 1rem;
     h1 {
@@ -142,8 +144,8 @@ const Container = styled.div`
   th {
     padding: 2rem;
     border: 1rem solid white;
-    background-color: #b8e28a;
-    color: #347571;
+    background-color: #1abc9c;
+    color: #fff;
     font-size: 2rem;
     text-shadow: 0px 5px 35px #4a4545;
     @media screen and (max-width:500px){
@@ -155,7 +157,7 @@ const Container = styled.div`
   td {
     padding: 2rem;
     border: 1rem solid white;
-    background-color: #ecf8e5;
+    background-color: #f6e58d;
     color: #347571;
     font-size: 2rem;
     @media screen and (max-width:500px){
@@ -185,6 +187,13 @@ const Container = styled.div`
     a{
       text-decoration:none;
       color:white;
+    }
+
+    .first-row {
+      td {
+        background-color: #e74c3c;
+        color: #fff;
+      }
     }
 `;
 // Approximate time

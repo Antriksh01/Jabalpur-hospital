@@ -20,7 +20,7 @@ const ManageRec = () => {
     try {
       // get-request
       const dt = await axios.post(
-        `https://api.dvjei.org/api/auth/get-patient-details`
+        `https://api.ananthospital.org/api/auth/get-patient-details`
       );
       const res = dt.data;
       setData(res);
@@ -43,7 +43,7 @@ const ManageRec = () => {
       const updatedItem = updatedData[selectedItem];
       console.log(updatedItem);
       await axios.put(
-        `https://api.dvjei.org/api/auth/update-rec-details/${updatedItem.Rec_ID}`,
+        `https://api.ananthospital.org/api/auth/update-rec-details/${updatedItem.Rec_ID}`,
         updatedItem
       );
 
@@ -64,7 +64,7 @@ const ManageRec = () => {
       const deletedItem = data[selectedItem];
       console.log(deletedItem);
       await axios.delete(
-        `https://api.dvjei.org/api/auth/delete-receptionist/${deletedItem.Rec_ID}`
+        `https://api.ananthospital.org/api/auth/delete-receptionist/${deletedItem.Rec_ID}`
       );
 
       handleCloseModal();

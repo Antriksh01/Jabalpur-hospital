@@ -23,25 +23,30 @@ const Adminlogin = () => {
   const handleShowPasswordToggle = () => {
     setShowPassword(!showPassword);
   };
-  const domain = process.env.REACT_APP_DOMAIN;
+  // const domain = process.env.REACT_APP_DOMAIN;
   const handleLogin = (e) => {
     e.preventDefault();
     axios
-      .post(`http://localhost:8100/api/auth/login`, data)
+      .post(`https://api.ananthospital.org/api/auth/login`, data)
       .then((res) => {
         const dt = res.data;
         console.log(dt.user);
         if (dt.user !== "") {
-          setAuth({
-            ...auth,
-            user: res.data.user,
-            token: res.data.token,
-          });
+          // setAuth({
+          //   ...auth,
+          //   user: res.data.user,
+          //   token: res.data.token,
+          // });
 
           if (
             dt.user.role === "Admin" &&
             dt.user.Admin_Approval === "Approved"
           ) {
+            setAuth({
+              ...auth,
+              user: res.data.user,
+              token: res.data.token,
+            });
             cogoToast.success("Admin login successful");
             navigate("/admin-dashboard");
             localStorage.setItem("auth", JSON.stringify(res.data.user));
@@ -57,7 +62,7 @@ const Adminlogin = () => {
       })
       .catch((err) => {
         console.log(err);
-        cogoToast.error("Login failed");
+        alert("Login failed. Please try again later.");
         window.location.reload();
       });
   };

@@ -20,7 +20,7 @@ const Doctordashboard = () => {
     // if()
     try {
       const updateData = await axios.put(
-        `https://api.dvjei.org/api/auth/doctor-availability-update/${auth.user.reg_email}`,
+        `https://api.ananthospital.org/api/auth/doctor-availability-update/${auth.user.reg_email}`,
         {
           status: value,
         }
@@ -37,7 +37,7 @@ const Doctordashboard = () => {
     try {
       // get-request
       const { data } = await axios.post(
-        `https://api.dvjei.org/api/auth/patientServe`
+        `https://api.ananthospital.org/api/auth/patientServe`
       );
       setServe(data);
       console.log(data);
@@ -92,11 +92,14 @@ const Doctordashboard = () => {
   const filteredYest = serve.filter(
     (item) =>
       item.treatment_status === "Treated" &&
-      item.Time.split("T")[0] === formattedDateyest
+      item.Time.split("T")[0] === formattedDateyest &&
+      item.Assigned_doctor === auth.user.reg_email
   );
 
   const filterMissed = serve.filter(
-    (item) => item.treatment_status === "Patient_Absent"
+    (item) =>
+      item.treatment_status === "Patient_Absent" &&
+      item.Assigned_doctor === auth.user.reg_email
   );
   console.log(filterMissed.length);
 

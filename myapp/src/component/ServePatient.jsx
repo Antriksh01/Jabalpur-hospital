@@ -19,7 +19,7 @@ const ServePatient = () => {
     try {
       // get-request
       const dt = await axios.post(
-        `https://api.dvjei.org/api/auth/tokenReciept`
+        `https://api.ananthospital.org/api/auth/tokenReciept`
       );
       const data = dt.data;
       const filteredData = data.filter(
@@ -50,7 +50,7 @@ const ServePatient = () => {
     try {
       // get-request
       const response = await axios.post(
-        `https://api.dvjei.org/api/auth/searchPatientServe?keyword=${keyword}`
+        `https://api.ananthospital.org/api/auth/searchPatientServe?keyword=${keyword}`
       );
 
       const data = response.data;

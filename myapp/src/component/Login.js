@@ -30,21 +30,26 @@ const Login = () => {
     e.preventDefault();
 
     axios
-      .post(`https://api.dvjei.org/api/auth/login`, data)
+      .post(`https://api.ananthospital.org/api/auth/login`, data)
       .then((res) => {
         const dt = res.data;
         console.log(dt.user);
         if (dt.user !== "") {
-          setAuth({
-            ...auth,
-            user: res.data.user,
-            token: res.data.token,
-          });
+          // setAuth({
+          //   ...auth,
+          //   user: res.data.user,
+          //   token: res.data.token,
+          // });
 
           if (
             dt.user.role === "Receptionist" &&
             dt.user.Admin_Approval === "Approved"
           ) {
+            setAuth({
+              ...auth,
+              user: res.data.user,
+              token: res.data.token,
+            });
             cogoToast.success("receptionist login successful");
             navigate("/receptionist-dashboard");
             localStorage.setItem("auth", JSON.stringify(res.data.user));
@@ -58,12 +63,11 @@ const Login = () => {
           cogoToast.error("invalid credientials");
         }
       })
-      .catch(
-        (err) => cogoToast.error("wrong password or username"),
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000)
-      );
+      .catch((err) => {
+        console.log(err);
+        alert("Login failed. Please try again later.");
+        window.location.reload();
+      });
   };
 
   const handleChange = (e) => {

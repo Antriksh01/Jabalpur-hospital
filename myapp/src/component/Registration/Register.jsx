@@ -31,7 +31,7 @@ const Register = () => {
 
     try {
       const response = await axios.post(
-        `https://api.dvjei.org/api/auth/register`,
+        `https://api.ananthospital.org/api/auth/register`,
         user
       );
       setUsername("");

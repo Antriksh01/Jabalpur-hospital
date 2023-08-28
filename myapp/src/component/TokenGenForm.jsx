@@ -34,7 +34,7 @@ const TokenGenForm = () => {
 
     try {
       const input = await axios.post(
-        `https://api.dvjei.org/api/auth/PatientTokenGeneration`,
+        `https://api.ananthospital.org/api/auth/PatientTokenGeneration`,
         data
       );
 

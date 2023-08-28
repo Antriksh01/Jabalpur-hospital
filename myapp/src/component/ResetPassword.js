@@ -12,16 +12,19 @@ const ResetPassword = () => {
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
-  const domain = process.env.REACT_APP_DOMAIN;
+  // const domain = process.env.REACT_APP_DOMAIN;
 
   const handleVerifyOtpPasswordUpdate = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.put(`${domain}/api/auth/reset-password/verify`, {
-        email,
-        otp,
-        password,
-      });
+      const res = await axios.put(
+        `https://api.ananthospital.org/api/auth/reset-password/verify`,
+        {
+          email,
+          otp,
+          password,
+        }
+      );
       setMessage(res.data.message);
       cogoToast.success("password updated successfully");
       console.log(message);

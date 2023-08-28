@@ -64,9 +64,9 @@ const sendEmailSms = (req, res) => {
     //   user: "abhishekdoaguru@gmail.com",
     //   pass: "onmkmsfelvgnfnoa",
     // },
-    host: "mail.api.dvjei.org",
-    port: 587,
-    secure: false,
+    host: process.env.SMTPHOST,
+    port: process.env.SMTPPORT,
+    secure: true,
     auth: {
       user: "your-email@example.com", // Replace with your email address
       pass: "your-email-password", // Replace with your email password
@@ -95,11 +95,109 @@ const sendEmailSms = (req, res) => {
 // updatetokenreciept
 
 // test-5
+// const tokenRecStatus = async (req, res) => {
+//   try {
+//     const { status } = req.body;
+//     const tokenIDToUpdate = req.params.tokenID;
+//     const loggedInDoctorID = req.params.userID; // Assuming the logged-in doctor ID is available in req.params.userID
+
+//     const selectQuery =
+//       "SELECT Token_ID, Assigned_doctor, Time FROM patient_token WHERE Assigned_doctor = ? ORDER BY Token_ID";
+//     const updateQuery =
+//       "UPDATE patient_token SET treatment_status = ?, Time = ? WHERE Token_ID = ?";
+
+//     db.query(selectQuery, [loggedInDoctorID], (err, results) => {
+//       if (err) {
+//         console.error("Error executing select query:", err);
+//         res.status(500).send("Error updating timestamps");
+//         return;
+//       }
+
+//       results.sort((a, b) => a.Token_ID - b.Token_ID);
+
+//       const updatePromises = [];
+//       let nextTime = null;
+//       let skipNextToken = false;
+
+//       for (let i = 0; i < results.length; i++) {
+//         const { Token_ID, Assigned_doctor, Time } = results[i];
+//         const currentTime = new Date();
+
+//         if (Token_ID === tokenIDToUpdate) {
+//           // Update both status and time for the selected Token_ID
+//           updatePromises.push(
+//             new Promise((resolve, reject) => {
+//               db.query(updateQuery, [status, currentTime, Token_ID], (err) => {
+//                 if (err) {
+//                   console.error(
+//                     "Error updating status for Token_ID:",
+//                     Token_ID,
+//                     err
+//                   );
+//                   reject(err);
+//                 } else {
+//                   resolve();
+//                 }
+//               });
+//             })
+//           );
+
+//           // Update nextTime for the selected Token_ID
+//           nextTime = new Date(currentTime.getTime() + 15 * 60000);
+//           skipNextToken = true; // Skip updating the time for the next token
+//         } else if (!skipNextToken) {
+//           // Update the time for other tokens without changing the status
+//           const updatedTime = nextTime || currentTime;
+//           nextTime = new Date(updatedTime.getTime() + 15 * 60000);
+
+//           updatePromises.push(
+//             new Promise((resolve, reject) => {
+//               db.query(
+//                 "UPDATE patient_token SET Time = ? WHERE Token_ID = ?",
+//                 [updatedTime, Token_ID],
+//                 (err) => {
+//                   if (err) {
+//                     console.error(
+//                       "Error updating time for Token_ID:",
+//                       Token_ID,
+//                       err
+//                     );
+//                     reject(err);
+//                   } else {
+//                     resolve();
+//                   }
+//                 }
+//               );
+//             })
+//           );
+//         } else {
+//           skipNextToken = false; // Reset the skipNextToken flag for the next iteration
+//         }
+//       }
+
+//       Promise.all(updatePromises)
+//         .then(() => {
+//           console.log("Timestamps updated successfully");
+//           res.send("Timestamps updated successfully");
+//         })
+//         .catch((err) => {
+//           console.error("Error updating timestamps:", err);
+//           res.status(500).send("Error updating timestamps");
+//         });
+//     });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
+// test-6
+// ... other code ...
+
 const tokenRecStatus = async (req, res) => {
   try {
     const { status } = req.body;
     const tokenIDToUpdate = req.params.tokenID;
-    const loggedInDoctorID = req.params.userID; // Assuming the logged-in doctor ID is available in req.params.doctorID
+    const loggedInDoctorID = req.params.userID; // Assuming the logged-in doctor ID is available in req.params.userID
 
     const selectQuery =
       "SELECT Token_ID, Assigned_doctor, Time FROM patient_token WHERE Assigned_doctor = ? ORDER BY Token_ID";
@@ -113,21 +211,88 @@ const tokenRecStatus = async (req, res) => {
         return;
       }
 
+      results.sort((a, b) => a.Token_ID - b.Token_ID);
+
       const updatePromises = [];
-      let nextTime = null;
+      let selectedTokenIndex = -1;
+      const currentTime = new Date();
 
       for (let i = 0; i < results.length; i++) {
         const { Token_ID, Assigned_doctor, Time } = results[i];
-        const currentTime = new Date();
 
         if (Token_ID === tokenIDToUpdate) {
-          // Update both status and time for the selected Token_ID
-          updatePromises.push(
-            new Promise((resolve, reject) => {
-              db.query(updateQuery, [status, Time, Token_ID], (err) => {
+          selectedTokenIndex = i;
+          break;
+        }
+      }
+
+      if (selectedTokenIndex === -1) {
+        console.error("Selected token not found in the results.");
+        res.status(404).send("Selected token not found.");
+        return;
+      }
+
+      // Update the selected token's time to the current time
+      updatePromises.push(
+        new Promise((resolve, reject) => {
+          db.query(
+            updateQuery,
+            [status, currentTime, tokenIDToUpdate],
+            (err) => {
+              if (err) {
+                console.error(
+                  "Error updating status for Token_ID:",
+                  tokenIDToUpdate,
+                  err
+                );
+                reject(err);
+              } else {
+                resolve();
+              }
+            }
+          );
+        })
+      );
+
+      // Update the time for the next token after the selected token (if it exists)
+      if (selectedTokenIndex < results.length - 1) {
+        updatePromises.push(
+          new Promise((resolve, reject) => {
+            db.query(
+              "UPDATE patient_token SET Time = ? WHERE Token_ID = ?",
+              [currentTime, results[selectedTokenIndex + 1].Token_ID],
+              (err) => {
                 if (err) {
                   console.error(
-                    "Error updating status for Token_ID:",
+                    "Error updating time for Token_ID:",
+                    results[selectedTokenIndex + 1].Token_ID,
+                    err
+                  );
+                  reject(err);
+                } else {
+                  resolve();
+                }
+              }
+            );
+          })
+        );
+      }
+
+      // Calculate the next time after the current updated token
+      let nextTime = new Date(currentTime.getTime() + 15 * 60000);
+
+      // Update the time for other tokens without changing the status
+      for (let i = selectedTokenIndex + 2; i < results.length; i++) {
+        const { Token_ID } = results[i];
+        updatePromises.push(
+          new Promise((resolve, reject) => {
+            db.query(
+              "UPDATE patient_token SET Time = ? WHERE Token_ID = ?",
+              [nextTime, Token_ID],
+              (err) => {
+                if (err) {
+                  console.error(
+                    "Error updating time for Token_ID:",
                     Token_ID,
                     err
                   );
@@ -135,35 +300,12 @@ const tokenRecStatus = async (req, res) => {
                 } else {
                   resolve();
                 }
-              });
-            })
-          );
-        } else {
-          // Update the time for other tokens without changing the status
-          const updatedTime = nextTime || currentTime;
-          nextTime = new Date(updatedTime.getTime() + 15 * 60000);
+              }
+            );
+          })
+        );
 
-          updatePromises.push(
-            new Promise((resolve, reject) => {
-              db.query(
-                "UPDATE patient_token SET Time = ? WHERE Token_ID = ?",
-                [updatedTime, Token_ID],
-                (err) => {
-                  if (err) {
-                    console.error(
-                      "Error updating time for Token_ID:",
-                      Token_ID,
-                      err
-                    );
-                    reject(err);
-                  } else {
-                    resolve();
-                  }
-                }
-              );
-            })
-          );
-        }
+        nextTime = new Date(nextTime.getTime() + 15 * 60000);
       }
 
       Promise.all(updatePromises)
@@ -223,6 +365,7 @@ const SearchTokenHistory = (req, res) => {
 // search patient in queue
 const searchPatientQueue = (req, res) => {
   try {
+    console.log("API hitting"); // Log to check if the API is being accessed
     const keyword = req.query.keyword;
     let query = `SELECT *
       FROM patient_token
@@ -234,15 +377,18 @@ const searchPatientQueue = (req, res) => {
               OR patient_details.firstname LIKE '%${keyword}%'
               OR patient_details.lastname LIKE '%${keyword}%'
               OR patient_token.P_Contact LIKE '%${keyword}%'
-              OR patient_token.P_Email LIKE '%${keyword}%')`;
+              OR patient_details.emailid LIKE '%${keyword}%')`;
     }
 
     db.query(query, (err, results) => {
-      if (err) throw err;
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ message: "Internal server error" });
+      }
       res.json(results);
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.status(500).json({ message: "Internal server error" });
   }
 };

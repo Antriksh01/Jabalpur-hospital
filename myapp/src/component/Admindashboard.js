@@ -14,7 +14,7 @@ const Admindashboard = () => {
     try {
       // get-request
       const dt = await axios.post(
-        `http://localhost:8100/api/auth/getDoctorsStatus`
+        `https://api.ananthospital.org/api/auth/getDoctorsStatus`
       );
       const res = dt.data;
       setDocCount(res);
@@ -33,7 +33,9 @@ const Admindashboard = () => {
   const pendingApprovalList = async () => {
     try {
       // get-request
-      const res = await axios.post("http://localhost:8100/api/auth/users");
+      const res = await axios.post(
+        "https://api.ananthospital.org/api/auth/users"
+      );
       console.log(res.data);
       setPendingUserCount(res.data);
     } catch (error) {

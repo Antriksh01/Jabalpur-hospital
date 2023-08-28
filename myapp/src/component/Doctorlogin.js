@@ -20,7 +20,7 @@ const Doctorlogin = () => {
     password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
-  const domain = process.env.REACT_APP_DOMAIN;
+  // const domain = process.env.REACT_APP_DOMAIN;
 
   const navigate = useNavigate();
   const handleShowPasswordToggle = () => {
@@ -32,23 +32,28 @@ const Doctorlogin = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     axios
-      .post(`https://api.dvjei.org/api/auth/login`, data)
+      .post(`https://api.ananthospital.org/api/auth/login`, data)
       .then((res) => {
         const dt = res.data;
         console.log(dt.user);
         // Check if the response contains data and is an array
         if (dt.user !== "") {
-          setAuth({
-            ...auth,
-            user: res.data.user,
-            token: res.data.token,
-          });
+          // setAuth({
+          //   ...auth,
+          //   user: res.data.user,
+          //   token: res.data.token,
+          // });
 
           // Check if the role is Doctor and Admin_Approval is Approved
           if (
             dt.user.role === "Doctor" &&
             dt.user.Admin_Approval === "Approved"
           ) {
+            setAuth({
+              ...auth,
+              user: res.data.user,
+              token: res.data.token,
+            });
             cogoToast.success("Doctor login successful");
             navigate("/doctor-dashboard");
             localStorage.setItem("auth", JSON.stringify(res.data.user));

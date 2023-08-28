@@ -43,7 +43,7 @@ const TokenSearch = () => {
     try {
       console.log("clicked");
       const response = await axios.post(
-        `https://api.dvjei.org/api/auth/Search-patient?keyword=${keyword}`
+        `https://api.ananthospital.org/api/auth/Search-patient?keyword=${keyword}`
       );
       console.log(keyword);
       const data = response.data;
@@ -88,7 +88,7 @@ const TokenSearch = () => {
     console.log(recptsmsData);
 
     try {
-      await axios.post(`https://api.dvjei.org/api/auth/sendSMS`, {
+      await axios.post(`https://api.ananthospital.org/api/auth/sendSMS`, {
         phoneNumber,
         message: recptsmsData,
       });
@@ -122,7 +122,7 @@ const TokenSearch = () => {
     console.log(recptsmsData);
 
     try {
-      await axios.post(`https://api.dvjei.org/api/auth/sendSMS`, {
+      await axios.post(`https://api.ananthospital.org/api/auth/sendSMS`, {
         phoneNumber,
         message: recptsmsData,
       });
@@ -156,7 +156,7 @@ const TokenSearch = () => {
     const htmlContent = `Token Reciepts from QMS`;
     try {
       const emailSmsSend = await axios.post(
-        `https://api.dvjei.org/api/auth/sendEmailSms`,
+        `https://api.ananthospital.org/api/auth/sendEmailSms`,
         {
           to: modalValues.emailid,
           subject: htmlContent,
@@ -187,7 +187,7 @@ const TokenSearch = () => {
     const htmlContent = `Token Reciepts from QMS`;
     try {
       const emailSmsSend = await axios.post(
-        `https://api.dvjei.org/api/auth/sendEmailSms`,
+        `https://api.ananthospital.org/api/auth/sendEmailSms`,
         {
           to: results[0].emailid,
           subject: htmlContent,
@@ -218,7 +218,7 @@ const TokenSearch = () => {
     console.log(whatNum);
     try {
       const whatsappRes = await axios.post(
-        `https://api.dvjei.org/api/auth/sendWhatsapp`,
+        `https://api.ananthospital.org/api/auth/sendWhatsapp`,
         {
           phoneNumber: whatNum,
           message: recptsmsData,
@@ -251,7 +251,7 @@ const TokenSearch = () => {
     console.log(whatNum);
     try {
       const whatsappRes = await axios.post(
-        `https://api.dvjei.org/api/auth/sendWhatsapp`,
+        `https://api.ananthospital.org/api/auth/sendWhatsapp`,
         {
           phoneNumber: whatNum,
           message: recptsmsData,
@@ -269,7 +269,7 @@ const TokenSearch = () => {
     try {
       // get-request
       const response = await axios.post(
-        `https://api.dvjei.org/api/auth/tokenReciept`
+        `https://api.ananthospital.org/api/auth/tokenReciept`
       );
       // console.log(response.data);
       setPatient(response.data);
@@ -390,24 +390,24 @@ const TokenSearch = () => {
               ) : (
                 <>
                   <div className="container-fluid">
-                    {results.map((result) => (
-                      // <li key={result.uhid}>{result.P_Email}</li>
-                      <>
-                        <div className="table-responsive mt-5">
-                          <table id="table" className="table">
-                            <thead>
-                              <tr>
-                                <th>P_ID</th>
-                                <th>P_Name</th>
-                                <th>P_Contact</th>
-                                <th>Assigned_doctor</th>
-                                <th>Time</th>
-                                <th>Dept</th>
-                                <th>Token ID</th>
-                                <th>Print Token</th>
-                              </tr>
-                            </thead>
-                            <tbody>
+                    <div className="table-responsive mt-5">
+                      <table id="table" className="table">
+                        <thead>
+                          <tr>
+                            <th>P_ID</th>
+                            <th>P_Name</th>
+                            <th>P_Contact</th>
+                            <th>Assigned_doctor</th>
+                            <th>Time</th>
+                            <th>Dept</th>
+                            <th>Token ID</th>
+                            <th>Print Token</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {results.map((result) => (
+                            // <li key={result.uhid}>{result.P_Email}</li>
+                            <>
                               <tr key={result.uhid}>
                                 <td>{result.uhid}</td>
                                 <td>
@@ -427,11 +427,11 @@ const TokenSearch = () => {
                                   </button>
                                 </td>
                               </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </>
-                    ))}
+                            </>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </>
               )}

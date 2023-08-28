@@ -15,9 +15,12 @@ const SendOtp = () => {
   const handleSendOtp = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`https://api.dvjei.org/api/auth/sendOtp`, {
-        email,
-      });
+      const res = await axios.post(
+        `https://api.ananthospital.org/api/auth/sendOtp`,
+        {
+          email,
+        }
+      );
       setMessage(res.data.message);
       cogoToast.success(res.data.message);
       navigate("/reset-password");

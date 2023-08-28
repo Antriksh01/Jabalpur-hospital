@@ -19,7 +19,7 @@ const Doctor = () => {
     try {
       // get-request
       const response = await axios.post(
-        `https://api.dvjei.org/api/auth/getAssignedDoc`
+        `https://api.ananthospital.org/api/auth/getAssignedDoc`
       );
       const dt = response.data;
       console.log(dt);
@@ -33,7 +33,7 @@ const Doctor = () => {
   const handleSearch = async () => {
     try {
       const response = await axios.post(
-        `https://api.dvjei.org/api/auth/searchAvailableDoctor?keyword=${keyword}`
+        `https://api.ananthospital.org/api/auth/searchAvailableDoctor?keyword=${keyword}`
       );
 
       const data = response.data;

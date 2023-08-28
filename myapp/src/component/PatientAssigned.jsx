@@ -17,7 +17,7 @@ const PatientAssigned = () => {
     try {
       // get-request
       const res = await axios.post(
-        `https://api.dvjei.org/api/auth/tokenReciept`
+        `https://api.ananthospital.org/api/auth/tokenReciept`
       );
       console.log(res.data);
       setAssignPat(res.data);
@@ -31,7 +31,7 @@ const PatientAssigned = () => {
     try {
       // get-request
       const response = await axios.post(
-        `https://api.dvjei.org/api/auth/searchPatientAssigned?keyword=${keyword}`
+        `https://api.ananthospital.org/api/auth/searchPatientAssigned?keyword=${keyword}`
       );
 
       const data = response.data;

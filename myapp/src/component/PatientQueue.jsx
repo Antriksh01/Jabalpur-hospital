@@ -32,7 +32,7 @@ const PatientQueue = () => {
     try {
       // get-request
       const { data } = await axios.post(
-        `https://api.dvjei.org/api/auth/tokenReciept`
+        `https://api.ananthospital.org/api/auth/tokenReciept`
       );
       console.log(data);
       const filteredData = data.filter(
@@ -61,21 +61,18 @@ const PatientQueue = () => {
     try {
       // get-request
       const response = await axios.post(
-        `https://api.dvjei.org/api/auth/searchPatientQueue?keyword=${keyword}`
+        `https://api.ananthospital.org/api/auth/searchPatientQueue?keyword=${keyword}`
       );
       console.log(response.data);
       const data = response.data;
-
       const filteredData = data.filter(
         (item) =>
           item.Assigned_doctor === auth.user.reg_email &&
-          item.treatment_status === "Pending" &&
-          item.Time.split("T")[0] === formattedDate
+          item.treatment_status === "Pending"
       );
-
-      setSearchData(filteredData);
-      if (data.length > 0) {
-        setResults(searchData);
+      console.log(filteredData);
+      if (filteredData.length > 0) {
+        setResults(filteredData);
         setSearchError(false);
         console.log(results);
       } else {
@@ -165,7 +162,7 @@ const PatientQueue = () => {
                             <th>Assigned_doctor</th>
                             <th>Time</th>
                             <th>Dept</th>
-                            <th>Token Generated</th>
+                            <th>Token Number</th>
                             <th>Token Generate Date</th>
                           </tr>
                         </thead>
@@ -181,7 +178,7 @@ const PatientQueue = () => {
                                 <td>{item.Assigned_doctor}</td>
                                 <td>{item.Time.split("T")[1]}</td>
                                 <td>{item.Dept}</td>
-                                <td>{item.Token_Generated}</td>
+                                <td>{item.Token_ID}</td>
                                 <td>{item.Time.split("T")[0]}</td>
                               </tr>
                             </>

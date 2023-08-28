@@ -13,7 +13,9 @@ const PendingApproval = () => {
   const getUser = async () => {
     try {
       // get-request
-      const res = await axios.post(`https://api.dvjei.org/api/auth/users`);
+      const res = await axios.post(
+        `https://api.ananthospital.org/api/auth/users`
+      );
       setUserData(res.data);
     } catch (error) {
       console.log(error);
@@ -27,7 +29,7 @@ const PendingApproval = () => {
 
   const adminApproval = async (value) => {
     const updateData = await axios.put(
-      `https://api.dvjei.org/api/auth/admin-approval-update/${value}`,
+      `https://api.ananthospital.org/api/auth/admin-approval-update/${value}`,
       { Admin_Approval: "Approved" }
     );
     cogoToast.success("Approved");

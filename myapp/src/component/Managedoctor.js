@@ -19,7 +19,7 @@ const Managedoctor = () => {
     try {
       // get-request
       const dt = await axios.post(
-        `https://api.dvjei.org/api/auth/getDoctorsStatus`
+        `https://api.ananthospital.org/api/auth/getDoctorsStatus`
       );
       const res = dt.data;
       setData(res);
@@ -41,7 +41,7 @@ const Managedoctor = () => {
       const updatedItem = updatedData[selectedItem];
       console.log(updatedItem);
       await axios.put(
-        `https://api.dvjei.org/api/auth/doctorDataUpdate/${updatedItem.Doc_ID}`,
+        `https://api.ananthospital.org/api/auth/doctorDataUpdate/${updatedItem.Doc_ID}`,
         updatedItem
       );
 
@@ -62,7 +62,7 @@ const Managedoctor = () => {
       const deletedItem = data[selectedItem];
       console.log(deletedItem);
       await axios.delete(
-        `https://api.dvjei.org/api/auth/doctor-data-delete/${deletedItem.Doc_ID}`
+        `https://api.ananthospital.org/api/auth/doctor-data-delete/${deletedItem.Doc_ID}`
       );
 
       handleCloseModal();

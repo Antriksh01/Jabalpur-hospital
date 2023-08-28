@@ -20,11 +20,13 @@ const MissedPatient = () => {
     try {
       // get-request
       const dt = await axios.post(
-        `https://api.dvjei.org/api/auth/tokenReciept`
+        `https://api.ananthospital.org/api/auth/tokenReciept`
       );
       const data = dt.data;
       const filteredData = data.filter(
-        (item) => item.treatment_status === "Patient_Absent"
+        (item) =>
+          item.treatment_status === "Patient_Absent" &&
+          item.Assigned_doctor === auth.user.reg_email
       );
       setPatMissed(filteredData);
     } catch (error) {
@@ -37,7 +39,7 @@ const MissedPatient = () => {
     try {
       // get-request
       const response = await axios.post(
-        `https://api.dvjei.org/api/auth/missed-partient?keyword=${keyword}`
+        `https://api.ananthospital.org/api/auth/missed-partient?keyword=${keyword}`
       );
 
       const data = response.data;
@@ -69,6 +71,7 @@ const MissedPatient = () => {
 
   console.log(keyword);
   console.log(results);
+  console.log(patMissed);
 
   useEffect(() => {
     if (searchError) {

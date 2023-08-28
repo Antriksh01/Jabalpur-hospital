@@ -148,8 +148,8 @@ const SearchPatientController = async (req, res) => {
     JOIN patient_details ON  patient_token.uhid= patient_details.uhid
    
     WHERE patient_details.emailid LIKE '%${keyword}%'
-       OR patient_details.firstname LIKE '%${keyword}%'`;
-    //  OR doctor_data.Doctor_name LIKE '%${keyword}%'`;
+    OR patient_details.firstname LIKE '%${keyword}%'
+    OR patient_details.mobileno LIKE '%${keyword}%'`;
 
     db.query(query, (err, results) => {
       if (err) throw err;

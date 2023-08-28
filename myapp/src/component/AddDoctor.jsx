@@ -28,7 +28,7 @@ const AddDoctor = () => {
 
     try {
       const input = await axios.post(
-        `https://api.dvjei.org/api/auth/add-doctor`,
+        `https://api.ananthospital.org/api/auth/add-doctor`,
         data
       );
 

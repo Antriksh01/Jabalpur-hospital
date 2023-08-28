@@ -59,7 +59,7 @@ const StoryPart = () => {
     try {
       // get-request
       const response = await axios.post(
-        `https://api.dvjei.org/api/auth/tokenReciept`
+        `https://api.ananthospital.org/api/auth/tokenReciept`
       );
       const dt = response.data;
       setResults(dt);
@@ -90,16 +90,17 @@ const StoryPart = () => {
   const handleUpdate = async (value) => {
     try {
       const updateData = await axios.put(
-        `https://api.dvjei.org/api/auth/tokenRecStatus/${value}/${auth.user.reg_email}`,
+        `https://api.ananthospital.org/api/auth/tokenRecStatus/${value}/${auth.user.reg_email}`,
         {
           status: selectedOption,
         }
       );
+      console.log(value);
 
       setTreatStatus(selectedOption);
       console.log("Selected Option:", selectedOption);
       cogoToast.success("status updated");
-      // console.log(updateData);
+      console.log(updateData);
       setInputValue("");
       window.location.reload();
     } catch (error) {
@@ -126,7 +127,7 @@ const StoryPart = () => {
       item.Time.split("T")[0] === formattedDate
   );
 
-  filteredData.sort((a, b) => parseInt(a.Token_ID) - parseInt(b.Token_ID));
+  filteredData.sort((a, b) => a.Token_ID - b.Token_ID);
 
   // time setup 15 minute
   useEffect(() => {
@@ -153,7 +154,7 @@ const StoryPart = () => {
     // if()
     try {
       const updateData = await axios.put(
-        `https://api.dvjei.org/api/auth/doctor-availability-update/${auth.user.reg_email}`,
+        `https://api.ananthospital.org/api/auth/doctor-availability-update/${auth.user.reg_email}`,
         {
           status: value,
         }
