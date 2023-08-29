@@ -15,7 +15,7 @@ const DoctorDisplayScr = () => {
     try {
       // get-request
       const res = await axios.post(
-        `https://api.ananthospital.org/api/auth/doctorLive/${value}`
+        `https://queuemanagementsystemdg.com/api/auth/doctorLive/${value}`
       );
       console.log(value);
       const data = res.data;
@@ -81,7 +81,7 @@ const DoctorDisplayScr = () => {
                   <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
                     <div className="leftCont">
                       <img
-                        src="https://res.cloudinary.com/antrix/image/upload/v1680780689/Generic-mediworld/med_ycuxmc.png"
+                        src="https://res.cloudinary.com/antrix/image/upload/v1692018410/woj/avatar-female_hdaurr.png"
                         className="img-doc"
                         alt=""
                         srcset=""

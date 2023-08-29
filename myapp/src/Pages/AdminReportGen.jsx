@@ -61,7 +61,7 @@ const AdminReportGen = () => {
       console.log(error);
     } else {
       const res = await axios.post(
-        `https://api.ananthospital.org/api/auth/doctors-report`,
+        `http://localhost:8100/api/auth/doctors-report`,
         {
           fromDate,
           toDate,
@@ -99,7 +99,7 @@ const AdminReportGen = () => {
       console.log(error);
     } else {
       const res = await axios.post(
-        `https://api.ananthospital.org/api/auth/receptionist-report`,
+        `http://localhost:8100/api/auth/receptionist-report`,
         {
           fromDate,
           toDate,
@@ -137,7 +137,7 @@ const AdminReportGen = () => {
       console.log(error);
     } else {
       const res = await axios.post(
-        `https://api.ananthospital.org/api/auth/receptionistMiniReport`,
+        `http://localhost:8100/api/auth/receptionistMiniReport`,
         { fromDate, toDate }
       );
       const tokenData = res.data;
@@ -188,7 +188,7 @@ const AdminReportGen = () => {
       console.log(error);
     } else {
       const res = await axios.post(
-        `https://api.ananthospital.org/api/auth/token-report`,
+        `http://localhost:8100/api/auth/token-report`,
         {
           fromDate,
           toDate,

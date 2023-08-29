@@ -16,7 +16,7 @@ const SendOtp = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        `https://api.ananthospital.org/api/auth/sendOtp`,
+        `https://queuemanagementsystemdg.com/api/auth/sendOtp`,
         {
           email,
         }

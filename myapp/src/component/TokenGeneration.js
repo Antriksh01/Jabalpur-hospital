@@ -22,7 +22,7 @@ const TokenGeneration = () => {
     try {
       // get-request
       const response = await axios.post(
-        `https://api.ananthospital.org/api/auth/tokenReciept`
+        `https://queuemanagementsystemdg.com/api/auth/tokenReciept`
       );
       // console.log(response.data);
       setPatient(response.data);
@@ -36,7 +36,7 @@ const TokenGeneration = () => {
     try {
       // get-request
       const response = await axios.post(
-        `https://api.ananthospital.org/api/auth/searchTokenhistory?keyword=${keyword}`
+        `https://queuemanagementsystemdg.com/api/auth/searchTokenhistory?keyword=${keyword}`
       );
       console.log(response.data);
       const data = response.data;

@@ -31,7 +31,7 @@ const responsive = {
 
 const StoryPart = () => {
   const [results, setResults] = useState([]);
-  const [selectedOption, setSelectedOption] = useState("");
+  const [selectedOption, setSelectedOption] = useState("Pending");
   const [treatStatus, setTreatStatus] = useState("");
   const [tokenId, setTokenId] = useState(0);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -59,7 +59,7 @@ const StoryPart = () => {
     try {
       // get-request
       const response = await axios.post(
-        `https://api.ananthospital.org/api/auth/tokenReciept`
+        `https://queuemanagementsystemdg.com/api/auth/tokenReciept`
       );
       const dt = response.data;
       setResults(dt);
@@ -90,7 +90,7 @@ const StoryPart = () => {
   const handleUpdate = async (value) => {
     try {
       const updateData = await axios.put(
-        `https://api.ananthospital.org/api/auth/tokenRecStatus/${value}/${auth.user.reg_email}`,
+        `https://queuemanagementsystemdg.com/api/auth/tokenRecStatus/${value}/${auth.user.reg_email}`,
         {
           status: selectedOption,
         }
@@ -154,7 +154,7 @@ const StoryPart = () => {
     // if()
     try {
       const updateData = await axios.put(
-        `https://api.ananthospital.org/api/auth/doctor-availability-update/${auth.user.reg_email}`,
+        `https://queuemanagementsystemdg.com/api/auth/doctor-availability-update/${auth.user.reg_email}`,
         {
           status: value,
         }
@@ -260,6 +260,7 @@ const StoryPart = () => {
                             value="Pending"
                             checked={selectedOption === "Pending"}
                             onChange={handleOptionChange}
+                            required
                           />
                           <Form.Check
                             type="radio"

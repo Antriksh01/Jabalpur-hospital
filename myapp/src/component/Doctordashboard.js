@@ -20,7 +20,7 @@ const Doctordashboard = () => {
     // if()
     try {
       const updateData = await axios.put(
-        `https://api.ananthospital.org/api/auth/doctor-availability-update/${auth.user.reg_email}`,
+        `https://queuemanagementsystemdg.com/api/auth/doctor-availability-update/${auth.user.reg_email}`,
         {
           status: value,
         }
@@ -37,7 +37,7 @@ const Doctordashboard = () => {
     try {
       // get-request
       const { data } = await axios.post(
-        `https://api.ananthospital.org/api/auth/patientServe`
+        `https://queuemanagementsystemdg.com/api/auth/patientServe`
       );
       setServe(data);
       console.log(data);

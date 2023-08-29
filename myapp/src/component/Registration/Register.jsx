@@ -31,7 +31,7 @@ const Register = () => {
 
     try {
       const response = await axios.post(
-        `https://api.ananthospital.org/api/auth/register`,
+        `https://queuemanagementsystemdg.com/api/auth/register`,
         user
       );
       setUsername("");

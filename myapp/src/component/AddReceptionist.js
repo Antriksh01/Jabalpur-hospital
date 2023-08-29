@@ -31,7 +31,7 @@ const AddReceptionist = () => {
 
     try {
       const input = await axios.post(
-        `https://api.ananthospital.org/api/auth/add-receptionist`,
+        `https://queuemanagementsystemdg.com/api/auth/add-receptionist`,
         data
       );
 

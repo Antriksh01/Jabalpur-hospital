@@ -18,7 +18,7 @@ const ResetPassword = () => {
     e.preventDefault();
     try {
       const res = await axios.put(
-        `https://api.ananthospital.org/api/auth/reset-password/verify`,
+        `https://queuemanagementsystemdg.com/api/auth/reset-password/verify`,
         {
           email,
           otp,

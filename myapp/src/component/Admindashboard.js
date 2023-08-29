@@ -14,7 +14,7 @@ const Admindashboard = () => {
     try {
       // get-request
       const dt = await axios.post(
-        `https://api.ananthospital.org/api/auth/getDoctorsStatus`
+        `https://queuemanagementsystemdg.com/api/auth/getDoctorsStatus`
       );
       const res = dt.data;
       setDocCount(res);
@@ -34,7 +34,7 @@ const Admindashboard = () => {
     try {
       // get-request
       const res = await axios.post(
-        "https://api.ananthospital.org/api/auth/users"
+        "https://queuemanagementsystemdg.com/api/auth/users"
       );
       console.log(res.data);
       setPendingUserCount(res.data);

@@ -14,7 +14,7 @@ const DoctorDisplay = () => {
     try {
       // get-request
       const res = await axios.post(
-        `https://api.ananthospital.org/api/auth/display-doctor-screen`
+        `https://queuemanagementsystemdg.com/api/auth/display-doctor-screen`
       );
       const data = res.data;
       console.log(data);
@@ -54,7 +54,7 @@ const DoctorDisplay = () => {
   console.log(content);
   useEffect(() => {
     DocDisplayCont();
-  }, []);
+  }, [content]);
   return (
     <>
       <Container>

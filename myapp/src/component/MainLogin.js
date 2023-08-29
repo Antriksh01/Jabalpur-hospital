@@ -22,7 +22,7 @@ const MainLogin = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:8100/api/auth/login", data)
+      .post("http://queuemanagementsystemdg.com/api/auth/login", data)
       .then((res) => {
         // console.log(res.data);
         setAuth({

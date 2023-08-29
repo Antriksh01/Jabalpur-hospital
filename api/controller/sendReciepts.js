@@ -53,28 +53,59 @@ const sendWhatsapp = (req, res) => {
 };
 
 // send_email
+// const sendEmailSms = (req, res) => {
+//   const { to, subject, text } = req.body;
+//   // Configure Nodemailer
+
+//   const transporter = nodemailer.createTransport({
+//     // Set up your email service provider here
+//     // service: "Gmail",
+//     // auth: {
+//     //   user: "abhishekdoaguru@gmail.com",
+//     //   pass: "onmkmsfelvgnfnoa",
+//     // },
+//     host: "localhost",
+//     port: "http://localhost:3000",
+//     secure: true,
+//     auth: {
+//       user: process.env.EMAILSENDER, // Replace with your email address
+//       pass: process.env.EMAILPASSWORD, // Replace with your email password
+//     },
+//   });
+
+//   const mailOptions = {
+//     from: "abhishekdoaguru@gmail.com",
+//     to,
+//     subject,
+//     text,
+//   };
+
+//   // Send the email
+//   transporter.sendMail(mailOptions, (error, info) => {
+//     if (error) {
+//       console.error(error);
+//       res.status(500).send("An error occurred while sending the email.");
+//     } else {
+//       console.log("Email sent:", info.response);
+//       res.status(200).send("Email sent successfully!");
+//     }
+//   });
+// };
+
 const sendEmailSms = (req, res) => {
   const { to, subject, text } = req.body;
-  // Configure Nodemailer
 
+  // Configure Nodemailer transporter
   const transporter = nodemailer.createTransport({
-    // Set up your email service provider here
-    // service: "Gmail",
-    // auth: {
-    //   user: "abhishekdoaguru@gmail.com",
-    //   pass: "onmkmsfelvgnfnoa",
-    // },
-    host: process.env.SMTPHOST,
-    port: process.env.SMTPPORT,
-    secure: true,
+    service: "Gmail", // Use the email service provider you prefer
     auth: {
-      user: "your-email@example.com", // Replace with your email address
-      pass: "your-email-password", // Replace with your email password
+      user: process.env.EMAILSENDER, // Replace with your email address
+      pass: process.env.EMAILPASSWORD, // Replace with your email password
     },
   });
 
   const mailOptions = {
-    from: "abhishekdoaguru@gmail.com",
+    from: process.env.EMAILSENDER,
     to,
     subject,
     text,

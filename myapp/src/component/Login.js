@@ -30,7 +30,7 @@ const Login = () => {
     e.preventDefault();
 
     axios
-      .post(`https://api.ananthospital.org/api/auth/login`, data)
+      .post(`https://queuemanagementsystemdg.com/api/auth/login`, data)
       .then((res) => {
         const dt = res.data;
         console.log(dt.user);

@@ -12,7 +12,7 @@ const Tokengenerated = () => {
     try {
       // get-request
       const response = await axios.post(
-        `https://api.ananthospital.org/api/auth/tokenReciept`
+        `https://queuemanagementsystemdg.com/api/auth/tokenReciept`
       );
       const data = response.data;
       const lastToken = data[data.length - 1];

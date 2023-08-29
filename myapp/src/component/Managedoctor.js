@@ -19,7 +19,7 @@ const Managedoctor = () => {
     try {
       // get-request
       const dt = await axios.post(
-        `https://api.ananthospital.org/api/auth/getDoctorsStatus`
+        `https://queuemanagementsystemdg.com/api/auth/getDoctorsStatus`
       );
       const res = dt.data;
       setData(res);
@@ -41,7 +41,7 @@ const Managedoctor = () => {
       const updatedItem = updatedData[selectedItem];
       console.log(updatedItem);
       await axios.put(
-        `https://api.ananthospital.org/api/auth/doctorDataUpdate/${updatedItem.Doc_ID}`,
+        `https://queuemanagementsystemdg.com/api/auth/doctorDataUpdate/${updatedItem.Doc_ID}`,
         updatedItem
       );
 
@@ -62,7 +62,7 @@ const Managedoctor = () => {
       const deletedItem = data[selectedItem];
       console.log(deletedItem);
       await axios.delete(
-        `https://api.ananthospital.org/api/auth/doctor-data-delete/${deletedItem.Doc_ID}`
+        `https://queuemanagementsystemdg.com/api/auth/doctor-data-delete/${deletedItem.Doc_ID}`
       );
 
       handleCloseModal();

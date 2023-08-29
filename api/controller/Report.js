@@ -37,11 +37,15 @@ const tokenReport = (req, res) => {
     JOIN receptionist ON patient_token.Token_Generated_by = receptionist.email
      WHERE Time >= ? AND Time <= ?`;
 
-    db.query(query, [fromDate, toDate], (err, results) => {
+    const fromDateTime = new Date(`${fromDate}T00:00:00Z`);
+    const toDateTime = new Date(`${toDate}T23:59:59Z`);
+
+    db.query(query, [fromDateTime, toDateTime], (err, results) => {
       if (err) {
         console.error("Error retrieving token data: ", err);
         return res.status(500).json({ error: "An unexpected error occurred" });
       }
+
       console.log(results);
       const reportData = results.map((row) => ({
         uhid: row.uhid,

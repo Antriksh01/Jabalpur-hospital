@@ -32,7 +32,7 @@ const PatientQueue = () => {
     try {
       // get-request
       const { data } = await axios.post(
-        `https://api.ananthospital.org/api/auth/tokenReciept`
+        `https://queuemanagementsystemdg.com/api/auth/tokenReciept`
       );
       console.log(data);
       const filteredData = data.filter(
@@ -61,7 +61,7 @@ const PatientQueue = () => {
     try {
       // get-request
       const response = await axios.post(
-        `https://api.ananthospital.org/api/auth/searchPatientQueue?keyword=${keyword}`
+        `https://queuemanagementsystemdg.com/api/auth/searchPatientQueue?keyword=${keyword}`
       );
       console.log(response.data);
       const data = response.data;

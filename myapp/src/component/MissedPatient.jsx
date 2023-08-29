@@ -20,7 +20,7 @@ const MissedPatient = () => {
     try {
       // get-request
       const dt = await axios.post(
-        `https://api.ananthospital.org/api/auth/tokenReciept`
+        `https://queuemanagementsystemdg.com/api/auth/tokenReciept`
       );
       const data = dt.data;
       const filteredData = data.filter(
@@ -39,7 +39,7 @@ const MissedPatient = () => {
     try {
       // get-request
       const response = await axios.post(
-        `https://api.ananthospital.org/api/auth/missed-partient?keyword=${keyword}`
+        `https://queuemanagementsystemdg.com/api/auth/missed-partient?keyword=${keyword}`
       );
 
       const data = response.data;

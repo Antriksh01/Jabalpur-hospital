@@ -14,7 +14,7 @@ const RDashboard = () => {
     try {
       // get-request
       const response = await axios.post(
-        `https://api.ananthospital.org/api/auth/users`
+        `https://queuemanagementsystemdg.com/api/auth/users`
       );
       console.log(response.data.role);
       setUsers(response.data);
@@ -27,7 +27,7 @@ const RDashboard = () => {
     try {
       // get-request
       const response = await axios.post(
-        `https://api.ananthospital.org/api/auth/getAllPatient`
+        `https://queuemanagementsystemdg.com/api/auth/getAllPatient`
       );
       // console.log(response.data);
       setPatient(response.data);

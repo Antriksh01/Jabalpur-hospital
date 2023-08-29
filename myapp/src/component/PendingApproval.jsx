@@ -14,7 +14,7 @@ const PendingApproval = () => {
     try {
       // get-request
       const res = await axios.post(
-        `https://api.ananthospital.org/api/auth/users`
+        `https://queuemanagementsystemdg.com/api/auth/users`
       );
       setUserData(res.data);
     } catch (error) {
@@ -29,7 +29,7 @@ const PendingApproval = () => {
 
   const adminApproval = async (value) => {
     const updateData = await axios.put(
-      `https://api.ananthospital.org/api/auth/admin-approval-update/${value}`,
+      `https://queuemanagementsystemdg.com/api/auth/admin-approval-update/${value}`,
       { Admin_Approval: "Approved" }
     );
     cogoToast.success("Approved");
